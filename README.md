@@ -19,7 +19,24 @@ $ composer require cedx/free-mobile
 ## Usage
 This package has an API based on [Observables](http://reactivex.io/intro.html).
 
-TODO
+It provides a single class, `freemobile\Client` which allow to send messages to your mobile phone by using the `sendMessage` method:
+
+```php
+use freemobile\{Client};
+
+$client = new Client('<your Free Mobile user name>', '<your Free Mobile identification key>');
+$client->sendMessage('Hello World!')->subscribeCallback(
+  null,
+  function(\Exception $e) {
+    echo 'An error occurred while sending the message: ' . $e->getMessage();
+  },
+  function() {
+    echo 'The message was sent successfully.';
+  }
+);
+```
+
+The message text will be automatically truncated to 160 characters.
 
 ## See Also
 - [Code Quality](https://www.codacy.com/app/cedx/free-mobile.php)
