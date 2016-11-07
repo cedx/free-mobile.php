@@ -31,7 +31,7 @@ class Client {
    * Initializes a new instance of the class.
    * @param string $userName The user name associated to the account.
    * @param string $password The identification key associated to the account.
-   * @throws \InvalidArgumentException The user name or the password is emmpty.
+   * @throws \InvalidArgumentException The specified user name or password is empty.
    */
   public function __construct(string $userName, string $password) {
     if (!mb_strlen($userName)) throw new \InvalidArgumentException('$userName');
@@ -58,7 +58,12 @@ class Client {
           'user' => $this->userName
         ]]);
 
-        $promise->then()->wait();
+        $promise->then(
+          function($response) { var_dump($response); },
+          function($error) { var_dump($error); }
+        )->wait();
+
+        // TODO: $promise->then()->wait();
         $observer->onCompleted();
       }
 

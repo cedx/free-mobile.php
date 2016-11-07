@@ -11,9 +11,23 @@ use freemobile\{Client};
 class ClientTest extends \PHPUnit_Framework_TestCase {
 
   /**
-   * @var Client The data context of the tests.
+   * Tests the `Client` constructor.
    */
-  private $model;
+  public function testConstructor() {
+    $this->expectException(\InvalidArgumentException::class);
+    new Client('', '');
+  }
+
+  /**
+   * Tests the `Client::sendMessage()` method.
+   */
+  public function testSendMessage() {
+    $client = new Client('foo', 'bar');
+    $this->assertInstanceOf(Observable::class, $client->sendMessage(''));
+
+    // TODO
+    $message = 'Hello World!';
+  }
 
   /**
    * Performs a common set of tasks just before each test method is called.
