@@ -22,17 +22,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * Tests the `Client::sendMessage()` method.
    */
   public function testSendMessage() {
-    $client = new Client('foo', 'bar');
-    $this->assertInstanceOf(Observable::class, $client->sendMessage(''));
+    (new Client('foo', 'bar'))->sendMessage('')->subscribeCallback(
+      null,
+      function() { $this->assertTrue(true); },
+      function() { $this->fail('An empty message should not be sent.'); }
+    );
 
-    // TODO
-    $message = 'Hello World!';
-  }
-
-  /**
-   * Performs a common set of tasks just before each test method is called.
-   */
-  protected function setUp() {
-    $this->model = new Client(getenv('FREEMOBILE_USERNAME'), getenv('FREEMOBILE_PASSWORD'));
+    if (($userName = getenv('FREEMOBILE_USERNAME')) && ($password = getenv('FREEMOBILE_PASSWORD'))) {
+      (new Client($userName, $password))->sendMessage('Hello World!')->subscribeCallback(
+        null,
+        function(\Exception $e) { $this->fail($e->getMessage()); },
+        function() { $this->assertTrue(true); }
+      );
+    }
   }
 }
