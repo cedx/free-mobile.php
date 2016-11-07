@@ -36,10 +36,10 @@ $client->sendMessage('Hello World!')->subscribeCallback(
 );
 ```
 
-The message text will be automatically truncated to 160 characters.
+The text of the message will be automatically truncated to 160 characters: you can't send multipart messages using this library.
 
 ## See Also
-- [Code Quality](https://www.codacy.com/app/cedx/free-mobile.php)
+- [Code Quality](https://www.codacy.com/app/cedx/free-mobile-php)
 - [Continuous Integration](https://travis-ci.org/cedx/free-mobile.php)
 
 ## License
