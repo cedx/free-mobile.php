@@ -1,0 +1,43 @@
+{
+  "description": "Send SMS messages to your Free Mobile account.",
+  "homepage": "https://github.com/cedx/free-mobile.php",
+  "name": "cedx/free-mobile",
+
+  "license": "Apache-2.0",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "type": "library",
+
+  "authors": [{
+    "email": "cedric@belin.io",
+    "name": "Cédric Belin"
+  }],
+  "autoload": {
+    "psr-4": {"freemobile\\": "lib/"}
+  },
+  "config": {
+    "optimize-autoloader": true
+  },
+  "keywords": [
+    "api",
+    "client",
+    "free",
+    "mobile",
+    "sdk",
+    "sms"
+  ],
+  "require": {
+    "php": ">=7.0.0",
+    "guzzlehttp/guzzle": "^6.2.2",
+    "reactivex/rxphp": "^1.4.1"
+  },
+  "require-dev": {
+    "codacy/coverage": "^1.0.5",
+    "phpdocumentor/phpdocumentor": "^2.9.0",
+    "phpmd/phpmd": "^2.4.3",
+    "phpunit/phpunit": "^5.6.2"
+  },
+  "support": {
+    "issues": "https://github.com/cedx/free-mobile.php/issues"
+  }
+}
