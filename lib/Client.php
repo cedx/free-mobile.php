@@ -34,10 +34,10 @@ class Client {
    * @throws \InvalidArgumentException The specified user name or password is empty.
    */
   public function __construct(string $userName, string $password) {
-    if (!mb_strlen($userName)) throw new \InvalidArgumentException('$userName');
+    if (!mb_strlen($userName)) throw new \InvalidArgumentException('The specified user name is empty.');
     $this->userName = $userName;
 
-    if (!mb_strlen($password)) throw new \InvalidArgumentException('$password');
+    if (!mb_strlen($password)) throw new \InvalidArgumentException('The specified password is empty.');
     $this->password = $password;
   }
 
@@ -48,7 +48,7 @@ class Client {
    */
   public function sendMessage(string $text): Observable {
     $encoded = mb_convert_encoding($text, 'ISO-8859-1');
-    if (!mb_strlen($encoded)) return Observable::error(new \InvalidArgumentException('$text'));
+    if (!mb_strlen($encoded)) return Observable::error(new \InvalidArgumentException('The specified message is empty.'));
 
     return Observable::create(function(ObserverInterface $observer) use($encoded) {
       try {
@@ -58,12 +58,7 @@ class Client {
           'user' => $this->userName
         ]]);
 
-        $promise->then(
-          function($response) { var_dump($response); },
-          function($error) { var_dump($error); }
-        )->wait();
-
-        // TODO: $promise->then()->wait();
+        $promise->then()->wait();
         $observer->onCompleted();
       }
 
