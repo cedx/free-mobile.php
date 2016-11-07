@@ -28,7 +28,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       function() { $this->fail('An empty message should not be sent.'); }
     );
 
-    if (($userName = getenv('FREEMOBILE_USERNAME')) && ($password = getenv('FREEMOBILE_PASSWORD'))) {
+    if (is_string($userName = getenv('FREEMOBILE_USERNAME')) && is_string($password = getenv('FREEMOBILE_PASSWORD'))) {
       (new Client($userName, $password))->sendMessage('Hello World!')->subscribeCallback(
         null,
         function(\Exception $e) { $this->fail($e->getMessage()); },
