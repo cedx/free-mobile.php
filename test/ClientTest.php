@@ -23,16 +23,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    */
   public function testSendMessage() {
     (new Client('foo', 'bar'))->sendMessage('')->subscribeCallback(
-      null,
-      function() { $this->assertTrue(true); },
-      function() { $this->fail('An empty message should not be sent.'); }
+      function() { $this->fail('An empty message should not be sent.'); },
+      function() { $this->assertTrue(true); }
     );
 
     if (is_string($userName = getenv('FREEMOBILE_USERNAME')) && is_string($password = getenv('FREEMOBILE_PASSWORD'))) {
       (new Client($userName, $password))->sendMessage('Hello World!')->subscribeCallback(
-        null,
-        function(\Exception $e) { $this->fail($e->getMessage()); },
-        function() { $this->assertTrue(true); }
+        function() { $this->assertTrue(true); },
+        function(\Exception $e) { $this->fail($e->getMessage()); }
       );
     }
   }

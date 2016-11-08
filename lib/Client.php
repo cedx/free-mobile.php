@@ -44,7 +44,7 @@ class Client {
   /**
    * Sends a SMS message to the underlying account.
    * @param string $text The text of the message to send.
-   * @return Observable Completes when the message has been sent.
+   * @return Observable The response as string.
    */
   public function sendMessage(string $text): Observable {
     $encoded = mb_convert_encoding($text, 'ISO-8859-1');
@@ -58,7 +58,8 @@ class Client {
           'user' => $this->userName
         ]]);
 
-        $promise->then()->wait();
+        $response = $promise->then()->wait();
+        $observer->onNext((string) $response->getBody());
         $observer->onCompleted();
       }
 
