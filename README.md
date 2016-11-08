@@ -26,12 +26,11 @@ use freemobile\{Client};
 
 $client = new Client('<your Free Mobile user name>', '<your Free Mobile identification key>');
 $client->sendMessage('Hello World!')->subscribeCallback(
-  null,
-  function(\Exception $e) {
-    echo 'An error occurred while sending the message: ' . $e->getMessage();
-  },
   function() {
     echo 'The message was sent successfully.';
+  },
+  function(\Exception $e) {
+    echo 'An error occurred while sending the message: ' . $e->getMessage();
   }
 );
 ```
