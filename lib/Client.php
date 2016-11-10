@@ -47,8 +47,8 @@ class Client {
    * @return Observable The response as string.
    */
   public function sendMessage(string $text): Observable {
-    $encoded = mb_convert_encoding($text, 'ISO-8859-1');
-    if (!mb_strlen($encoded)) return Observable::error(new \InvalidArgumentException('The specified message is empty.'));
+    $encoded = trim(mb_convert_encoding($text, 'ISO-8859-1'));
+    if (!strlen($encoded)) return Observable::error(new \InvalidArgumentException('The specified message is empty.'));
 
     return Observable::create(function(ObserverInterface $observer) use($encoded) {
       try {
