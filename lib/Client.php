@@ -25,17 +25,17 @@ class Client {
   /**
    * @var string The user name associated to the account.
    */
-  private $userName;
+  private $username;
 
   /**
    * Initializes a new instance of the class.
-   * @param string $userName The user name associated to the account.
+   * @param string $username The user name associated to the account.
    * @param string $password The identification key associated to the account.
    * @throws \InvalidArgumentException The specified user name or password is empty.
    */
-  public function __construct(string $userName, string $password) {
-    if (!mb_strlen($userName)) throw new \InvalidArgumentException('The specified user name is empty.');
-    $this->userName = $userName;
+  public function __construct(string $username, string $password) {
+    if (!mb_strlen($username)) throw new \InvalidArgumentException('The specified user name is empty.');
+    $this->username = $username;
 
     if (!mb_strlen($password)) throw new \InvalidArgumentException('The specified password is empty.');
     $this->password = $password;
@@ -55,7 +55,7 @@ class Client {
         $promise = (new HTTPClient())->getAsync(static::END_POINT, ['query' => [
           'msg' => substr($encoded, 0, 160),
           'pass' => $this->password,
-          'user' => $this->userName
+          'user' => $this->username
         ]]);
 
         $response = $promise->then()->wait();
