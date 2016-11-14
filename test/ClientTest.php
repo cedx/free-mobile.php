@@ -14,21 +14,33 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * Tests the `Client` constructor.
    */
   public function testConstructor() {
-    $this->expectException(\InvalidArgumentException::class);
-    new Client('', '');
+    $client = new Client(['username' => 'anonymous', 'password' => 'secret']);
+    $this->assertEquals('secret', $client->getPassword());
+    $this->assertEquals('anonymous', $client->getUsername());
+
+    $this->assertSame($client, $client->setPassword(''));
+    $this->assertEmpty($client->getPassword());
   }
 
   /**
    * Tests the `Client::sendMessage()` method.
    */
   public function testSendMessage() {
-    (new Client('foo', 'bar'))->sendMessage('')->subscribeCallback(
-      function() { $this->fail('An empty message should not be sent.'); },
+    $client = new Client(['username' => '', 'password' => '']);
+    $client->sendMessage('Hello World!')->subscribeCallback(
+      function() { $this->fail('A message with empty credentials should not be sent.'); },
+      function() { $this->assertTrue(true); }
+    );
+
+    $client = new Client(['username' => 'anonymous', 'password' => 'secret']);
+    $client->sendMessage('')->subscribeCallback(
+      function() { $this->fail('An empty message with credentials should not be sent.'); },
       function() { $this->assertTrue(true); }
     );
 
     if (is_string($username = getenv('FREEMOBILE_USERNAME')) && is_string($password = getenv('FREEMOBILE_PASSWORD'))) {
-      (new Client($username, $password))->sendMessage('Hello World!')->subscribeCallback(
+      $client = new Client(['username' => $username, 'password' => $password]);
+      $client->sendMessage('Hello World!')->subscribeCallback(
         function() { $this->assertTrue(true); },
         function(\Exception $e) { $this->fail($e->getMessage()); }
       );

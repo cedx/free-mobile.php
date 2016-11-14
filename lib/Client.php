@@ -20,25 +20,40 @@ class Client {
   /**
    * @var string The identification key associated to the account.
    */
-  private $password;
+  private $password = '';
 
   /**
    * @var string The user name associated to the account.
    */
-  private $username;
+  private $username = '';
 
   /**
    * Initializes a new instance of the class.
-   * @param string $username The user name associated to the account.
-   * @param string $password The identification key associated to the account.
-   * @throws \InvalidArgumentException The specified user name or password is empty.
+   * @param array $config Name-value pairs that will be used to initialize the object properties.
    */
-  public function __construct(string $username, string $password) {
-    if (!mb_strlen($username)) throw new \InvalidArgumentException('The specified user name is empty.');
-    $this->username = $username;
+  public function __construct(array $config = []) {
+    foreach ($config as $property => $value) {
+      $setter = "set{$property}";
+      if(method_exists($this, $setter)) $this->$setter($value);
+    }
+  }
 
-    if (!mb_strlen($password)) throw new \InvalidArgumentException('The specified password is empty.');
-    $this->password = $password;
+  /**
+   * Gets the identification key associated to the account.
+   * @return string The identification key associated to the account.
+   */
+  public function getPassword(): string {
+    return $this->password;
+  }
+
+  /**
+   * Gets the user name associated to the account.
+   * @return string The user name associated to the account.
+   */
+  public function getUsername(): string {
+    return $this->username;
+  }
+
   }
 
   /**
@@ -47,15 +62,20 @@ class Client {
    * @return Observable The response as string.
    */
   public function sendMessage(string $text): Observable {
+    $username = $this->getUsername();
+    $password = $this->getPassword();
+    if (!mb_strlen($username) || !mb_strlen($password))
+      return Observable::error(new \InvalidArgumentException('The account credentials are invalid.'));
+
     $encoded = trim(mb_convert_encoding($text, 'ISO-8859-1'));
     if (!strlen($encoded)) return Observable::error(new \InvalidArgumentException('The specified message is empty.'));
 
-    return Observable::create(function(ObserverInterface $observer) use($encoded) {
+    return Observable::create(function(ObserverInterface $observer) use($encoded, $password, $username) {
       try {
         $promise = (new HTTPClient())->getAsync(static::END_POINT, ['query' => [
           'msg' => substr($encoded, 0, 160),
-          'pass' => $this->password,
-          'user' => $this->username
+          'pass' => $password,
+          'user' => $username
         ]]);
 
         $response = $promise->then()->wait();
@@ -67,5 +87,25 @@ class Client {
         $observer->onError($e);
       }
     });
+  }
+
+  /**
+   * Sets the identification key associated to the account.
+   * @param string $value The new identification key.
+   * @return Client This instance.
+   */
+  public function setPassword(string $value): self {
+    $this->password = $value;
+    return $this;
+  }
+
+  /**
+   * Sets the user name associated to the account.
+   * @param string $value The new username.
+   * @return Client This instance.
+   */
+  public function setUsername(string $value): self {
+    $this->username = $value;
+    return $this;
   }
 }
