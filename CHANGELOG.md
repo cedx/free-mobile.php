@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
+## Version 2.0.1
+- Fixed the bug with some foreign characters being received as garbage.
+
 ## Version 2.0.0
 - Breaking change: modified the signature of the class constructor.
 - Added property getters and setters.
