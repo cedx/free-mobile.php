@@ -120,10 +120,10 @@ class Client {
    * @return \stdClass The map in JSON format corresponding to this object.
    */
   public function toJSON(): \stdClass {
-    $map = new \stdClass();
-    $map->password = $this->getPassword();
-    $map->username = $this->getUsername();
-    return $map;
+    return (object) [
+      'password' => $this->getPassword(),
+      'username' => $this->getUsername()
+    ];
   }
 
   /**
