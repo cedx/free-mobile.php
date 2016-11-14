@@ -40,7 +40,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
 
     if (is_string($username = getenv('FREEMOBILE_USERNAME')) && is_string($password = getenv('FREEMOBILE_PASSWORD'))) {
       $client = new Client(['username' => $username, 'password' => $password]);
-      $client->sendMessage('Hello World!')->subscribeCallback(
+      $client->sendMessage('Bonjour Cédric !')->subscribeCallback(
         function() { $this->assertTrue(true); },
         function(\Exception $e) { $this->fail($e->getMessage()); }
       );

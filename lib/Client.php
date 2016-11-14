@@ -73,13 +73,13 @@ class Client {
     if (!mb_strlen($username) || !mb_strlen($password))
       return Observable::error(new \InvalidArgumentException('The account credentials are invalid.'));
 
-    $encoded = trim(mb_convert_encoding($text, 'ISO-8859-1'));
-    if (!strlen($encoded)) return Observable::error(new \InvalidArgumentException('The specified message is empty.'));
+    $message = trim($text);
+    if (!mb_strlen($message)) return Observable::error(new \InvalidArgumentException('The specified message is empty.'));
 
-    return Observable::create(function(ObserverInterface $observer) use($encoded, $password, $username) {
+    return Observable::create(function(ObserverInterface $observer) use($message, $password, $username) {
       try {
         $promise = (new HTTPClient())->getAsync(static::END_POINT, ['query' => [
-          'msg' => substr($encoded, 0, 160),
+          'msg' => mb_substr($message, 0, 160),
           'pass' => $password,
           'user' => $username
         ]]);
