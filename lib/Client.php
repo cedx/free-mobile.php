@@ -89,7 +89,7 @@ class Client {
         $observer->onCompleted();
       }
 
-      catch(\Exception $e) {
+      catch (\Throwable $e) {
         $observer->onError($e);
       }
     });
