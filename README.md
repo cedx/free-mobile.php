@@ -17,25 +17,43 @@ $ composer require cedx/free-mobile
 ```
 
 ## Usage
-This package has an API based on [Observables](http://reactivex.io/intro.html).
+This package provides a single class allowing to send messages to your mobile phone.
+It has an API based on [Observables](http://reactivex.io/intro.html).
 
-It provides a single class, `freemobile\Client` which allow to send messages to your mobile phone by using the `sendMessage` method:
+### Create the client
+The provided `freemobile\Client` class have standard getters and setters to access its properties.
+To ease the initialization of this class, its constructor accepts an associative array of property values (`"property" => "value"`), and its setters have a fluent interface:
 
 ```php
 use freemobile\{Client};
 
-$client = new Client('your Free Mobile user name', 'your Free Mobile identification key');
+// Using an associative array with the constructor.
+$client = new Client([
+  'username' => 'your Free Mobile user name',
+  'password' => 'your Free Mobile identification key'
+]);
+
+// Using the fluent interface of the setters.
+$client = (new Client())
+  ->setUsername('your Free Mobile user name')
+  ->setPassword('your Free Mobile identification key');
+```
+
+### Send some messages
+Once the `freemobile\Client` class instantiated with your credentials, use the `sendMessage()` method:
+
+```php
 $client->sendMessage('Hello World!')->subscribeCallback(
   function() {
     echo 'The message was sent successfully.';
   },
   function(\Exception $e) {
-    echo 'An error occurred while sending the message: ' . $e->getMessage();
+    echo "An error occurred: {$e->getMessage()}";
   }
 );
 ```
 
-The text of the message will be automatically truncated to 160 characters: you can't send multipart messages using this library.
+The text of the messages will be automatically truncated to 160 characters: you can't send multipart messages using this library.
 
 ## See Also
 - [Code Quality](https://www.codacy.com/app/cedx/free-mobile-php)
