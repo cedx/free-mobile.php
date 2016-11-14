@@ -54,6 +54,12 @@ class Client {
     return $this->username;
   }
 
+  /**
+   * Converts this object to a map in JSON format.
+   * @return \stdClass The map in JSON format corresponding to this object.
+   */
+  final public function jsonSerialize(): \stdClass {
+    return $this->toJSON();
   }
 
   /**
@@ -107,5 +113,25 @@ class Client {
   public function setUsername(string $value): self {
     $this->username = $value;
     return $this;
+  }
+
+  /**
+   * Converts this object to a map in JSON format.
+   * @return \stdClass The map in JSON format corresponding to this object.
+   */
+  public function toJSON(): \stdClass {
+    $map = new \stdClass();
+    $map->password = $this->getPassword();
+    $map->username = $this->getUsername();
+    return $map;
+  }
+
+  /**
+   * Returns a string representation of this object.
+   * @return string The string representation of this object.
+   */
+  public function __toString(): string {
+    $json = json_encode($this, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    return static::class." {$json}";
   }
 }

@@ -46,4 +46,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       );
     }
   }
+
+  /**
+   * Tests the `Client::toJSON()` method.
+   */
+  public function testToJSON() {
+    $data = (new Client(['username' => 'anonymous', 'password' => 'secret']))->toJSON();
+    $this->assertEquals('secret', $data->password);
+    $this->assertEquals('anonymous', $data->username);
+  }
 }
