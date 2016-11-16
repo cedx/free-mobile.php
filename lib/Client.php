@@ -10,7 +10,7 @@ use Rx\{Observable, ObserverInterface};
 /**
  * Sends messages by SMS to a [Free Mobile](http://mobile.free.fr) account.
  */
-class Client {
+class Client implements \JsonSerializable {
 
   /**
    * @var string The URL of the API end point.
