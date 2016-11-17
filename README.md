@@ -47,7 +47,7 @@ $client->sendMessage('Hello World!')->subscribeCallback(
   function() {
     echo 'The message was sent successfully.';
   },
-  function(\Exception $e) {
+  function(\Throwable $e) {
     echo "An error occurred: {$e->getMessage()}";
   }
 );

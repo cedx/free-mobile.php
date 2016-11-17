@@ -42,7 +42,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       $client = new Client(['username' => $username, 'password' => $password]);
       $client->sendMessage('Bonjour Cédric !')->subscribeCallback(
         function() { $this->assertTrue(true); },
-        function(\Exception $e) { $this->fail($e->getMessage()); }
+        function(\Throwable $e) { $this->fail($e->getMessage()); }
       );
     }
   }
