@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
+## Version 2.0.2
+- Fixed a missing `implements \JsonSerializable` statement.
+
 ## Version 2.0.1
 - Fixed the bug with some foreign characters being received as garbage.
 
