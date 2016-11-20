@@ -55,6 +55,20 @@ $client->sendMessage('Hello World!')->subscribeCallback(
 
 The text of the messages will be automatically truncated to 160 characters: you can't send multipart messages using this library.
 
+## Unit Tests
+In order to run the tests, you must set two environment variables:
+
+```shell
+$ export FREEMOBILE_USERNAME="<your Free Mobile user name>"
+$ export FREEMOBILE_PASSWORD="<your Free Mobile identification key>"
+```
+
+Then, you can run the `test` script from the command prompt:
+
+```shell
+$ phing test
+```
+
 ## See Also
 - [Code Quality](https://www.codacy.com/app/cedx/free-mobile-php)
 - [Continuous Integration](https://travis-ci.org/cedx/free-mobile.php)
