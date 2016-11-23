@@ -5,7 +5,9 @@
 namespace freemobile;
 
 use GuzzleHttp\{Client as HTTPClient};
+use GuzzleHttp\Psr7\{ServerRequest};
 use Rx\{Observable, ObserverInterface};
+use Rx\Subject\{Subject};
 
 /**
  * Sends messages by SMS to a [Free Mobile](http://mobile.free.fr) account.
@@ -16,6 +18,16 @@ class Client implements \JsonSerializable {
    * @var string The URL of the API end point.
    */
   const END_POINT = 'https://smsapi.free-mobile.fr/sendmsg';
+
+  /**
+   * @var Subject The handler of "request" events.
+   */
+  private $onRequest;
+
+  /**
+   * @var Subject The handler of "response" events.
+   */
+  private $onResponse;
 
   /**
    * @var string The identification key associated to the account.
@@ -32,10 +44,22 @@ class Client implements \JsonSerializable {
    * @param array $config Name-value pairs that will be used to initialize the object properties.
    */
   public function __construct(array $config = []) {
+    $this->onRequest = new Subject();
+    $this->onResponse = new Subject();
+
     foreach ($config as $property => $value) {
       $setter = "set{$property}";
       if(method_exists($this, $setter)) $this->$setter($value);
     }
+  }
+
+  /**
+   * Returns a string representation of this object.
+   * @return string The string representation of this object.
+   */
+  public function __toString(): string {
+    $json = json_encode($this, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    return static::class." {$json}";
   }
 
   /**
@@ -60,6 +84,21 @@ class Client implements \JsonSerializable {
    */
   final public function jsonSerialize(): \stdClass {
     return $this->toJSON();
+
+  /**
+   * Gets the stream of "request" events.
+   * @return Observable The stream of "request" events.
+   */
+  public function onRequest(): Observable {
+    return $this->onRequest->asObservable();
+  }
+
+  /**
+   * Gets the stream of "response" events.
+   * @return Observable The stream of "response" events.
+   */
+  public function onResponse(): Observable {
+    return $this->onResponse->asObservable();
   }
 
   /**
@@ -78,13 +117,19 @@ class Client implements \JsonSerializable {
 
     return Observable::create(function(ObserverInterface $observer) use($message, $password, $username) {
       try {
-        $promise = (new HTTPClient())->getAsync(static::END_POINT, ['query' => [
+        $queryParams = [
           'msg' => mb_substr($message, 0, 160),
           'pass' => $password,
           'user' => $username
-        ]]);
+        ];
 
+        $request = (new ServerRequest('GET', static::END_POINT))->withQueryParams($queryParams);
+        $promise = (new HTTPClient())->sendAsync($request, ['query' => $queryParams]);
+
+        $this->onRequest->onNext($request);
         $response = $promise->then()->wait();
+        $this->onResponse->onNext($response);
+
         $observer->onNext((string) $response->getBody());
         $observer->onCompleted();
       }
@@ -124,14 +169,5 @@ class Client implements \JsonSerializable {
       'password' => $this->getPassword(),
       'username' => $this->getUsername()
     ];
-  }
-
-  /**
-   * Returns a string representation of this object.
-   * @return string The string representation of this object.
-   */
-  public function __toString(): string {
-    $json = json_encode($this, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class." {$json}";
   }
 }

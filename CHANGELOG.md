@@ -1,6 +1,8 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
+## Version 3.0.0
+- Added the `onRequest` and `onResponse` event streams.
 ## Version 2.0.2
 - Fixed a missing `implements \JsonSerializable` statement.
 
