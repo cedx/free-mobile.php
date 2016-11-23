@@ -82,8 +82,12 @@ class Client implements \JsonSerializable {
    * Converts this object to a map in JSON format.
    * @return \stdClass The map in JSON format corresponding to this object.
    */
-  final public function jsonSerialize(): \stdClass {
-    return $this->toJSON();
+  public function jsonSerialize(): \stdClass {
+    return (object) [
+      'password' => $this->getPassword(),
+      'username' => $this->getUsername()
+    ];
+  }
 
   /**
    * Gets the stream of "request" events.
@@ -158,16 +162,5 @@ class Client implements \JsonSerializable {
   public function setUsername(string $value): self {
     $this->username = $value;
     return $this;
-  }
-
-  /**
-   * Converts this object to a map in JSON format.
-   * @return \stdClass The map in JSON format corresponding to this object.
-   */
-  public function toJSON(): \stdClass {
-    return (object) [
-      'password' => $this->getPassword(),
-      'username' => $this->getUsername()
-    ];
   }
 }

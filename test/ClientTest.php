@@ -23,6 +23,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
+   * Tests the `Client::jsonSerialize()` method.
+   */
+  public function testJsonSerializeoJSON() {
+    $data = (new Client(['username' => 'anonymous', 'password' => 'secret']))->jsonSerialize();
+    $this->assertEquals('secret', $data->password);
+    $this->assertEquals('anonymous', $data->username);
+  }
+
+  /**
    * Tests the `Client::sendMessage()` method.
    */
   public function testSendMessage() {
@@ -45,14 +54,5 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
         function(\Throwable $e) { $this->fail($e->getMessage()); }
       );
     }
-  }
-
-  /**
-   * Tests the `Client::toJSON()` method.
-   */
-  public function testToJSON() {
-    $data = (new Client(['username' => 'anonymous', 'password' => 'secret']))->toJSON();
-    $this->assertEquals('secret', $data->password);
-    $this->assertEquals('anonymous', $data->username);
   }
 }

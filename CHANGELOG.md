@@ -2,7 +2,10 @@
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
 ## Version 3.0.0
+- Breaking change: removed the `toJSON()` method.
 - Added the `onRequest` and `onResponse` event streams.
+- Removed the `final` modifier from the `jsonSerialize()` method.
+
 ## Version 2.0.2
 - Fixed a missing `implements \JsonSerializable` statement.
 
