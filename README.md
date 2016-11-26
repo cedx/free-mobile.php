@@ -20,7 +20,7 @@ $ composer require cedx/free-mobile
 This package provides a single class allowing to send messages to your mobile phone.
 It has an API based on [Observables](http://reactivex.io/intro.html).
 
-### Create the client
+### Creating the client
 The provided `freemobile\Client` class have standard getters and setters to access its properties.
 To ease the initialization of this class, its constructor accepts an associative array of property values (`"property" => "value"`), and its setters have a fluent interface:
 
@@ -39,7 +39,7 @@ $client = (new Client())
   ->setPassword('your Free Mobile identification key');
 ```
 
-### Send some messages
+### Sending messages
 Once the `freemobile\Client` class instantiated with your credentials, use the `sendMessage()` method:
 
 ```php
@@ -54,6 +54,26 @@ $client->sendMessage('Hello World!')->subscribeCallback(
 ```
 
 The text of the messages will be automatically truncated to 160 characters: you can't send multipart messages using this library.
+
+### Subscribing to events
+The `freemobile\Client` class triggers some events during its life cycle:
+
+- `request` : emitted every time a request is made to the remote service.
+- `response` : emitted every time a response is received from the remote service.
+
+These events are exposed as `Observables`: you can subscribe to them using the `on<EventName>` methods:
+
+```php
+use Psr\Http\Message\{RequestInterface, ResponseInterface};
+
+$client->onRequest()->subscribeCallback(function(RequestInterface $request) {
+  echo 'Client request: ', $request->getUri();
+});
+
+$client->onResponse()->subscribeCallback(function(ResponseInterface $response) {
+  echo 'Server response: ', $response->getStatusCode();
+});
+```
 
 ## Unit Tests
 In order to run the tests, you must set two environment variables:
