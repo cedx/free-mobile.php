@@ -61,7 +61,7 @@ The `freemobile\Client` class triggers some events during its life cycle:
 - `request` : emitted every time a request is made to the remote service.
 - `response` : emitted every time a response is received from the remote service.
 
-These events are exposed as `Observables`: you can subscribe to them using the `on<EventName>` methods:
+These events are exposed as `Observables`, you can subscribe to them using the `on<EventName>` methods:
 
 ```php
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
