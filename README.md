@@ -48,7 +48,7 @@ $client->sendMessage('Hello World!')->subscribeCallback(
     echo 'The message was sent successfully.';
   },
   function(\Throwable $e) {
-    echo "An error occurred: {$e->getMessage()}";
+    echo 'An error occurred: ', $e->getMessage();
   }
 );
 ```
