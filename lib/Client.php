@@ -121,16 +121,14 @@ class Client implements \JsonSerializable {
 
     return Observable::create(function(ObserverInterface $observer) use($message, $password, $username) {
       try {
-        $queryParams = [
+        $request = (new ServerRequest('GET', static::END_POINT))->withQueryParams([
           'msg' => mb_substr($message, 0, 160),
           'pass' => $password,
           'user' => $username
-        ];
-
-        $request = (new ServerRequest('GET', static::END_POINT))->withQueryParams($queryParams);
-        $promise = (new HTTPClient())->sendAsync($request, ['query' => $queryParams]);
-
+        ]);
+        
         $this->onRequest->onNext($request);
+        $promise = (new HTTPClient())->sendAsync($request, ['query' => $request->getQueryParams()]);
         $response = $promise->then()->wait();
         $this->onResponse->onNext($response);
 
