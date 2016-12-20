@@ -126,7 +126,7 @@ class Client implements \JsonSerializable {
           'pass' => $password,
           'user' => $username
         ]);
-        
+
         $this->onRequest->onNext($request);
         $promise = (new HTTPClient())->sendAsync($request, ['query' => $request->getQueryParams()]);
         $response = $promise->then()->wait();
