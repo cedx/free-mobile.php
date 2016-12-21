@@ -25,7 +25,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   /**
    * Tests the `Client::jsonSerialize()` method.
    */
-  public function testJsonSerializeoJSON() {
+  public function testJsonSerialize() {
     $data = (new Client(['username' => 'anonymous', 'password' => 'secret']))->jsonSerialize();
     $this->assertEquals('secret', $data->password);
     $this->assertEquals('anonymous', $data->username);
