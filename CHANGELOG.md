@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
+## Version 3.1.0
+- Replaced the [Codacy](https://www.codacy.com) code coverage service by the [Coveralls](https://coveralls.io) one.
+- Updated the package dependencies.
+
 ## Version 3.0.0
 - Breaking change: removed the `toJSON()` method.
 - Added the `onRequest` and `onResponse` event streams.
