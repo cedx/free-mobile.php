@@ -1,5 +1,5 @@
 # Free Mobile for PHP
-![Release](https://img.shields.io/packagist/v/cedx/free-mobile.svg) ![License](https://img.shields.io/packagist/l/cedx/free-mobile.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/free-mobile.svg) ![Code quality](https://img.shields.io/codacy/grade/73859544fbc54257b639170a26acdc53.svg) ![Build](https://img.shields.io/travis/cedx/free-mobile.php.svg)
+![Release](https://img.shields.io/packagist/v/cedx/free-mobile.svg) ![License](https://img.shields.io/packagist/l/cedx/free-mobile.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/free-mobile.svg) ![Coverage](https://coveralls.io/repos/github/cedx/free-mobile.php/badge.svg) ![Build](https://travis-ci.org/cedx/free-mobile.php.svg)
 
 Send SMS messages to your [Free Mobile](http://mobile.free.fr) account, in [PHP](https://secure.php.net).
 
@@ -61,7 +61,7 @@ The `freemobile\Client` class triggers some events during its life cycle:
 - `request` : emitted every time a request is made to the remote service.
 - `response` : emitted every time a response is received from the remote service.
 
-These events are exposed as `Observables`, you can subscribe to them using the `on<EventName>` methods:
+These events are exposed as `Observable`, you can subscribe to them using the `on<EventName>` methods:
 
 ```php
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
@@ -89,9 +89,9 @@ Then, you can run the `test` script from the command prompt:
 $ phing test
 ```
 
-## See Also
-- [Code Quality](https://www.codacy.com/app/cedx/free-mobile-php)
-- [Continuous Integration](https://travis-ci.org/cedx/free-mobile.php)
+## See also
+- [Code coverage](https://coveralls.io/github/cedx/free-mobile.php)
+- [Continuous integration](https://travis-ci.org/cedx/free-mobile.php)
 
 ## License
 [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) is distributed under the Apache License, version 2.0.
