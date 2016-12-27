@@ -127,10 +127,10 @@ class Client implements \JsonSerializable {
           'user' => $username
         ]);
 
-        if ($this->onRequest->hasObservers()) $this->onRequest->onNext($request);
+        $this->onRequest->onNext($request);
         $promise = (new HTTPClient())->sendAsync($request, ['query' => $request->getQueryParams()]);
         $response = $promise->then()->wait();
-        if ($this->onResponse->hasObservers()) $this->onResponse->onNext($response);
+        $this->onResponse->onNext($response);
 
         $observer->onNext((string) $response->getBody());
         $observer->onCompleted();
