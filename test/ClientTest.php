@@ -3,7 +3,9 @@
  * Implementation of the `freemobile\test\ClientTest` class.
  */
 namespace freemobile\test;
+
 use freemobile\{Client};
+use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
 /**
  * Tests the features of the `freemobile\Client` class.
@@ -30,6 +32,24 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(count(get_object_vars($data)), 2);
     $this->assertEquals('secret', $data->password);
     $this->assertEquals('anonymous', $data->username);
+  }
+
+  /**
+   * Tests the `Client::onRequest()` method.
+   */
+  public function testOnRequest() {
+    $client = new Client(['username' => 'anonymous', 'password' => 'secret']);
+    $client->onRequest()->subscribeCallback(function($request) { $this->assertInstanceOf(RequestInterface::class, $request); });
+    $client->sendMessage('FooBar')->subscribeCallback();
+  }
+
+  /**
+   * Tests the `Client::onResponse()` method.
+   */
+  public function testOnResponse() {
+    $client = new Client(['username' => 'anonymous', 'password' => 'secret']);
+    $client->onResponse()->subscribeCallback(function($response) { $this->assertInstanceOf(ResponseInterface::class, $response); });
+    $client->sendMessage('FooBar')->subscribeCallback();
   }
 
   /**
