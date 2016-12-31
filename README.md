@@ -7,7 +7,7 @@ To use this library, you must have enabled SMS Notifications in the Options of y
 
 ## Requirements
 The latest [PHP](https://secure.php.net) and [Composer](https://getcomposer.org) versions.
-If you plan to play with the sources, you will also need the [Phing](https://www.phing.info) latest version.
+If you plan to play with the sources, you will also need the latest [Phing](https://www.phing.info) version.
 
 ## Installing via [Composer](https://getcomposer.org)
 From a command prompt, run:
