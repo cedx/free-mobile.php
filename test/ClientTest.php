@@ -41,7 +41,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $client = new Client(['username' => 'anonymous', 'password' => 'secret']);
     $client->onRequest()->subscribeCallback(function($request) { $this->assertInstanceOf(RequestInterface::class, $request); });
     try { $client->sendMessage('FooBar')->subscribeCallback(); }
-    catch (\Exception $e) {}
+    catch (\Throwable $e) {}
   }
 
   /**
@@ -51,7 +51,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $client = new Client(['username' => 'anonymous', 'password' => 'secret']);
     $client->onResponse()->subscribeCallback(function($response) { $this->assertInstanceOf(ResponseInterface::class, $response); });
     try { $client->sendMessage('FooBar')->subscribeCallback(); }
-    catch (\Exception $e) {}
+    catch (\Throwable $e) {}
   }
 
   /**
