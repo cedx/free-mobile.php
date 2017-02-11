@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project default="test" name="free-mobile.php">
-  <property name="version" value="3.1.1"/>
+  <property name="version" value="4.0.0"/>
 
   <target name="clean" description="Deletes all generated files and reset any saved state.">
     <delete>
@@ -10,7 +10,7 @@
 
   <target name="coverage" depends="test" description="Sends the results of the code coverage.">
     <exec executable="vendor/bin/coveralls" passthru="true">
-      <arg value="--coverage_clover=var/coverage.xml"/>
+      <arg value="--file=var/coverage.xml"/>
     </exec>
   </target>
 

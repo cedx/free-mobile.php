@@ -17,39 +17,20 @@ $ composer require cedx/free-mobile
 ```
 
 ## Usage
-This package provides a single class allowing to send messages to your mobile phone.
-
-### Creating the client
-The provided `freemobile\Client` class have standard getters and setters to access its properties.
-To ease the initialization of this class, its constructor accepts an associative array of property values (`"property" => "value"`), and its setters have a fluent interface:
+This package provides a single class, `freemobile\Client`, allowing to send messages to your mobile phone using the `sendMessage()` method:
 
 ```php
 use freemobile\{Client};
 
-// Using an associative array with the constructor.
-$client = new Client([
-  'username' => 'your Free Mobile user name',
-  'password' => 'your Free Mobile identification key'
-]);
+try {
+  $client = new Client('your user name', 'your identification key');
+  $client->sendMessage('Hello World!');
+  echo 'The message was sent successfully.';
+}
 
-// Using the fluent interface of the setters.
-$client = (new Client())
-  ->setUsername('your Free Mobile user name')
-  ->setPassword('your Free Mobile identification key');
-```
-
-### Sending messages
-Once the `freemobile\Client` class instantiated with your credentials, use the `sendMessage()` method:
-
-```php
-$client->sendMessage('Hello World!')->subscribeCallback(
-  function() {
-    echo 'The message was sent successfully.';
-  },
-  function(\Throwable $e) {
-    echo 'An error occurred: ', $e->getMessage();
-  }
-);
+catch (\Throwable $e) {
+  echo 'An error occurred: ', $e->getMessage();
+}
 ```
 
 The text of the messages will be automatically truncated to 160 characters: you can't send multipart messages using this library.
@@ -60,7 +41,7 @@ The `freemobile\Client` class triggers some events during its life cycle:
 - `request` : emitted every time a request is made to the remote service.
 - `response` : emitted every time a response is received from the remote service.
 
-These events are exposed as `Observable`, you can subscribe to them using the `on<EventName>` methods:
+These events are exposed as [Observables](http://reactivex.io/intro.html), you can subscribe to them using the `on<EventName>` methods:
 
 ```php
 use Psr\Http\Message\{RequestInterface, ResponseInterface};

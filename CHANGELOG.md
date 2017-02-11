@@ -1,6 +1,13 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
+## Version 4.0.0
+- Breaking change: changed the signature of the constructor.
+- Breaking change: changed the return type of the `sendMessage` method.
+- Breaking change: renamed the `END_POINT` constant to `DEFAULT_ENDPOINT`.
+- Added the `endPoint` property.
+- Updated the package dependencies.
+
 ## Version 3.1.1
 - Improved the code coverage.
 - Updated the package dependencies.
