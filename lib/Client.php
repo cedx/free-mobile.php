@@ -15,9 +15,14 @@ use Rx\Subject\{Subject};
 class Client implements \JsonSerializable {
 
   /**
+   * @var string The URL of the default API end point.
+   */
+  const DEFAULT_ENDPOINT = 'https://smsapi.free-mobile.fr';
+
+  /**
    * @var string The URL of the API end point.
    */
-  const END_POINT = 'https://smsapi.free-mobile.fr/sendmsg';
+  private $endPoint;
 
   /**
    * @var Subject The handler of "request" events.
@@ -118,38 +123,34 @@ class Client implements \JsonSerializable {
   /**
    * Sends a SMS message to the underlying account.
    * @param string $text The text of the message to send.
-   * @return Observable The response as string.
+   * @throws \InvalidArgumentException The account credentials are invalid, or the specified message is empty.
+   * @throws \RuntimeException An error occurred while sending the message.
    */
-  public function sendMessage(string $text): Observable {
+  public function sendMessage(string $text) {
     $username = $this->getUsername();
     $password = $this->getPassword();
     if (!mb_strlen($username) || !mb_strlen($password))
-      return Observable::error(new \InvalidArgumentException('The account credentials are invalid.'));
+      throw new \InvalidArgumentException('The account credentials are invalid.');
 
     $message = trim($text);
-    if (!mb_strlen($message)) return Observable::error(new \InvalidArgumentException('The specified message is empty.'));
+    if (!mb_strlen($message)) throw new \InvalidArgumentException('The specified message is empty.');
 
-    return Observable::create(function(ObserverInterface $observer) use($message, $password, $username) {
-      try {
-        $request = (new ServerRequest('GET', static::END_POINT))->withQueryParams([
-          'msg' => mb_substr($message, 0, 160),
-          'pass' => $password,
-          'user' => $username
-        ]);
+    try {
+      $request = (new ServerRequest('GET', $this->getEndPoint().'/sendmsg'))->withQueryParams([
+        'msg' => mb_substr($message, 0, 160),
+        'pass' => $password,
+        'user' => $username
+      ]);
 
-        $this->onRequest->onNext($request);
-        $promise = (new HTTPClient())->sendAsync($request, ['query' => $request->getQueryParams()]);
-        $response = $promise->then()->wait();
-        $this->onResponse->onNext($response);
+      $this->onRequest->onNext($request);
+      $response = (new HTTPClient())->send($request, ['query' => $request->getQueryParams()]);
+      $this->onResponse->onNext($response);
+    }
 
-        $observer->onNext((string) $response->getBody());
-        $observer->onCompleted();
-      }
-
-      catch (\Throwable $e) {
-        $observer->onError($e);
-      }
-    });
+    catch (\Throwable $e) {
+      throw new \RuntimeException('An error occurred while sending the message.');
+    }
+  }
 
   /**
    * Sets the URL of the API end point.
