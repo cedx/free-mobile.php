@@ -6,7 +6,7 @@ namespace freemobile;
 
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{ServerRequest};
-use Rx\{Observable, ObserverInterface};
+use Rx\{Observable};
 use Rx\Subject\{Subject};
 
 /**
@@ -32,26 +32,25 @@ class Client implements \JsonSerializable {
   /**
    * @var string The identification key associated to the account.
    */
-  private $password = '';
+  private $password;
 
   /**
    * @var string The user name associated to the account.
    */
-  private $username = '';
+  private $username;
 
   /**
    * Initializes a new instance of the class.
-   * @param array $config Name-value pairs that will be used to initialize the object properties.
+   * @param string $username The user name associated to the account.
+   * @param string $password The identification key associated to the account.
    * @param string $endPoint The URL of the API end point.
    */
-  public function __construct(array $config = []) {
+  public function __construct(string $username = '', string $password = '', string $endPoint = self::DEFAULT_ENDPOINT) {
     $this->onRequest = new Subject();
     $this->onResponse = new Subject();
 
-    foreach ($config as $property => $value) {
-      $setter = "set$property";
-      if(method_exists($this, $setter)) $this->$setter($value);
-    }
+    $this->setUsername($username);
+    $this->setPassword($password);
     $this->setEndPoint($endPoint);
   }
 

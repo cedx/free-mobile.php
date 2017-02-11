@@ -13,18 +13,6 @@ use Psr\Http\Message\{RequestInterface, ResponseInterface};
 class ClientTest extends \PHPUnit_Framework_TestCase {
 
   /**
-   * Tests the `Client` constructor.
-   */
-  public function testConstructor() {
-    $client = new Client(['username' => 'anonymous', 'password' => 'secret']);
-    $this->assertEquals('secret', $client->getPassword());
-    $this->assertEquals('anonymous', $client->getUsername());
-
-    $this->assertSame($client, $client->setPassword(''));
-    $this->assertEmpty($client->getPassword());
-  }
-
-  /**
    * Tests the `Client::jsonSerialize()` method.
    */
   public function testJsonSerialize() {
