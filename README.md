@@ -18,7 +18,6 @@ $ composer require cedx/free-mobile
 
 ## Usage
 This package provides a single class allowing to send messages to your mobile phone.
-It has an API based on [Observables](http://reactivex.io/intro.html).
 
 ### Creating the client
 The provided `freemobile\Client` class have standard getters and setters to access its properties.
