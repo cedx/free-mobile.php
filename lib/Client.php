@@ -42,6 +42,7 @@ class Client implements \JsonSerializable {
   /**
    * Initializes a new instance of the class.
    * @param array $config Name-value pairs that will be used to initialize the object properties.
+   * @param string $endPoint The URL of the API end point.
    */
   public function __construct(array $config = []) {
     $this->onRequest = new Subject();
@@ -51,6 +52,7 @@ class Client implements \JsonSerializable {
       $setter = "set$property";
       if(method_exists($this, $setter)) $this->$setter($value);
     }
+    $this->setEndPoint($endPoint);
   }
 
   /**
@@ -60,6 +62,14 @@ class Client implements \JsonSerializable {
   public function __toString(): string {
     $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     return static::class." $json";
+  }
+
+  /**
+   * Gets the URL of the API end point.
+   * @return string The URL of the API end point.
+   */
+  public function getEndPoint(): string {
+    return $this->endPoint;
   }
 
   /**
@@ -84,6 +94,7 @@ class Client implements \JsonSerializable {
    */
   public function jsonSerialize(): \stdClass {
     return (object) [
+      'endPoint' => $this->getEndPoint(),
       'password' => $this->getPassword(),
       'username' => $this->getUsername()
     ];
@@ -140,6 +151,15 @@ class Client implements \JsonSerializable {
         $observer->onError($e);
       }
     });
+
+  /**
+   * Sets the URL of the API end point.
+   * @param string $value The new URL of the API end point.
+   * @return Client This instance.
+   */
+  public function setEndPoint(string $value) {
+    $this->endPoint = $value;
+    return $this;
   }
 
   /**
