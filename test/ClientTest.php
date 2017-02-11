@@ -50,4 +50,14 @@ class ClientTest extends TestCase {
       $this->assertTrue(true);
     }
   }
+
+  /**
+   * @test ::__toString
+   */
+  public function testToString() {
+    $config = (string) new Client('anonymous', 'secret');
+    $this->assertStringStartsWith('freemobile\Client {', $config);
+    $this->assertContains('"username":"anonymous"', $config);
+    $this->assertContains('"password":"secret"', $config);
+  }
 }
