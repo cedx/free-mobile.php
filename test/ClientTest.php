@@ -81,13 +81,14 @@ class ClientTest extends TestCase {
    * @test ::__toString
    */
   public function testToString() {
-    $config = (string) new Client('anonymous', 'secret');
+    $client = (string) new Client('anonymous', 'secret');
 
     // Should start with the class name.
-    $this->assertStringStartsWith('freemobile\Client {', $config);
+    $this->assertStringStartsWith('freemobile\Client {', $client);
 
     // Should contain the instance properties.
-    $this->assertContains('"username":"anonymous"', $config);
-    $this->assertContains('"password":"secret"', $config);
+    $this->assertContains(sprintf('"endPoint":"%s"', Client::DEFAULT_ENDPOINT), $client);
+    $this->assertContains('"username":"anonymous"', $client);
+    $this->assertContains('"password":"secret"', $client);
   }
 }
