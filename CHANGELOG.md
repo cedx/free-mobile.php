@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
+## Version 4.1.0
+- Ported the unit test assertions from [TDD](https://en.wikipedia.org/wiki/Test-driven_development) to [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development).
+- Updated the package dependencies.
+
 ## Version 4.0.0
 - Breaking change: changed the signature of the constructor.
 - Breaking change: changed the return type of the `sendMessage` method.

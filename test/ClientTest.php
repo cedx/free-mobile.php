@@ -4,7 +4,6 @@
  */
 namespace freemobile\test;
 
-use Codeception\{Specify};
 use freemobile\{Client};
 use PHPUnit\Framework\{TestCase};
 use Rx\{Observable};
@@ -14,18 +13,17 @@ use Rx\Subject\{Subject};
  * @coversDefaultClass \freemobile\Client
  */
 class ClientTest extends TestCase {
-  use Specify;
 
   /**
    * @test ::jsonSerialize
    */
   public function testJsonSerialize() {
-    $this->specify('should return a map with the same public values', function() {
+    it('should return a map with the same public values', function() {
       $data = (new Client('anonymous', 'secret'))->jsonSerialize();
-      $this->assertEquals(count(get_object_vars($data)), 3);
-      $this->assertEquals(Client::DEFAULT_ENDPOINT, $data->endPoint);
-      $this->assertEquals('secret', $data->password);
-      $this->assertEquals('anonymous', $data->username);
+      expect(get_object_vars($data))->to->have->lengthOf(3);
+      expect($data->endPoint)->to->equal(Client::DEFAULT_ENDPOINT);
+      expect($data->password)->to->equal('secret');
+      expect($data->username)->to->equal('anonymous');
     });
   }
 
@@ -33,10 +31,10 @@ class ClientTest extends TestCase {
    * @test ::onRequest
    */
   public function testOnRequest() {
-    $this->specify('should return an `Observable` instead of the underlying `Subject`', function() {
+    it('should return an `Observable` instead of the underlying `Subject`', function() {
       $stream = (new Client('anonymous', 'secret'))->onRequest();
-      $this->assertInstanceOf(Observable::class, $stream);
-      $this->assertFalse($stream instanceof Subject);
+      expect($stream)->to->be->instanceOf(Observable::class);
+      expect($stream)->to->not->be->instanceOf(Subject::class);
     });
   }
 
@@ -44,10 +42,10 @@ class ClientTest extends TestCase {
    * @test ::onRequest
    */
   public function testOnResponse() {
-    $this->specify('should return an `Observable` instead of the underlying `Subject`', function() {
+    it('should return an `Observable` instead of the underlying `Subject`', function() {
       $stream = (new Client('anonymous', 'secret'))->onResponse();
-      $this->assertInstanceOf(Observable::class, $stream);
-      $this->assertFalse($stream instanceof Subject);
+      expect($stream)->to->be->instanceOf(Observable::class);
+      expect($stream)->to->not->be->instanceOf(Subject::class);
     });
   }
 
@@ -55,34 +53,34 @@ class ClientTest extends TestCase {
    * @test ::sendMessage
    */
   public function testSendMessage() {
-    $this->specify('should not send valid messages with invalid credentials', function() {
+    it('should not send valid messages with invalid credentials', function() {
       try {
         (new Client('', ''))->sendMessage('Hello World!');
-        $this->fail('A message with empty credentials should not be sent.');
+        fail('A message with empty credentials should not be sent.');
       }
 
       catch (\Throwable $e) {
-        $this->assertTrue(true);
+        expect(true)->to->be->true;
       }
     });
 
-    $this->specify('should not send invalid messages with valid credentials', function() {
+    it('should not send invalid messages with valid credentials', function() {
       try {
         (new Client('anonymous', 'secret'))->sendMessage('');
-        $this->fail('An empty message with credentials should not be sent.');
+        fail('An empty message with credentials should not be sent.');
       }
 
       catch (\Throwable $e) {
-        $this->assertTrue(true);
+        expect(true)->to->be->true;
       }
     });
 
-    $this->specify('should send valid messages with valid credentials', function() {
-      if (is_string($username = getenv('FREEMOBILE_USERNAME')) && is_string($password = getenv('FREEMOBILE_PASSWORD'))) {
+    if (is_string($username = getenv('FREEMOBILE_USERNAME')) && is_string($password = getenv('FREEMOBILE_PASSWORD'))) {
+      it('should send valid messages with valid credentials', function() use ($password, $username) {
         (new Client($username, $password))->sendMessage('Bonjour Cédric !');
-        $this->assertTrue(true);
-      }
-    });
+        expect(true)->to->be->true;
+      });
+    }
   }
 
   /**
@@ -91,14 +89,12 @@ class ClientTest extends TestCase {
   public function testToString() {
     $client = (string) new Client('anonymous', 'secret');
 
-    $this->specify('should start with the class name', function() use ($client) {
-      $this->assertStringStartsWith('freemobile\Client {', $client);
+    it('should start with the class name', function() use ($client) {
+      expect($client)->to->startWith('freemobile\Client {');
     });
 
-    $this->specify('should contain the instance properties', function() use ($client) {
-      $this->assertContains(sprintf('"endPoint":"%s"', Client::DEFAULT_ENDPOINT), $client);
-      $this->assertContains('"username":"anonymous"', $client);
-      $this->assertContains('"password":"secret"', $client);
+    it('should contain the instance properties', function() use ($client) {
+      expect($client)->to->contain('"password":"secret"')->and->contain('"username":"anonymous"');
     });
   }
 }
