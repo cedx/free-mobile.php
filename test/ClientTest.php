@@ -6,8 +6,6 @@ namespace freemobile\test;
 
 use freemobile\{Client};
 use PHPUnit\Framework\{TestCase};
-use Rx\{Observable};
-use Rx\Subject\{Subject};
 
 /**
  * @coversDefaultClass \freemobile\Client
@@ -28,29 +26,7 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test ::onRequest
-   */
-  public function testOnRequest() {
-    it('should return an `Observable` instead of the underlying `Subject`', function() {
-      $stream = (new Client('anonymous', 'secret'))->onRequest();
-      expect($stream)->to->be->instanceOf(Observable::class);
-      expect($stream)->to->not->be->instanceOf(Subject::class);
-    });
-  }
-
-  /**
-   * @test ::onRequest
-   */
-  public function testOnResponse() {
-    it('should return an `Observable` instead of the underlying `Subject`', function() {
-      $stream = (new Client('anonymous', 'secret'))->onResponse();
-      expect($stream)->to->be->instanceOf(Observable::class);
-      expect($stream)->to->not->be->instanceOf(Subject::class);
-    });
-  }
-
-  /**
-   * @test ::sendMessage
+   * @test Client::sendMessage
    */
   public function testSendMessage() {
     it('should not send valid messages with invalid credentials', function() {

@@ -1,7 +1,8 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
-## Version 4.1.0
+## Version 5.0.0
+- Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
 - Ported the unit test assertions from [TDD](https://en.wikipedia.org/wiki/Test-driven_development) to [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development).
 - Updated the package dependencies.
 
