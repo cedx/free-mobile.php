@@ -1,19 +1,14 @@
 <?php
-/**
- * Implementation of the `freemobile\test\ClientTest` class.
- */
-namespace freemobile\test;
-
-use freemobile\{Client};
+namespace freemobile;
 use PHPUnit\Framework\{TestCase};
 
 /**
- * @coversDefaultClass \freemobile\Client
+ * Tests the features of the `freemobile\Client` class.
  */
 class ClientTest extends TestCase {
 
   /**
-   * @test ::jsonSerialize
+   * @test Client::jsonSerialize
    */
   public function testJsonSerialize() {
     it('should return a map with the same public values', function() {
@@ -60,7 +55,7 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test ::__toString
+   * @test Client::__toString
    */
   public function testToString() {
     $client = (string) new Client('anonymous', 'secret');

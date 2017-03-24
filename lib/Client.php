@@ -1,9 +1,7 @@
 <?php
-/**
- * Implementation of the `freemobile\Client` class.
- */
 namespace freemobile;
 
+use Evenement\{EventEmitterTrait};
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{ServerRequest};
 
@@ -11,6 +9,7 @@ use GuzzleHttp\Psr7\{ServerRequest};
  * Sends messages by SMS to a [Free Mobile](http://mobile.free.fr) account.
  */
 class Client implements \JsonSerializable {
+  use EventEmitterTrait;
 
   /**
    * @var string The URL of the default API end point.
@@ -111,9 +110,9 @@ class Client implements \JsonSerializable {
         'user' => $username
       ]);
 
-      $this->onRequest->onNext($request);
+      $this->emit('request', [$request]);
       $response = (new HTTPClient())->send($request, ['query' => $request->getQueryParams()]);
-      $this->onResponse->onNext($response);
+      $this->emit('reponse', [$response]);
     }
 
     catch (\Throwable $e) {
