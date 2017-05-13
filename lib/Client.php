@@ -111,7 +111,7 @@ class Client implements \JsonSerializable {
       ]);
 
       $this->emit('request', [$request]);
-      $response = (new HTTPClient())->send($request, ['query' => $request->getQueryParams()]);
+      $response = (new HTTPClient)->send($request, ['query' => $request->getQueryParams()]);
       $this->emit('reponse', [$response]);
     }
 
