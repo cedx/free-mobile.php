@@ -71,6 +71,7 @@ $ phing test
 ```
 
 ## See also
+- [API reference](https://cedx.github.io/free-mobile.php)
 - [Code coverage](https://coveralls.io/github/cedx/free-mobile.php)
 - [Continuous integration](https://travis-ci.org/cedx/free-mobile.php)
 

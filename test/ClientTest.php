@@ -1,7 +1,7 @@
 <?php
 namespace freemobile;
 
-use function PHPUnit\Expect\{expect, it};
+use function PHPUnit\Expect\{expect, fail, it};
 use PHPUnit\Framework\{TestCase};
 
 /**

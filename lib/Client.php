@@ -1,15 +1,15 @@
 <?php
 namespace freemobile;
 
-use Evenement\{EventEmitterTrait};
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{ServerRequest};
+use Rx\{Observable};
+use Rx\Subject\{Subject};
 
 /**
  * Sends messages by SMS to a [Free Mobile](http://mobile.free.fr) account.
  */
 class Client implements \JsonSerializable {
-  use EventEmitterTrait;
 
   /**
    * @var string The URL of the default API end point.
@@ -20,6 +20,16 @@ class Client implements \JsonSerializable {
    * @var string The URL of the API end point.
    */
   private $endPoint;
+
+  /**
+   * @var Subject The handler of "request" events.
+   */
+  private $onRequest;
+
+  /**
+   * @var Subject The handler of "response" events.
+   */
+  private $onResponse;
 
   /**
    * @var string The identification key associated to the account.
@@ -38,6 +48,9 @@ class Client implements \JsonSerializable {
    * @param string $endPoint The URL of the API end point.
    */
   public function __construct(string $username = '', string $password = '', string $endPoint = self::DEFAULT_ENDPOINT) {
+    $this->onRequest = new Subject();
+    $this->onResponse = new Subject();
+
     $this->setUsername($username);
     $this->setPassword($password);
     $this->setEndPoint($endPoint);
@@ -89,6 +102,22 @@ class Client implements \JsonSerializable {
   }
 
   /**
+   * Gets the stream of "request" events.
+   * @return Observable The stream of "request" events.
+   */
+  public function onRequest(): Observable {
+    return $this->onRequest->asObservable();
+  }
+
+  /**
+   * Gets the stream of "response" events.
+   * @return Observable The stream of "response" events.
+   */
+  public function onResponse(): Observable {
+    return $this->onResponse->asObservable();
+  }
+
+  /**
    * Sends a SMS message to the underlying account.
    * @param string $text The text of the message to send.
    * @throws \InvalidArgumentException The account credentials are invalid, or the specified message is empty.
@@ -110,9 +139,9 @@ class Client implements \JsonSerializable {
         'user' => $username
       ]);
 
-      $this->emit('request', [$request]);
+      $this->onRequest->onNext($request);
       $response = (new HTTPClient)->send($request, ['query' => $request->getQueryParams()]);
-      $this->emit('reponse', [$response]);
+      $this->onResponse->onNext($response);
     }
 
     catch (\Throwable $e) {

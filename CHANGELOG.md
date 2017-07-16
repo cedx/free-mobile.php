@@ -1,6 +1,11 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
+## Version 6.0.0
+- Breaking change: reverted the API of the `Client` class to an [Observable](http://reactivex.io/intro.html)-based one.
+- Replaced [phpDocumentor](https://www.phpdoc.org) documentation generator by [ApiGen](https://github.com/ApiGen/ApiGen).
+- Updated the package dependencies.
+
 ## Version 5.0.0
 - Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
 - Breaking change: the `Client` class is now an `EventEmitter`.
