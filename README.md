@@ -17,41 +17,45 @@ $ composer require cedx/free-mobile
 ```
 
 ## Usage
-This package provides a single class, `freemobile\Client`, allowing to send messages to your mobile phone using the `sendMessage()` method:
+This package has an API based on [Observables](http://reactivex.io/intro.html).
+
+It provides a single class, `freemobile\Client`, allowing to send messages to your mobile phone using the `sendMessage()` method:
 
 ```php
 use freemobile\{Client};
 
-try {
-  $client = new Client('your user name', 'your identification key');
-  $client->sendMessage('Hello World!');
-  echo 'The message was sent successfully.';
-}
-
-catch (\Throwable $e) {
-  echo 'An error occurred: ', $e->getMessage();
-}
+$client = new Client('your user name', 'your identification key');
+$client->sendMessage('Hello World!')->subscribe(
+  function() {
+    echo 'The message was sent successfully.';
+  },
+  function(\Throwable $e) {
+    echo 'An error occurred: ', $e->getMessage();
+  }
+);
 ```
 
 The text of the messages will be automatically truncated to 160 characters: you can't send multipart messages using this library.
 
-### Subscribing to events
-The `freemobile\Client` class is an `EventEmitter`.
-During its life cycle, it emits these events:
+> When running the tests, the scheduler is automatically bootstrapped.
+> When using [RxPHP](https://github.com/ReactiveX/RxPHP) within your own project, you'll need to set the default scheduler.
+
+## Events
+The `Client` class triggers some events during its life cycle:
 
 - `request` : emitted every time a request is made to the remote service.
 - `response` : emitted every time a response is received from the remote service.
 
-You can subscribe to them using the `on()` method:
+These events are exposed as [Observable](http://reactivex.io/intro.html), you can subscribe to them using the `on<EventName>` methods:
 
 ```php
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
-$client->on('request', function(RequestInterface $request) {
+$client->onRequest()->subscribe(function(RequestInterface $request) {
   echo 'Client request: ', $request->getUri();
 });
 
-$client->on('response', function(ResponseInterface $response) {
+$client->onResponse()->subscribe(function(ResponseInterface $response) {
   echo 'Server response: ', $response->getStatusCode();
 });
 ```
