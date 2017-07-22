@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace freemobile;
 
 use GuzzleHttp\{Client as HTTPClient};
+use GuzzleHttp\Promise\{PromiseInterface};
 use GuzzleHttp\Psr7\{ServerRequest};
 use Rx\{Observable};
 use Rx\Subject\{Subject};
@@ -121,33 +122,33 @@ class Client implements \JsonSerializable {
   /**
    * Sends a SMS message to the underlying account.
    * @param string $text The text of the message to send.
-   * @throws \InvalidArgumentException The account credentials are invalid, or the specified message is empty.
-   * @throws \RuntimeException An error occurred while sending the message.
+   * @return Observable The response body as string.
    */
-  public function sendMessage(string $text) {
+  public function sendMessage(string $text): Observable {
     $username = $this->getUsername();
     $password = $this->getPassword();
     if (!mb_strlen($username) || !mb_strlen($password))
-      throw new \InvalidArgumentException('The account credentials are invalid.');
+      return Observable::error(new \InvalidArgumentException('The account credentials are invalid.'));
 
     $message = trim($text);
-    if (!mb_strlen($message)) throw new \InvalidArgumentException('The specified message is empty.');
+    if (!mb_strlen($message)) return Observable::error(new \InvalidArgumentException('The specified message is empty.'));
 
-    try {
-      $request = (new ServerRequest('GET', $this->getEndPoint().'/sendmsg'))->withQueryParams([
-        'msg' => mb_substr($message, 0, 160),
-        'pass' => $password,
-        'user' => $username
-      ]);
+    $request = (new ServerRequest('GET', $this->getEndPoint().'/sendmsg'))->withQueryParams([
+      'msg' => mb_substr($message, 0, 160),
+      'pass' => $password,
+      'user' => $username
+    ]);
 
-      $this->onRequest->onNext($request);
-      $response = (new HTTPClient)->send($request, ['query' => $request->getQueryParams()]);
+    $promise = (new HTTPClient)->sendAsync($request, [
+      'query' => $request->getQueryParams()
+    ]);
+
+    $this->onRequest->onNext($request);
+    return Observable::of($promise)->map(function(PromiseInterface $promise): string {
+      $response = $promise->wait();
       $this->onResponse->onNext($response);
-    }
-
-    catch (\Throwable $e) {
-      throw new \RuntimeException('An error occurred while sending the message.');
-    }
+      return (string) $response->getBody();
+    });
   }
 
   /**
