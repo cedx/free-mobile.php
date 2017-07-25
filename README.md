@@ -71,7 +71,7 @@ $ export FREEMOBILE_PASSWORD="<your Free Mobile identification key>"
 Then, you can run the `test` script from the command prompt:
 
 ```shell
-$ phing test
+$ composer test
 ```
 
 ## See also
