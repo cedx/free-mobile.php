@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace freemobile;
+namespace FreeMobile;
 
-use GuzzleHttp\{Client as HTTPClient};
+use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Promise\{PromiseInterface};
 use GuzzleHttp\Psr7\{ServerRequest};
 use Rx\{Observable};
@@ -139,12 +139,12 @@ class Client implements \JsonSerializable {
       'user' => $username
     ]);
 
-    $promise = (new HTTPClient)->sendAsync($request, [
+    $promise = (new HttpClient)->sendAsync($request, [
       'query' => $request->getQueryParams()
     ]);
 
     $this->onRequest->onNext($request);
-    return Observable::of($promise)->map(function(PromiseInterface $promise): string {
+    return Observable::of($promise)->map(function(PromiseInterface $promise) {
       $response = $promise->wait();
       $this->onResponse->onNext($response);
       return (string) $response->getBody();
@@ -156,7 +156,7 @@ class Client implements \JsonSerializable {
    * @param string $value The new URL of the API end point.
    * @return Client This instance.
    */
-  public function setEndPoint(string $value) {
+  public function setEndPoint(string $value): self {
     $this->endPoint = $value;
     return $this;
   }

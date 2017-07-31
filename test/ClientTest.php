@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
-namespace freemobile;
+namespace FreeMobile;
 
 use function PHPUnit\Expect\{expect, fail, it};
 use PHPUnit\Framework\{TestCase};
 use Rx\Subject\{Subject};
 
 /**
- * Tests the features of the `freemobile\Client` class.
+ * Tests the features of the `FreeMobile\Client` class.
  */
 class ClientTest extends TestCase {
 
@@ -77,7 +77,7 @@ class ClientTest extends TestCase {
     $client = (string) new Client('anonymous', 'secret');
 
     it('should start with the class name', function() use ($client) {
-      expect($client)->to->startWith('freemobile\Client {');
+      expect($client)->to->startWith('FreeMobile\Client {');
     });
 
     it('should contain the instance properties', function() use ($client) {

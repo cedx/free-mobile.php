@@ -19,10 +19,10 @@ $ composer require cedx/free-mobile
 ## Usage
 This package has an API based on [Observables](http://reactivex.io/intro.html).
 
-It provides a single class, `freemobile\Client`, allowing to send messages to your mobile phone using the `sendMessage()` method:
+It provides a single class, `FreeMobile\Client`, allowing to send messages to your mobile phone using the `sendMessage()` method:
 
 ```php
-use freemobile\{Client};
+use FreeMobile\{Client};
 
 $client = new Client('your user name', 'your identification key');
 $client->sendMessage('Hello World!')->subscribe(
