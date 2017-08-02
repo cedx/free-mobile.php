@@ -2,7 +2,7 @@
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
 ## Version 7.0.0
-- Breaking change: the `Client::endPoint` property is now an instance of `Psr\Http\Message\UriInterface`.
+- Breaking change: the `endPoint` property is now an instance of `Psr\Http\Message\UriInterface`.
 - Added new unit tests.
 - Replaced the [Guzzle](http://docs.guzzlephp.org) HTTP client by an `Observable`-based one.
 
