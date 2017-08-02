@@ -5,6 +5,7 @@ namespace FreeMobile;
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Promise\{PromiseInterface};
 use GuzzleHttp\Psr7\{ServerRequest};
+use Psr\Http\Message\{UriInterface};
 use Rx\{Observable};
 use Rx\Subject\{Subject};
 
@@ -19,7 +20,7 @@ class Client implements \JsonSerializable {
   const DEFAULT_ENDPOINT = 'https://smsapi.free-mobile.fr';
 
   /**
-   * @var string The URL of the API end point.
+   * @var Uri The URL of the API end point.
    */
   private $endPoint;
 
@@ -47,9 +48,9 @@ class Client implements \JsonSerializable {
    * Initializes a new instance of the class.
    * @param string $username The user name associated to the account.
    * @param string $password The identification key associated to the account.
-   * @param string $endPoint The URL of the API end point.
+   * @param string|UriInterface $endPoint The URL of the API end point.
    */
-  public function __construct(string $username = '', string $password = '', string $endPoint = self::DEFAULT_ENDPOINT) {
+  public function __construct(string $username = '', string $password = '', $endPoint = self::DEFAULT_ENDPOINT) {
     $this->onRequest = new Subject();
     $this->onResponse = new Subject();
 
@@ -69,9 +70,9 @@ class Client implements \JsonSerializable {
 
   /**
    * Gets the URL of the API end point.
-   * @return string The URL of the API end point.
+   * @return UriInterface The URL of the API end point.
    */
-  public function getEndPoint(): string {
+  public function getEndPoint() {
     return $this->endPoint;
   }
 
@@ -153,11 +154,14 @@ class Client implements \JsonSerializable {
 
   /**
    * Sets the URL of the API end point.
-   * @param string $value The new URL of the API end point.
+   * @param string|UriInterface $value The new URL of the API end point.
    * @return Client This instance.
    */
-  public function setEndPoint(string $value): self {
-    $this->endPoint = $value;
+  public function setEndPoint($value): self {
+    if ($value instanceof UriInterface) $this->endPoint = $value;
+    else if (is_string($value)) $this->endPoint = new Uri($value);
+    else $this->endPoint = null;
+
     return $this;
   }
 
