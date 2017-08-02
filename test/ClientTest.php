@@ -4,6 +4,7 @@ namespace FreeMobile;
 
 use function PHPUnit\Expect\{expect, fail, it};
 use PHPUnit\Framework\{TestCase};
+use Psr\Http\Message\{UriInterface};
 use Rx\Subject\{Subject};
 
 /**
@@ -68,6 +69,22 @@ class ClientTest extends TestCase {
         );
       });
     }
+  }
+
+  /**
+   * @test Client::setEndPoint
+   */
+  public function testSetEndPoint() {
+    it('should return an instance of `UriInterface` for strings', function() {
+      $endPoint = (new Client('', ''))->setEndPoint('https://github.com/cedx/free-mobile.php')->getEndPoint();
+      expect($endPoint)->to->be->instanceOf(UriInterface::class);
+      expect((string) $endPoint)->to->equal('https://github.com/cedx/free-mobile.php');
+    });
+
+    it('should return a `null` reference for unsupported values', function() {
+      $endPoint = (new Client('', ''))->setEndPoint(123)->getEndPoint();
+      expect($endPoint)->to->be->null;
+    });
   }
 
   /**
