@@ -2,11 +2,10 @@
 declare(strict_types=1);
 namespace FreeMobile;
 
-use GuzzleHttp\{Client as HttpClient};
-use GuzzleHttp\Promise\{PromiseInterface};
-use GuzzleHttp\Psr7\{ServerRequest};
+use GuzzleHttp\Psr7\{Request, Response, Uri};
 use Psr\Http\Message\{UriInterface};
 use Rx\{Observable};
+use Rx\React\{Http};
 use Rx\Subject\{Subject};
 
 /**
@@ -134,21 +133,18 @@ class Client implements \JsonSerializable {
     $message = trim($text);
     if (!mb_strlen($message)) return Observable::error(new \InvalidArgumentException('The specified message is empty.'));
 
-    $request = (new ServerRequest('GET', $this->getEndPoint().'/sendmsg'))->withQueryParams([
+    $uri = $this->getEndPoint()->withPath('/sendmsg')->withQuery(http_build_query([
       'msg' => mb_substr($message, 0, 160),
       'pass' => $password,
       'user' => $username
-    ]);
+    ]));
 
-    $promise = (new HttpClient)->sendAsync($request, [
-      'query' => $request->getQueryParams()
-    ]);
-
-    $this->onRequest->onNext($request);
-    return Observable::of($promise)->map(function(PromiseInterface $promise) {
-      $response = $promise->wait();
-      $this->onResponse->onNext($response);
-      return (string) $response->getBody();
+    $this->onRequest->onNext(new Request('GET', $uri));
+    return Http::get((string) $uri)->includeResponse()->map(function($data) {
+      /** @var \React\HttpClient\Response $response */
+      list($body, $response) = $data;
+      $this->onResponse->onNext(new Response($response->getCode(), $response->getHeaders(), $body));
+      return $body;
     });
   }
 
