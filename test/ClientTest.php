@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace FreeMobile;
 
-use function PHPUnit\Expect\{expect, fail, it};
+use function PHPUnit\Expect\{await, expect, fail, it};
 use PHPUnit\Framework\{TestCase};
 use Psr\Http\Message\{UriInterface};
 use Rx\Subject\{Subject};
@@ -47,27 +47,27 @@ class ClientTest extends TestCase {
    * @test Client::sendMessage
    */
   public function testSendMessage() {
-    it('should not send valid messages with invalid credentials', function() {
+    it('should not send valid messages with invalid credentials', await(function() {
       (new Client('', ''))->sendMessage('Hello World!')->subscribe(
         function() { fail('A message with empty credentials should not be sent.'); },
         function() { expect(true)->to->be->true; }
       );
-    });
+    }));
 
-    it('should not send invalid messages with valid credentials', function() {
+    it('should not send invalid messages with valid credentials', await(function() {
       (new Client('anonymous', 'secret'))->sendMessage('')->subscribe(
         function() { fail('A message with empty credentials should not be sent.'); },
         function() { expect(true)->to->be->true; }
       );
-    });
+    }));
 
     if (is_string($username = getenv('FREEMOBILE_USERNAME')) && is_string($password = getenv('FREEMOBILE_PASSWORD'))) {
-      it('should send valid messages with valid credentials', function() use ($password, $username) {
+      it('should send valid messages with valid credentials', await(function() use ($password, $username) {
         (new Client($username, $password))->sendMessage('Bonjour Cédric !')->subscribe(
           function() { expect(true)->to->be->true; },
           function(\Throwable $e) { fail($e->getMessage()); }
         );
-      });
+      }));
     }
   }
 
