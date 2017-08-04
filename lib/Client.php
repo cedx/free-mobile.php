@@ -97,7 +97,7 @@ class Client implements \JsonSerializable {
    */
   public function jsonSerialize(): \stdClass {
     return (object) [
-      'endPoint' => $this->getEndPoint(),
+      'endPoint' => ($endPoint = $this->getEndPoint()) ? (string) $endPoint : null,
       'password' => $this->getPassword(),
       'username' => $this->getUsername()
     ];
