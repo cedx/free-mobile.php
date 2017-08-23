@@ -32,7 +32,7 @@
     "ext-json": "*",
     "ext-mbstring": "*",
     "guzzlehttp/psr7": "^1.4.2",
-    "reactivex/rxphp": "^2.0.2",
+    "reactivex/rxphp": "^2.0.3",
     "rx/http": "^2.0.2"
   },
   "require-dev": {
