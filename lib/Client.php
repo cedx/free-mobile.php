@@ -6,7 +6,6 @@ use Evenement\{EventEmitterTrait};
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{Request, Uri};
 use Psr\Http\Message\{UriInterface};
-use Rx\{Observable};
 
 /**
  * Sends messages by SMS to a [Free Mobile](http://mobile.free.fr) account.
@@ -94,30 +93,35 @@ class Client implements \JsonSerializable {
   /**
    * Sends a SMS message to the underlying account.
    * @param string $text The text of the message to send.
-   * @return Observable The response body as string.
+   * @throws \InvalidArgumentException The account credentials are invalid, or the specified message is empty.
+   * @throws \RuntimeException An error occurred while sending the message.
    */
-  public function sendMessage(string $text): Observable {
+  public function sendMessage(string $text) {
     $username = $this->getUsername();
     $password = $this->getPassword();
     if (!mb_strlen($username) || !mb_strlen($password))
-      return Observable::error(new \InvalidArgumentException('The account credentials are invalid.'));
+      throw new \InvalidArgumentException('The account credentials are invalid.');
 
     $message = trim($text);
-    if (!mb_strlen($message)) return Observable::error(new \InvalidArgumentException('The specified message is empty.'));
+    if (!mb_strlen($message)) throw new \InvalidArgumentException('The specified message is empty.');
 
-    $uri = $this->getEndPoint()->withPath('/sendmsg')->withQuery(http_build_query([
-      'msg' => mb_substr($message, 0, 160),
-      'pass' => $password,
-      'user' => $username
-    ]));
+    try {
+      $uri = $this->getEndPoint()->withPath('/sendmsg')->withQuery(http_build_query([
+        'msg' => mb_substr($message, 0, 160),
+        'pass' => $password,
+        'user' => $username
+      ]));
 
-    $this->onRequest->onNext(new Request('GET', $uri));
-    return Http::get((string) $uri)->includeResponse()->map(function($data) {
-      /** @var \React\HttpClient\Response $response */
-      list($body, $response) = $data;
-      $this->onResponse->onNext(new Response($response->getCode(), $response->getHeaders(), $body));
-      return $body;
-    });
+      $request = new Request('GET', $uri);
+      $this->emit('request', [$request]);
+
+      $response = (new HTTPClient())->send($request);
+      $this->emit('reponse', [$response]);
+    }
+
+    catch (\Throwable $e) {
+      throw new \RuntimeException('An error occurred while sending the message.', 0, $e);
+    }
   }
 
   /**
