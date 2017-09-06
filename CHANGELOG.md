@@ -3,6 +3,7 @@ This file contains highlights of what changes on each version of the [Free Mobil
 
 ## Version 8.0.0
 - Changed licensing for the [MIT License](https://opensource.org/licenses/MIT).
+- Restored the [Guzzle](http://docs.guzzlephp.org) HTTP client.
 
 ## Version 7.0.0
 - Breaking change: the `endPoint` property is now an instance of [`Psr\Http\Message\UriInterface`](http://www.php-fig.org/psr/psr-7/#35-psrhttpmessageuriinterface) interface.
