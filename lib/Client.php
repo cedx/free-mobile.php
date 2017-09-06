@@ -2,16 +2,17 @@
 declare(strict_types=1);
 namespace FreeMobile;
 
+use Evenement\{EventEmitterTrait};
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{Request, Uri};
 use Psr\Http\Message\{UriInterface};
 use Rx\{Observable};
-use Rx\Subject\{Subject};
 
 /**
  * Sends messages by SMS to a [Free Mobile](http://mobile.free.fr) account.
  */
 class Client implements \JsonSerializable {
+  use EventEmitterTrait;
 
   /**
    * @var string The URL of the default API end point.
@@ -22,16 +23,6 @@ class Client implements \JsonSerializable {
    * @var Uri The URL of the API end point.
    */
   private $endPoint;
-
-  /**
-   * @var Subject The handler of "request" events.
-   */
-  private $onRequest;
-
-  /**
-   * @var Subject The handler of "response" events.
-   */
-  private $onResponse;
 
   /**
    * @var string The identification key associated to the account.
@@ -50,9 +41,6 @@ class Client implements \JsonSerializable {
    * @param string|UriInterface $endPoint The URL of the API end point.
    */
   public function __construct(string $username = '', string $password = '', $endPoint = self::DEFAULT_ENDPOINT) {
-    $this->onRequest = new Subject();
-    $this->onResponse = new Subject();
-
     $this->setUsername($username);
     $this->setPassword($password);
     $this->setEndPoint($endPoint);
@@ -101,22 +89,6 @@ class Client implements \JsonSerializable {
       'password' => $this->getPassword(),
       'username' => $this->getUsername()
     ];
-  }
-
-  /**
-   * Gets the stream of "request" events.
-   * @return Observable The stream of "request" events.
-   */
-  public function onRequest(): Observable {
-    return $this->onRequest->asObservable();
-  }
-
-  /**
-   * Gets the stream of "response" events.
-   * @return Observable The stream of "response" events.
-   */
-  public function onResponse(): Observable {
-    return $this->onResponse->asObservable();
   }
 
   /**
