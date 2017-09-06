@@ -80,4 +80,4 @@ $ composer test
 - [Continuous integration](https://travis-ci.org/cedx/free-mobile.php)
 
 ## License
-[Free Mobile for PHP](https://github.com/cedx/free-mobile.php) is distributed under the Apache License, version 2.0.
+[Free Mobile for PHP](https://github.com/cedx/free-mobile.php) is distributed under the MIT License.

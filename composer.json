@@ -1,7 +1,7 @@
 {
   "description": "Send SMS messages to your Free Mobile account.",
   "homepage": "https://github.com/cedx/free-mobile.php",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "name": "cedx/free-mobile",
   "type": "library",
   "authors": [{
