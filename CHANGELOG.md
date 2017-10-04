@@ -3,6 +3,7 @@ This file contains highlights of what changes on each version of the [Free Mobil
 
 ## Version 9.0.0
 - Breaking change: changed the signature of the constructor.
+- Updated the package dependencies.
 
 ## Version 8.0.0
 - Breaking change: moved the `Observable` API to a synchronous one.
