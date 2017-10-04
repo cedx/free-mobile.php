@@ -10,7 +10,7 @@ use Psr\Http\Message\{UriInterface};
 /**
  * Sends messages by SMS to a [Free Mobile](http://mobile.free.fr) account.
  */
-class Client implements \JsonSerializable {
+class Client {
   use EventEmitterTrait;
 
   /**
@@ -39,14 +39,6 @@ class Client implements \JsonSerializable {
    * @param string $password The identification key associated to the account.
    * @param string|UriInterface $endPoint The URL of the API end point.
    */
-
-  /**
-   * Returns a string representation of this object.
-   * @return string The string representation of this object.
-   */
-  public function __toString(): string {
-    $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class." $json";
   public function __construct(string $username, string $password, $endPoint = self::DEFAULT_ENDPOINT) {
     $this->username = $username;
     $this->password = $password;
@@ -75,18 +67,6 @@ class Client implements \JsonSerializable {
    */
   public function getUsername(): string {
     return $this->username;
-  }
-
-  /**
-   * Converts this object to a map in JSON format.
-   * @return \stdClass The map in JSON format corresponding to this object.
-   */
-  public function jsonSerialize(): \stdClass {
-    return (object) [
-      'endPoint' => ($endPoint = $this->getEndPoint()) ? (string) $endPoint : null,
-      'password' => $this->getPassword(),
-      'username' => $this->getUsername()
-    ];
   }
 
   /**

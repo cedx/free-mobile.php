@@ -4,25 +4,11 @@ namespace FreeMobile;
 
 use function PHPUnit\Expect\{expect, fail, it};
 use PHPUnit\Framework\{TestCase};
-use Psr\Http\Message\{UriInterface};
 
 /**
  * Tests the features of the `FreeMobile\Client` class.
  */
 class ClientTest extends TestCase {
-
-  /**
-   * @test Client::jsonSerialize
-   */
-  public function testJsonSerialize() {
-    it('should return a map with the same public values', function() {
-      $data = (new Client('anonymous', 'secret'))->jsonSerialize();
-      expect(get_object_vars($data))->to->have->lengthOf(3);
-      expect($data->endPoint)->to->equal(Client::DEFAULT_ENDPOINT);
-      expect($data->password)->to->equal('secret');
-      expect($data->username)->to->equal('anonymous');
-    });
-  }
 
   /**
    * @test Client::sendMessage
@@ -79,18 +65,4 @@ class ClientTest extends TestCase {
     });
   }
 
-  /**
-   * @test Client::__toString
-   */
-  public function testToString() {
-    $client = (string) new Client('anonymous', 'secret');
-
-    it('should start with the class name', function() use ($client) {
-      expect($client)->to->startWith('FreeMobile\Client {');
-    });
-
-    it('should contain the instance properties', function() use ($client) {
-      expect($client)->to->contain('"password":"secret"')->and->contain('"username":"anonymous"');
-    });
-  }
 }
