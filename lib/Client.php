@@ -72,23 +72,18 @@ class Client {
   /**
    * Sends a SMS message to the underlying account.
    * @param string $text The text of the message to send.
-   * @throws \InvalidArgumentException The account credentials are invalid, or the specified message is empty.
+   * @throws \InvalidArgumentException The specified message is empty.
    * @throws \RuntimeException An error occurred while sending the message.
    */
   public function sendMessage(string $text) {
-    $username = $this->getUsername();
-    $password = $this->getPassword();
-    if (!mb_strlen($username) || !mb_strlen($password))
-      throw new \InvalidArgumentException('The account credentials are invalid.');
-
     $message = trim($text);
     if (!mb_strlen($message)) throw new \InvalidArgumentException('The specified message is empty.');
 
     try {
       $uri = $this->getEndPoint()->withPath('/sendmsg')->withQuery(http_build_query([
         'msg' => mb_substr($message, 0, 160),
-        'pass' => $password,
-        'user' => $username
+        'pass' => $this->getPassword(),
+        'user' => $this->getUsername()
       ]));
 
       $request = new Request('GET', $uri);
@@ -101,38 +96,5 @@ class Client {
     catch (\Throwable $e) {
       throw new \RuntimeException('An error occurred while sending the message.', 0, $e);
     }
-  }
-
-  /**
-   * Sets the URL of the API end point.
-   * @param string|UriInterface $value The new URL of the API end point.
-   * @return Client This instance.
-   */
-  public function setEndPoint($value): self {
-    if ($value instanceof UriInterface) $this->endPoint = $value;
-    else if (is_string($value)) $this->endPoint = new Uri($value);
-    else $this->endPoint = null;
-
-    return $this;
-  }
-
-  /**
-   * Sets the identification key associated to the account.
-   * @param string $value The new identification key.
-   * @return Client This instance.
-   */
-  public function setPassword(string $value): self {
-    $this->password = $value;
-    return $this;
-  }
-
-  /**
-   * Sets the user name associated to the account.
-   * @param string $value The new username.
-   * @return Client This instance.
-   */
-  public function setUsername(string $value): self {
-    $this->username = $value;
-    return $this;
   }
 }

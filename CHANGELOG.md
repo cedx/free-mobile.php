@@ -3,6 +3,8 @@ This file contains highlights of what changes on each version of the [Free Mobil
 
 ## Version 9.0.0
 - Breaking change: changed the signature of the constructor.
+- Breaking change: the class properties are now read-only.
+- Breaking change: removed the `jsonSerialize()` and `__toString()` methods.
 - Updated the package dependencies.
 
 ## Version 8.0.0
