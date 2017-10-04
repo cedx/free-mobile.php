@@ -72,18 +72,23 @@ class Client {
   /**
    * Sends a SMS message to the underlying account.
    * @param string $text The text of the message to send.
-   * @throws \InvalidArgumentException The specified message is empty.
+   * @throws \InvalidArgumentException The account credentials are invalid, or the specified message is empty.
    * @throws \RuntimeException An error occurred while sending the message.
    */
   public function sendMessage(string $text) {
+    $username = $this->getUsername();
+    $password = $this->getPassword();
+    if (!mb_strlen($username) || !mb_strlen($password))
+      throw new \InvalidArgumentException('The account credentials are invalid.');
+
     $message = trim($text);
     if (!mb_strlen($message)) throw new \InvalidArgumentException('The specified message is empty.');
 
     try {
       $uri = $this->getEndPoint()->withPath('/sendmsg')->withQuery(http_build_query([
         'msg' => mb_substr($message, 0, 160),
-        'pass' => $this->getPassword(),
-        'user' => $this->getUsername()
+        'pass' => $password,
+        'user' => $username
       ]));
 
       $request = new Request('GET', $uri);
