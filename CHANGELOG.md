@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
+## Version 9.0.0
+- Breaking change: changed the signature of the constructor.
+
 ## Version 8.0.0
 - Breaking change: moved the `Observable` API to a synchronous one.
 - Breaking change: moved the `Subject` event API to the `EventEmitter` one.

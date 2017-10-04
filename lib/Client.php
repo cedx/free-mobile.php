@@ -39,11 +39,6 @@ class Client implements \JsonSerializable {
    * @param string $password The identification key associated to the account.
    * @param string|UriInterface $endPoint The URL of the API end point.
    */
-  public function __construct(string $username = '', string $password = '', $endPoint = self::DEFAULT_ENDPOINT) {
-    $this->setUsername($username);
-    $this->setPassword($password);
-    $this->setEndPoint($endPoint);
-  }
 
   /**
    * Returns a string representation of this object.
@@ -52,6 +47,10 @@ class Client implements \JsonSerializable {
   public function __toString(): string {
     $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     return static::class." $json";
+  public function __construct(string $username, string $password, $endPoint = self::DEFAULT_ENDPOINT) {
+    $this->username = $username;
+    $this->password = $password;
+    $this->endPoint = is_string($endPoint) ? new Uri($endPoint) : $endPoint;
   }
 
   /**
