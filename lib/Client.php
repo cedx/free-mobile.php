@@ -16,7 +16,7 @@ class Client {
   /**
    * @var string The URL of the default API end point.
    */
-  const DEFAULT_ENDPOINT = 'https://smsapi.free-mobile.fr';
+  private const DEFAULT_ENDPOINT = 'https://smsapi.free-mobile.fr';
 
   /**
    * @var Uri The URL of the API end point.
@@ -49,7 +49,7 @@ class Client {
    * Gets the URL of the API end point.
    * @return UriInterface The URL of the API end point.
    */
-  public function getEndPoint() {
+  public function getEndPoint(): UriInterface {
     return $this->endPoint;
   }
 
@@ -75,7 +75,7 @@ class Client {
    * @throws \InvalidArgumentException The account credentials are invalid, or the specified message is empty.
    * @throws \RuntimeException An error occurred while sending the message.
    */
-  public function sendMessage(string $text) {
+  public function sendMessage(string $text): void {
     $username = $this->getUsername();
     $password = $this->getPassword();
     if (!mb_strlen($username) || !mb_strlen($password))
@@ -95,7 +95,7 @@ class Client {
       $this->emit('request', [$request]);
 
       $response = (new HTTPClient())->send($request);
-      $this->emit('reponse', [$response]);
+      $this->emit('response', [$response]);
     }
 
     catch (\Throwable $e) {
