@@ -13,7 +13,7 @@ class ClientTest extends TestCase {
   /**
    * @test Client::sendMessage
    */
-  public function testSendMessage() {
+  public function testSendMessage(): void {
     it('should not send valid messages with invalid credentials', function() {
       try {
         (new Client('', ''))->sendMessage('Hello World!');
