@@ -2,8 +2,10 @@
 This file contains highlights of what changes on each version of the [Free Mobile for PHP](https://github.com/cedx/free-mobile.php) library.
 
 ## Version [10.0.0](https://github.com/cedx/free-mobile.php/compare/v9.0.0...v10.0.0)
+- Breaking change: changed the signature of the `Client` events.
 - Breaking change: raised the required [PHP](https://secure.php.net) version.
 - Breaking change: using PHP 7.1 features, like class constant visibility and void functions.
+- Added the `EVENT_REQUEST` and `EVENT_RESPONSE` constants to the `Client` class.
 
 ## Version [9.0.0](https://github.com/cedx/free-mobile.php/compare/v8.0.0...v9.0.0)
 - Breaking change: changed the signature of the constructor.

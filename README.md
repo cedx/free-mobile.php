@@ -46,11 +46,11 @@ You can subscribe to them using the `on()` method:
 ```php
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
-$client->on('request', function(RequestInterface $request) {
+$client->on(Client::EVENT_REQUEST, function(RequestInterface $request) {
   echo 'Client request: ', $request->getUri();
 });
 
-$client->on('response', function(ResponseInterface $response) {
+$client->on(Client::EVENT_RESPONSE, function($request, ResponseInterface $response) {
   echo 'Server response: ', $response->getStatusCode();
 });
 ```
