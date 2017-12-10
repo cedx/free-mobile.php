@@ -92,10 +92,10 @@ class Client {
       ]));
 
       $request = new Request('GET', $uri);
-      $this->emit('request', [$request]);
+      $this->emit(static::EVENT_REQUEST, [$request]);
 
       $response = (new HTTPClient())->send($request);
-      $this->emit('response', [$response]);
+      $this->emit(static::EVENT_RESPONSE, [$request, $response]);
     }
 
     catch (\Throwable $e) {
