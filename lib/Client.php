@@ -14,6 +14,16 @@ class Client {
   use EventEmitterTrait;
 
   /**
+   * @var string An event that is triggered when a request is made to the remote service.
+   */
+  public const EVENT_REQUEST = 'request';
+
+  /**
+   * @var string An event that is triggered when a response is received from the remote service.
+   */
+  public const EVENT_RESPONSE = 'response';
+
+  /**
    * @var string The URL of the default API end point.
    */
   private const DEFAULT_ENDPOINT = 'https://smsapi.free-mobile.fr';
