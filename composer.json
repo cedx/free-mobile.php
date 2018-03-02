@@ -1,6 +1,6 @@
 {
   "description": "Send SMS messages to your Free Mobile account.",
-  "homepage": "https://github.com/cedx/free-mobile.php",
+  "homepage": "https://cedx.github.io/free-mobile.php",
   "license": "MIT",
   "name": "cedx/free-mobile",
   "type": "library",
@@ -40,6 +40,7 @@
     "test": "phpunit --colors=auto --verbose"
   },
   "support": {
+    "docs": "https://cedx.github.io/free-mobile.php/api",
     "issues": "https://github.com/cedx/free-mobile.php/issues"
   }
 }
