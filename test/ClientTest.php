@@ -11,28 +11,33 @@ use PHPUnit\Framework\{TestCase};
 class ClientTest extends TestCase {
 
   /**
+   * @test Client::__construct
+   */
+  public function testConstructor(): void {
+    it('should throw an exception if the credentials are invalid', function() {
+      try {
+        (new Client('', ''))->sendMessage('Hello World!');
+        fail('A message with empty credentials should not be sent');
+      }
+
+      catch (\Throwable $e) {
+        expect($e)->to->be->an->instanceOf(\InvalidArgumentException::class);
+      }
+    });
+  }
+
+  /**
    * @test Client::sendMessage
    */
   public function testSendMessage(): void {
-    it('should not send valid messages with invalid credentials', function() {
-      try {
-        (new Client('', ''))->sendMessage('Hello World!');
-        fail('A message with empty credentials should not be sent.');
-      }
-
-      catch (\Throwable $e) {
-        expect(true)->to->be->true;
-      }
-    });
-
-    it('should not send invalid messages with valid credentials', function() {
+    it('should not send invalid messages', function() {
       try {
         (new Client('anonymous', 'secret'))->sendMessage('');
-        fail('A message with empty credentials should not be sent.');
+        fail('An empty message with valid credentials should not be sent');
       }
 
       catch (\Throwable $e) {
-        expect(true)->to->be->true;
+        expect($e)->to->be->an->instanceOf(\InvalidArgumentException::class);
       }
     });
 
@@ -44,7 +49,7 @@ class ClientTest extends TestCase {
         }
 
         catch (\Throwable $e) {
-          fail($e->getMessage());
+          expect($e)->to->be->an->instanceOf(ClientException::class);
         }
       });
     }

@@ -57,12 +57,12 @@ $client->on(Client::EVENT_RESPONSE, function($request, ResponseInterface $respon
 If you want to run the library tests, you must set two environment variables:
 
 ```shell
-$ export FREEMOBILE_USERNAME="your account identifier"
-$ export FREEMOBILE_PASSWORD="your API key"
+export FREEMOBILE_USERNAME="your account identifier"
+export FREEMOBILE_PASSWORD="your API key"
 ```
 
 Then, you can run the `test` script from the command prompt:
 
 ```shell
-$ composer test
+composer test
 ```
