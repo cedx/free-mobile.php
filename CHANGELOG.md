@@ -2,6 +2,7 @@
 
 ## Version [10.1.0](https://github.com/cedx/free-mobile.php/compare/v10.0.0...v10.1.0)
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
+- Added the `ClientException` class.
 - Updated the package dependencies.
 
 ## Version [10.0.0](https://github.com/cedx/free-mobile.php/compare/v9.0.0...v10.0.0)

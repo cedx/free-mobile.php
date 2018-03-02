@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace FreeMobile;
 
-use Evenement\{EventEmitterTrait};
+use Evenement\{EventEmitterInterface, EventEmitterTrait};
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{Request, Uri};
 use Psr\Http\Message\{UriInterface};
@@ -10,7 +10,7 @@ use Psr\Http\Message\{UriInterface};
 /**
  * Sends messages by SMS to a [Free Mobile](http://mobile.free.fr) account.
  */
-class Client {
+class Client implements EventEmitterInterface {
   use EventEmitterTrait;
 
   /**
@@ -94,13 +94,13 @@ class Client {
     $message = trim($text);
     if (!mb_strlen($message)) throw new \InvalidArgumentException('The specified message is empty.');
 
-    try {
-      $uri = $this->getEndPoint()->withPath('/sendmsg')->withQuery(http_build_query([
-        'msg' => mb_substr($message, 0, 160),
-        'pass' => $password,
-        'user' => $username
-      ]));
+    $uri = $this->getEndPoint()->withPath('/sendmsg')->withQuery(http_build_query([
+      'msg' => mb_substr($message, 0, 160),
+      'pass' => $password,
+      'user' => $username
+    ]));
 
+    try {
       $request = new Request('GET', $uri);
       $this->emit(static::EVENT_REQUEST, [$request]);
 
@@ -109,7 +109,7 @@ class Client {
     }
 
     catch (\Throwable $e) {
-      throw new \RuntimeException('An error occurred while sending the message.', 0, $e);
+      throw new ClientException('An error occurred while sending the message.', $uri, $e);
     }
   }
 }
