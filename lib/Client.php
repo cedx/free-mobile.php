@@ -24,11 +24,6 @@ class Client implements EventEmitterInterface {
   public const EVENT_RESPONSE = 'response';
 
   /**
-   * @var string The URL of the default API end point.
-   */
-  private const DEFAULT_ENDPOINT = 'https://smsapi.free-mobile.fr';
-
-  /**
    * @var Uri The URL of the API end point.
    */
   private $endPoint;
@@ -50,7 +45,7 @@ class Client implements EventEmitterInterface {
    * @param string|UriInterface $endPoint The URL of the API end point.
    * @throws \InvalidArgumentException The account credentials are invalid.
    */
-  public function __construct(string $username, string $password, $endPoint = self::DEFAULT_ENDPOINT) {
+  public function __construct(string $username, string $password, $endPoint = 'https://smsapi.free-mobile.fr') {
     if (!mb_strlen($username) || !mb_strlen($password)) throw new \InvalidArgumentException('The account credentials are invalid');
 
     $this->username = $username;
@@ -107,7 +102,7 @@ class Client implements EventEmitterInterface {
     }
 
     catch (\Throwable $e) {
-      throw new ClientException('An error occurred while sending the message.', $uri, $e);
+      throw new ClientException($e->getMessage(), $uri, $e);
     }
   }
 }

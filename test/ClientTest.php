@@ -4,6 +4,7 @@ namespace FreeMobile;
 
 use function PHPUnit\Expect\{expect, fail, it};
 use PHPUnit\Framework\{TestCase};
+use Psr\Http\Message\{UriInterface};
 
 /**
  * Tests the features of the `FreeMobile\Client` class.
@@ -14,15 +15,29 @@ class ClientTest extends TestCase {
    * @test Client::__construct
    */
   public function testConstructor(): void {
-    it('should throw an exception if the credentials are invalid', function() {
-      try {
-        (new Client('', ''))->sendMessage('Hello World!');
-        fail('A message with empty credentials should not be sent');
-      }
+    it('should throw an exception if the username or password is empty', function() {
+      expect(function() { new Client('', ''); })->to->throw(\InvalidArgumentException::class);
+    });
 
-      catch (\Throwable $e) {
-        expect($e)->to->be->an->instanceOf(\InvalidArgumentException::class);
-      }
+    it('should not throw an exception if the username and password are not empty', function() {
+      expect(function() { new Client('anonymous', 'secret'); })->to->not->throw;
+    });
+  }
+
+  /**
+   * @test Client::getEndPoint
+   */
+  public function testGetEndPoint(): void {
+    it('should not be empty by default', function() {
+      $endPoint = (new Client('anonymous', 'secret'))->getEndPoint();
+      expect($endPoint)->to->be->an->instanceOf(UriInterface::class);
+      expect((string) $endPoint)->to->equal('https://smsapi.free-mobile.fr');
+    });
+
+    it('should be an instance of the `Uri` class', function() {
+      $endPoint = (new Client('anonymous', 'secret', 'http://localhost'))->getEndPoint();
+      expect($endPoint)->to->be->an->instanceOf(UriInterface::class);
+      expect((string) $endPoint)->to->equal('http://localhost');
     });
   }
 
@@ -30,7 +45,7 @@ class ClientTest extends TestCase {
    * @test Client::sendMessage
    */
   public function testSendMessage(): void {
-    it('should not send invalid messages', function() {
+    it('should not send invalid messages with valid credentials', function() {
       try {
         (new Client('anonymous', 'secret'))->sendMessage('');
         fail('An empty message with valid credentials should not be sent');
@@ -38,6 +53,17 @@ class ClientTest extends TestCase {
 
       catch (\Throwable $e) {
         expect($e)->to->be->an->instanceOf(\InvalidArgumentException::class);
+      }
+    });
+
+    it('should throw a `ClientException` if a network error occurred', function() {
+      try {
+        (new Client('anonymous', 'secret', 'http://localhost'))->sendMessage('Hello World!');
+        fail('A message with an invalid endpoint should not be sent');
+      }
+
+      catch (\Throwable $e) {
+        expect($e)->to->be->an->instanceOf(ClientException::class);
       }
     });
 
