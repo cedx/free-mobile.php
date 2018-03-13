@@ -18,10 +18,6 @@ class ClientTest extends TestCase {
     it('should throw an exception if the username or password is empty', function() {
       expect(function() { new Client('', ''); })->to->throw(\InvalidArgumentException::class);
     });
-
-    it('should not throw an exception if the username and password are not empty', function() {
-      expect(function() { new Client('anonymous', 'secret'); })->to->not->throw;
-    });
   }
 
   /**
