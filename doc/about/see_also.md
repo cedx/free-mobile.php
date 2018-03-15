@@ -6,7 +6,7 @@
 
 ## Testing
 - [Continuous integration](https://travis-ci.org/cedx/free-mobile.php)
-- [Code coverage](https://coveralls.io/github/cedx/free-mobile.php)
+- [Code coverage](https://coveralls.io/github/cedx/free-mobile.php/)
 
 ## Other implementations
 - Dart: [Free Mobile for Dart](https://cedx.github.io/free-mobile.dart)
