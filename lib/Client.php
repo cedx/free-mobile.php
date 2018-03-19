@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\{Request, Uri};
 use Psr\Http\Message\{UriInterface};
 
 /**
- * Sends messages by SMS to a [Free Mobile](http://mobile.free.fr) account.
+ * Sends messages by SMS to a Free Mobile account.
  */
 class Client implements EventEmitterInterface {
   use EventEmitterTrait;
