@@ -28,7 +28,7 @@
     "ext-json": "*",
     "ext-mbstring": "*",
     "evenement/evenement": "^3.0.1",
-    "guzzlehttp/guzzle": "^6.3.0"
+    "guzzlehttp/guzzle": "^6.3.3"
   },
   "require-dev": {
     "cedx/coveralls": "^6.0.0",
