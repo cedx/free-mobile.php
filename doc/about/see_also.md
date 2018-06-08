@@ -5,7 +5,7 @@
 - [Packagist package](https://packagist.org/packages/cedx/free-mobile)
 
 ## Testing
-- [Continuous integration](https://travis-ci.org/cedx/free-mobile.php)
+- [Continuous integration](https://travis-ci.com/cedx/free-mobile.php)
 - [Code coverage](https://coveralls.io/github/cedx/free-mobile.php/)
 
 ## Other implementations
