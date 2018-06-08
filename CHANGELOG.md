@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [11.0.0](https://github.com/cedx/free-mobile.php/compare/v10.1.0...v11.0.0)
+- Breaking change: raised the required [PHP](https://secure.php.net) version.
+
 ## Version [10.1.0](https://github.com/cedx/free-mobile.php/compare/v10.0.0...v10.1.0)
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
 - Added the `ClientException` class.
