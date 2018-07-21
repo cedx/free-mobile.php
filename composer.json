@@ -1,5 +1,5 @@
 {
-  "description": "Send SMS messages to your Free Mobile account.",
+  "description": "Send SMS messages to your Free Mobile device. A simple and free way to monitor your applications using a Free Mobile account.",
   "homepage": "https://dev.belin.io/free-mobile.php",
   "license": "MIT",
   "name": "cedx/free-mobile",
