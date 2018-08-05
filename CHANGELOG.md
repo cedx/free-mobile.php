@@ -1,9 +1,11 @@
 # Changelog
 
+## Version [11.1.0](https://github.com/cedx/free-mobile.php/compare/v11.0.0...v11.1.0)
+- Dropped the dependency on [PHPUnit-Expect](https://dev.belin.io/phpunit-expect).
+
 ## Version [11.0.0](https://github.com/cedx/free-mobile.php/compare/v10.1.0...v11.0.0)
 - Breaking change: raised the required [PHP](https://secure.php.net) version.
 - Added support for [phpDocumentor](https://www.phpdoc.org).
-- Dropped the dependency on [PHPUnit-Expect](https://dev.belin.io/phpunit-expect).
 - Updated the package dependencies.
 
 ## Version [10.1.0](https://github.com/cedx/free-mobile.php/compare/v10.0.0...v10.1.0)
