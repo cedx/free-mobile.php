@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [11.2.0](https://github.com/cedx/free-mobile.php/compare/v11.1.0...v11.2.0)
+- Updated the package dependencies.
+
 ## Version [11.1.0](https://github.com/cedx/free-mobile.php/compare/v11.0.0...v11.1.0)
 - Dropped the dependency on [PHPUnit-Expect](https://dev.belin.io/phpunit-expect).
 
