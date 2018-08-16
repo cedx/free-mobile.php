@@ -24,7 +24,7 @@ class Client implements EventEmitterInterface {
   public const EVENT_RESPONSE = 'response';
 
   /**
-   * @var Uri The URL of the API end point.
+   * @var UriInterface The URL of the API end point.
    */
   private $endPoint;
 

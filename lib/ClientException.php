@@ -10,7 +10,7 @@ use Psr\Http\Message\{UriInterface};
 class ClientException extends \RuntimeException {
 
   /**
-   * @var \GuzzleHttp\Psr7\Uri The URL of the HTTP request or response that failed.
+   * @var UriInterface The URL of the HTTP request or response that failed.
    */
   private $uri;
 
