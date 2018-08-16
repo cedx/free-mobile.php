@@ -42,15 +42,15 @@ class Client implements EventEmitterInterface {
    * Initializes a new instance of the class.
    * @param string $username The user name associated to the account.
    * @param string $password The identification key associated to the account.
-   * @param string|UriInterface $endPoint The URL of the API end point.
+   * @param UriInterface $endPoint The URL of the API end point.
    * @throws \InvalidArgumentException The account credentials are invalid.
    */
-  public function __construct(string $username, string $password, $endPoint = 'https://smsapi.free-mobile.fr') {
+  public function __construct(string $username, string $password, UriInterface $endPoint = null) {
     if (!mb_strlen($username) || !mb_strlen($password)) throw new \InvalidArgumentException('The account credentials are invalid');
 
     $this->username = $username;
     $this->password = $password;
-    $this->endPoint = is_string($endPoint) ? new Uri($endPoint) : $endPoint;
+    $this->endPoint = $endPoint ?? new Uri('https://smsapi.free-mobile.fr');
   }
 
   /**

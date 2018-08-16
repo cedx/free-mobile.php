@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace FreeMobile;
 
-use GuzzleHttp\Psr7\{Uri};
 use Psr\Http\Message\{UriInterface};
 
 /**
@@ -11,19 +10,19 @@ use Psr\Http\Message\{UriInterface};
 class ClientException extends \RuntimeException {
 
   /**
-   * @var Uri The URL of the HTTP request or response that failed.
+   * @var \GuzzleHttp\Psr7\Uri The URL of the HTTP request or response that failed.
    */
   private $uri;
 
   /**
    * Creates a new client exception.
    * @param string $message A message describing the error.
-   * @param string|UriInterface $uri The URL of the HTTP request or response that failed.
+   * @param UriInterface $uri The URL of the HTTP request or response that failed.
    * @param \Throwable $previous The previous exception used for the exception chaining.
    */
-  public function __construct($message, $uri = null, \Throwable $previous = null) {
+  public function __construct($message, UriInterface $uri = null, \Throwable $previous = null) {
     parent::__construct($message, 0, $previous);
-    $this->uri = is_string($uri) ? new Uri($uri) : $uri;
+    $this->uri = $uri;
   }
 
   /**
