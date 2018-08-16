@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace FreeMobile;
 
+use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 use Psr\Http\Message\{UriInterface};
 
@@ -29,7 +30,7 @@ class ClientTest extends TestCase {
     assertThat((string) $endPoint, equalTo('https://smsapi.free-mobile.fr'));
 
     // It should be an instance of the `Uri` class.
-    $endPoint = (new Client('anonymous', 'secret', 'http://localhost'))->getEndPoint();
+    $endPoint = (new Client('anonymous', 'secret', new Uri('http://localhost')))->getEndPoint();
     assertThat($endPoint, isInstanceOf(UriInterface::class));
     assertThat((string) $endPoint, equalTo('http://localhost'));
   }
@@ -50,7 +51,7 @@ class ClientTest extends TestCase {
 
     // It should throw a `ClientException` if a network error occurred.
     try {
-      (new Client('anonymous', 'secret', 'http://localhost'))->sendMessage('Hello World!');
+      (new Client('anonymous', 'secret', new Uri('http://localhost')))->sendMessage('Hello World!');
       $this->fail('A message with an invalid endpoint should not be sent');
     }
 
