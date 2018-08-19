@@ -16,12 +16,12 @@ class Client implements EventEmitterInterface {
   /**
    * @var string An event that is triggered when a request is made to the remote service.
    */
-  public const EVENT_REQUEST = 'request';
+  const EVENT_REQUEST = 'request';
 
   /**
    * @var string An event that is triggered when a response is received from the remote service.
    */
-  public const EVENT_RESPONSE = 'response';
+  const EVENT_RESPONSE = 'response';
 
   /**
    * @var UriInterface The URL of the API end point.
@@ -45,7 +45,7 @@ class Client implements EventEmitterInterface {
    * @param UriInterface $endPoint The URL of the API end point.
    * @throws \InvalidArgumentException The account credentials are invalid.
    */
-  public function __construct(string $username, string $password, UriInterface $endPoint = null) {
+  function __construct(string $username, string $password, UriInterface $endPoint = null) {
     if (!mb_strlen($username) || !mb_strlen($password)) throw new \InvalidArgumentException('The account credentials are invalid');
 
     $this->username = $username;
@@ -57,7 +57,7 @@ class Client implements EventEmitterInterface {
    * Gets the URL of the API end point.
    * @return UriInterface The URL of the API end point.
    */
-  public function getEndPoint(): UriInterface {
+  function getEndPoint(): UriInterface {
     return $this->endPoint;
   }
 
@@ -65,7 +65,7 @@ class Client implements EventEmitterInterface {
    * Gets the identification key associated to the account.
    * @return string The identification key associated to the account.
    */
-  public function getPassword(): string {
+  function getPassword(): string {
     return $this->password;
   }
 
@@ -73,7 +73,7 @@ class Client implements EventEmitterInterface {
    * Gets the user name associated to the account.
    * @return string The user name associated to the account.
    */
-  public function getUsername(): string {
+  function getUsername(): string {
     return $this->username;
   }
 
@@ -83,7 +83,7 @@ class Client implements EventEmitterInterface {
    * @throws \InvalidArgumentException The specified message is empty.
    * @throws ClientException An error occurred while sending the message.
    */
-  public function sendMessage(string $text): void {
+  function sendMessage(string $text): void {
     $message = trim($text);
     if (!mb_strlen($message)) throw new \InvalidArgumentException('The specified message is empty');
 

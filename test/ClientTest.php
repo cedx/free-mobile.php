@@ -14,7 +14,7 @@ class ClientTest extends TestCase {
   /**
    * @test Client::__construct
    */
-  public function testConstructor(): void {
+  function testConstructor(): void {
     // It should throw an exception if the username or password is empty.
     $this->expectException(\InvalidArgumentException::class);
     new Client('', '');
@@ -23,7 +23,7 @@ class ClientTest extends TestCase {
   /**
    * @test Client::getEndPoint
    */
-  public function testGetEndPoint(): void {
+  function testGetEndPoint(): void {
     // It should not be empty by default.
     $endPoint = (new Client('anonymous', 'secret'))->getEndPoint();
     assertThat($endPoint, isInstanceOf(UriInterface::class));
@@ -38,7 +38,7 @@ class ClientTest extends TestCase {
   /**
    * @test Client::sendMessage
    */
-  public function testSendMessage(): void {
+  function testSendMessage(): void {
     // It should not send invalid messages with valid credentials.
     try {
       (new Client('anonymous', 'secret'))->sendMessage('');
