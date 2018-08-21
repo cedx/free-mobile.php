@@ -12,7 +12,7 @@ use Psr\Http\Message\{UriInterface};
 class ClientTest extends TestCase {
 
   /**
-   * @test Client::__construct
+   * Tests the `Client` constructor.
    */
   function testConstructor(): void {
     // It should throw an exception if the username or password is empty.
@@ -21,22 +21,7 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test Client::getEndPoint
-   */
-  function testGetEndPoint(): void {
-    // It should not be empty by default.
-    $endPoint = (new Client('anonymous', 'secret'))->getEndPoint();
-    assertThat($endPoint, isInstanceOf(UriInterface::class));
-    assertThat((string) $endPoint, equalTo('https://smsapi.free-mobile.fr'));
-
-    // It should be an instance of the `Uri` class.
-    $endPoint = (new Client('anonymous', 'secret', new Uri('http://localhost')))->getEndPoint();
-    assertThat($endPoint, isInstanceOf(UriInterface::class));
-    assertThat((string) $endPoint, equalTo('http://localhost'));
-  }
-
-  /**
-   * @test Client::sendMessage
+   * Tests the `Client::sendMessage()` method.
    */
   function testSendMessage(): void {
     // It should not send invalid messages with valid credentials.
