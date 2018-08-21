@@ -1,5 +1,5 @@
-path: blob/master/lib
-source: Client.php
+path: blob/master
+source: lib/Client.php
 
 # Usage
 
