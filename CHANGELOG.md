@@ -1,5 +1,10 @@
 # Changelog
 
+## Version [12.0.0](https://github.com/cedx/free-mobile.php/compare/v11.2.0...v12.0.0)
+- Breaking change: changed the signature of the `Client` and `ClientException` constructors.
+- Added support for [PHPStan](https://github.com/phpstan/phpstan) static analyzer.
+- Updated the package dependencies.
+
 ## Version [11.2.0](https://github.com/cedx/free-mobile.php/compare/v11.1.0...v11.2.0)
 - Updated the package dependencies.
 
