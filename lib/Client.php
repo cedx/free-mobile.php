@@ -39,7 +39,7 @@ class Client implements EventEmitterInterface {
   private $username;
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new client.
    * @param string $username The user name associated to the account.
    * @param string $password The identification key associated to the account.
    * @param UriInterface $endPoint The URL of the API end point.
