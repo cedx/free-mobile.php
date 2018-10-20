@@ -17,7 +17,7 @@ class ClientException extends \RuntimeException {
   /**
    * Creates a new client exception.
    * @param string $message A message describing the error.
-   * @param UriInterface $uri The URL of the HTTP request or response that failed.
+   * @param UriInterface|null $uri The URL of the HTTP request or response that failed.
    * @param \Throwable $previous The previous exception used for the exception chaining.
    */
   function __construct($message, UriInterface $uri = null, \Throwable $previous = null) {
@@ -37,7 +37,7 @@ class ClientException extends \RuntimeException {
 
   /**
    * Gets the URL of the HTTP request or response that failed.
-   * @return UriInterface The URL of the HTTP request or response that failed.
+   * @return UriInterface|null The URL of the HTTP request or response that failed.
    */
   function getUri(): ?UriInterface {
     return $this->uri;
