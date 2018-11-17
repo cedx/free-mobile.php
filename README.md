@@ -3,11 +3,14 @@
 
 Send SMS messages to your [Free Mobile](http://mobile.free.fr) account, in [PHP](https://secure.php.net).
 
-## Resources
-- [Documentation](https://dev.belin.io/free-mobile.php)
+## Documentation
+- [User guide](https://dev.belin.io/free-mobile.php)
 - [API reference](https://dev.belin.io/free-mobile.php/api)
+
+## Development
+- [Git repository](https://git.belin.io/cedx/free-mobile.php)
 - [Packagist package](https://packagist.org/packages/cedx/free-mobile)
-- [GitHub repository](https://github.com/cedx/free-mobile.php)
+- [Submit an issue](https://git.belin.io/cedx/free-mobile.php/issues)
 
 ## License
 [Free Mobile for PHP](https://dev.belin.io/free-mobile.php) is distributed under the MIT License.
