@@ -3,7 +3,7 @@
 ## Development
 - [API reference](https://dev.belin.io/free-mobile.php/api)
 - [Packagist package](https://packagist.org/packages/cedx/free-mobile)
-- [Submit an issue](https://git.belin.io/cedx/free-mobile.php/issues)
+- [Submit an issue](https://github.com/cedx/free-mobile.php/issues)
 
 ## Testing
 - [Continuous integration](https://travis-ci.com/cedx/free-mobile.php)

@@ -10,7 +10,7 @@ Send SMS messages to your [Free Mobile](http://mobile.free.fr) account, in [PHP]
 ## Development
 - [Git repository](https://git.belin.io/cedx/free-mobile.php)
 - [Packagist package](https://packagist.org/packages/cedx/free-mobile)
-- [Submit an issue](https://git.belin.io/cedx/free-mobile.php/issues)
+- [Submit an issue](https://github.com/cedx/free-mobile.php/issues)
 
 ## License
 [Free Mobile for PHP](https://dev.belin.io/free-mobile.php) is distributed under the MIT License.
