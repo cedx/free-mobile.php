@@ -8,7 +8,7 @@ Send SMS messages to your [Free Mobile](http://mobile.free.fr) account, in [PHP]
 - [API reference](https://dev.belin.io/free-mobile.php/api)
 
 ## Development
-- [Git repository](https://git.belin.io/cedx/free-mobile.php)
+- [Git repository](https://github.com/cedx/free-mobile.php)
 - [Packagist package](https://packagist.org/packages/cedx/free-mobile)
 - [Submit an issue](https://github.com/cedx/free-mobile.php/issues)
 
