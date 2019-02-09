@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace FreeMobile;
 
-use Evenement\{EventEmitterInterface, EventEmitterTrait};
+use Evenement\{EventEmitter};
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{Request, Uri};
 use Psr\Http\Message\{UriInterface};
@@ -10,8 +10,7 @@ use Psr\Http\Message\{UriInterface};
 /**
  * Sends messages by SMS to a Free Mobile account.
  */
-class Client implements EventEmitterInterface {
-  use EventEmitterTrait;
+class Client extends EventEmitter {
 
   /**
    * @var string An event that is triggered when a request is made to the remote service.
