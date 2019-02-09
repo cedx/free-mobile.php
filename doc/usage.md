@@ -32,7 +32,7 @@ if the account credentials are invalid or if the specified message is empty. It 
     you can't send multipart messages using this library.
 
 ## Client events
-The `FreeMobile\Client` class is an [`EventEmitter`](https://github.com/igorw/evenement/blob/master/src/Evenement/EventEmitterInterface.php) that triggers some events during its life cycle:
+The `FreeMobile\Client` class is an [`EventEmitter`](https://github.com/igorw/evenement/blob/master/src/Evenement/EventEmitter.php) that triggers some events during its life cycle:
 
 - `Client::EVENT_REQUEST` : emitted every time a request is made to the remote service.
 - `Client::EVENT_RESPONSE` : emitted every time a response is received from the remote service.
