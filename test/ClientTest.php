@@ -13,10 +13,10 @@ class ClientTest extends TestCase {
 
   /**
    * Tests the `Client` constructor.
-   * @expectedException InvalidArgumentException
    */
   function testConstructor(): void {
     // It should throw an exception if the username or password is empty.
+    $this->expectException(\InvalidArgumentException::class);
     new Client('', '');
   }
 
