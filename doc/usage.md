@@ -44,11 +44,11 @@ You can subscribe to them using the `on()` method:
 use FreeMobile\{Client};
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
-$client->on(Client::EVENT_REQUEST, function(RequestInterface $request) {
+$client->addListener(Client::EVENT_REQUEST, function(RequestInterface $request) {
   echo 'Client request: ', $request->getUri();
 });
 
-$client->on(Client::EVENT_RESPONSE, function($request, ResponseInterface $response) {
+$client->addListener(Client::EVENT_RESPONSE, function($request, ResponseInterface $response) {
   echo 'Server response: ', $response->getStatusCode();
 });
 ```

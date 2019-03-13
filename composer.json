@@ -33,8 +33,8 @@
     "ext-curl": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "evenement/evenement": "^3.0.1",
-    "guzzlehttp/guzzle": "^6.3.3"
+    "guzzlehttp/guzzle": "^6.3.3",
+    "league/event": "^2.2.0"
   },
   "require-dev": {
     "cedx/coveralls": "^9.1.2",

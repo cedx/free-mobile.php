@@ -2,15 +2,15 @@
 declare(strict_types=1);
 namespace FreeMobile;
 
-use Evenement\{EventEmitter};
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{Request, Uri};
+use League\Event\{Emitter, Event};
 use Psr\Http\Message\{UriInterface};
 
 /**
  * Sends messages by SMS to a Free Mobile account.
  */
-class Client extends EventEmitter {
+class Client extends Emitter {
 
   /**
    * @var string An event that is triggered when a request is made to the remote service.
@@ -94,10 +94,10 @@ class Client extends EventEmitter {
 
     try {
       $request = new Request('GET', $uri);
-      $this->emit(static::EVENT_REQUEST, [$request]);
+      $this->emit(Event::named(static::EVENT_REQUEST), $request);
 
       $response = (new HTTPClient)->send($request);
-      $this->emit(static::EVENT_RESPONSE, [$request, $response]);
+      $this->emit(Event::named(static::EVENT_RESPONSE), $request, $response);
     }
 
     catch (\Throwable $e) {
