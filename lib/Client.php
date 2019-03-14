@@ -4,7 +4,7 @@ namespace FreeMobile;
 
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{Request, Uri};
-use League\Event\{Emitter, Event};
+use League\Event\{Emitter};
 use Psr\Http\Message\{UriInterface};
 
 /**
@@ -15,12 +15,12 @@ class Client extends Emitter {
   /**
    * @var string An event that is triggered when a request is made to the remote service.
    */
-  const EVENT_REQUEST = 'request';
+  const EVENT_REQUEST = RequestEvent::class;
 
   /**
    * @var string An event that is triggered when a response is received from the remote service.
    */
-  const EVENT_RESPONSE = 'response';
+  const EVENT_RESPONSE = ResponseEvent::class;
 
   /**
    * @var UriInterface The URL of the API end point.
@@ -46,7 +46,6 @@ class Client extends Emitter {
    */
   function __construct(string $username, string $password, UriInterface $endPoint = null) {
     if (!mb_strlen($username) || !mb_strlen($password)) throw new \InvalidArgumentException('The account credentials are invalid');
-
     $this->username = $username;
     $this->password = $password;
     $this->endPoint = $endPoint ?: new Uri('https://smsapi.free-mobile.fr');
@@ -94,10 +93,10 @@ class Client extends Emitter {
 
     try {
       $request = new Request('GET', $uri);
-      $this->emit(Event::named(static::EVENT_REQUEST), $request);
+      $this->emit(new RequestEvent($request));
 
       $response = (new HTTPClient)->send($request);
-      $this->emit(Event::named(static::EVENT_RESPONSE), $request, $response);
+      $this->emit(new ResponseEvent($request, $response));
     }
 
     catch (\Throwable $e) {
