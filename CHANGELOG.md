@@ -1,7 +1,7 @@
 # Changelog
 
 ## Version [13.0.0](https://github.com/cedx/free-mobile.php/compare/v12.1.0...v13.0.0)
-- Breaking change: replaced [Événement](https://github.com/igorw/evenement) by [PHP League Event](https://robo.li) for event handling.
+- Breaking change: replaced [Événement](https://github.com/igorw/evenement) library by [PHP League Event](https://robo.li) for event handling.
 - Added the `RequestEvent` and `ResponseEvent` classes.
 - Updated the package dependencies.
 
