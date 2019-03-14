@@ -32,24 +32,23 @@ if the account credentials are invalid or if the specified message is empty. It 
     you can't send multipart messages using this library.
 
 ## Client events
-The `FreeMobile\Client` class is an [`EventEmitter`](https://github.com/igorw/evenement/blob/master/src/Evenement/EventEmitter.php) that triggers some events during its life cycle:
+The `FreeMobile\Client` class is a [`League\Event\Emitter`](https://event.thephpleague.com/2.0/emitter/basic-usage) that triggers some events during its life cycle:
 
 - `Client::EVENT_REQUEST` : emitted every time a request is made to the remote service.
 - `Client::EVENT_RESPONSE` : emitted every time a response is received from the remote service.
 
-You can subscribe to them using the `on()` method:
+You can subscribe to them using the `addListener()` method:
 
 ```php
 <?php
-use FreeMobile\{Client};
-use Psr\Http\Message\{RequestInterface, ResponseInterface};
+use FreeMobile\{Client, RequestEvent, ResponseEvent};
 
-$client->addListener(Client::EVENT_REQUEST, function(RequestInterface $request) {
-  echo 'Client request: ', $request->getUri();
+$client->addListener(Client::EVENT_REQUEST, function(RequestEvent $event) {
+  echo 'Client request: ', $event->getRequest()->getUri();
 });
 
-$client->addListener(Client::EVENT_RESPONSE, function($request, ResponseInterface $response) {
-  echo 'Server response: ', $response->getStatusCode();
+$client->addListener(Client::EVENT_RESPONSE, function(ResponseEvent $event) {
+  echo 'Server response: ', $event->getResponse()->getStatusCode();
 });
 ```
 
