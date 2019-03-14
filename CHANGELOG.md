@@ -1,5 +1,7 @@
 # Changelog
 
+## Version [13.0.0](https://github.com/cedx/free-mobile.php/compare/v12.1.0...v13.0.0)
+
 ## Version [12.1.0](https://github.com/cedx/free-mobile.php/compare/v12.0.0...v12.1.0)
 - Replaced the [Phing](https://www.phing.info) build system by [Robo](https://robo.li).
 - Updated the package dependencies.
