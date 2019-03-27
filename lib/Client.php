@@ -47,7 +47,7 @@ class Client extends Emitter {
     if (!mb_strlen($username) || !mb_strlen($password)) throw new \InvalidArgumentException('The account credentials are invalid');
     $this->username = $username;
     $this->password = $password;
-    $this->endPoint = $endPoint ?? new Uri('https://smsapi.free-mobile.fr');
+    $this->endPoint = $endPoint ?? new Uri('https://smsapi.free-mobile.fr/');
   }
 
   /**
@@ -84,7 +84,7 @@ class Client extends Emitter {
     $message = trim($text);
     if (!mb_strlen($message)) throw new \InvalidArgumentException('The specified message is empty');
 
-    $uri = $this->getEndPoint()->withPath('/sendmsg')->withQuery(http_build_query([
+    $uri = $this->getEndPoint()->withPath('sendmsg')->withQuery(http_build_query([
       'msg' => mb_substr($message, 0, 160),
       'pass' => $this->getPassword(),
       'user' => $this->getUsername()

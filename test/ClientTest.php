@@ -36,7 +36,7 @@ class ClientTest extends TestCase {
 
     // It should throw a `ClientException` if a network error occurred.
     try {
-      (new Client('anonymous', 'secret', new Uri('http://localhost')))->sendMessage('Hello World!');
+      (new Client('anonymous', 'secret', new Uri('http://localhost/')))->sendMessage('Hello World!');
       $this->fail('Exception not thrown.');
     }
 
