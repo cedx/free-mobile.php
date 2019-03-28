@@ -3,7 +3,6 @@ namespace FreeMobile;
 
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
-use Psr\Http\Message\{UriInterface};
 
 /**
  * Tests the features of the `FreeMobile\Client` class.

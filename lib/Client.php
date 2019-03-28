@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 namespace FreeMobile;
 
+use function GuzzleHttp\Psr7\{build_query};
 use GuzzleHttp\{Client as HTTPClient};
-use GuzzleHttp\Psr7\{Request, Uri};
+use GuzzleHttp\Psr7\{Request, Uri, UriResolver};
 use League\Event\{Emitter};
 use Psr\Http\Message\{UriInterface};
 
@@ -84,7 +85,7 @@ class Client extends Emitter {
     $message = trim($text);
     if (!mb_strlen($message)) throw new \InvalidArgumentException('The specified message is empty');
 
-    $uri = $this->getEndPoint()->withPath('sendmsg')->withQuery(http_build_query([
+    $uri = UriResolver::resolve($this->getEndPoint(), new Uri('sendmsg'))->withQuery(build_query([
       'msg' => mb_substr($message, 0, 160),
       'pass' => $this->getPassword(),
       'user' => $this->getUsername()
