@@ -1,5 +1,5 @@
 path: blob/master
-source: lib/Client.php
+source: src/Client.php
 
 # Usage
 
