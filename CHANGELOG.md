@@ -1,5 +1,10 @@
 # Changelog
 
+## Version [13.1.0](https://github.com/cedx/free-mobile.php/compare/v13.0.0...v13.1.0)
+- Modified the package layout.
+- Updated the package dependencies.
+- Updated the URL of the default API endpoint.
+
 ## Version [13.0.0](https://github.com/cedx/free-mobile.php/compare/v12.1.0...v13.0.0)
 - Breaking change: replaced [Événement](https://github.com/igorw/evenement) library by [PHP League Event](https://event.thephpleague.com) for event handling.
 - Added the `RequestEvent` and `ResponseEvent` classes.
