@@ -4,9 +4,7 @@ namespace FreeMobile;
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
-/**
- * Tests the features of the `FreeMobile\Client` class.
- */
+/** Tests the features of the `FreeMobile\Client` class. */
 class ClientTest extends TestCase {
 
   /**

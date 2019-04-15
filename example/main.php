@@ -1,9 +1,7 @@
 <?php declare(strict_types=1);
 use FreeMobile\{Client, ClientException};
 
-/**
- * Sends an SMS notification.
- */
+/** Sends an SMS notification. */
 function main(): void {
   try {
     $client = new Client('your account identifier', 'your API key');
