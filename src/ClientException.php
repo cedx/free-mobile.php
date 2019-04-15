@@ -3,14 +3,10 @@ namespace FreeMobile;
 
 use Psr\Http\Message\{UriInterface};
 
-/**
- * An exception caused by an error in a `Client` request.
- */
+/** An exception caused by an error in a `Client` request. */
 class ClientException extends \RuntimeException {
 
-  /**
-   * @var UriInterface|null The URL of the HTTP request or response that failed.
-   */
+  /** @var UriInterface|null The URL of the HTTP request or response that failed. */
   private $uri;
 
   /**

@@ -4,14 +4,10 @@ namespace FreeMobile;
 use League\Event\{AbstractEvent};
 use Psr\Http\Message\{RequestInterface};
 
-/**
- * Represents the event parameter used for request events.
- */
+/** Represents the event parameter used for request events. */
 class RequestEvent extends AbstractEvent {
 
-  /**
-   * @var RequestInterface The related HTTP request.
-   */
+  /** @var RequestInterface The related HTTP request. */
   private $request;
 
   /**

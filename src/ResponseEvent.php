@@ -3,14 +3,10 @@ namespace FreeMobile;
 
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
-/**
- * Represents the event parameter used for request events.
- */
+/** Represents the event parameter used for request events. */
 class ResponseEvent extends RequestEvent {
 
-  /**
-   * @var ResponseInterface The related HTTP response.
-   */
+  /** @var ResponseInterface The related HTTP response. */
   private $response;
 
   /**

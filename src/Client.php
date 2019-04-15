@@ -7,34 +7,22 @@ use GuzzleHttp\Psr7\{Request, Uri, UriResolver};
 use League\Event\{Emitter};
 use Psr\Http\Message\{UriInterface};
 
-/**
- * Sends messages by SMS to a Free Mobile account.
- */
+/** Sends messages by SMS to a Free Mobile account. */
 class Client extends Emitter {
 
-  /**
-   * @var string An event that is triggered when a request is made to the remote service.
-   */
+  /** @var string An event that is triggered when a request is made to the remote service. */
   const eventRequest = RequestEvent::class;
 
-  /**
-   * @var string An event that is triggered when a response is received from the remote service.
-   */
+  /** @var string An event that is triggered when a response is received from the remote service. */
   const eventResponse = ResponseEvent::class;
 
-  /**
-   * @var UriInterface The URL of the API end point.
-   */
+  /** @var UriInterface The URL of the API end point. */
   private $endPoint;
 
-  /**
-   * @var string The identification key associated to the account.
-   */
+  /** @var string The identification key associated to the account. */
   private $password;
 
-  /**
-   * @var string The user name associated to the account.
-   */
+  /** @var string The user name associated to the account. */
   private $username;
 
   /**
