@@ -19,7 +19,7 @@ function main(): void {
     echo 'The message was sent successfully.';
   }
 
-  catch (\Throwable $e) {
+  catch (Throwable $e) {
     echo 'An error occurred: ', $e->getMessage(), PHP_EOL;
     if ($e instanceof ClientException) echo 'From: ', $e->getUri(), PHP_EOL;
   }
@@ -36,8 +36,8 @@ if the account credentials are invalid or if the specified message is empty. It 
 ## Client events
 The `FreeMobile\Client` class is a [`League\Event\Emitter`](https://event.thephpleague.com/2.0/emitter/basic-usage) that triggers some events during its life cycle:
 
-- `Client::EVENT_REQUEST` : emitted every time a request is made to the remote service.
-- `Client::EVENT_RESPONSE` : emitted every time a response is received from the remote service.
+- `Client::eventRequest` : emitted every time a request is made to the remote service.
+- `Client::eventResponse` : emitted every time a response is received from the remote service.
 
 You can subscribe to them using the `addListener()` method:
 
@@ -48,11 +48,11 @@ use FreeMobile\{Client, RequestEvent, ResponseEvent};
 function main(): void {
   $client = new Client('your account identifier', 'your API key');
   
-  $client->addListener(Client::EVENT_REQUEST, function(RequestEvent $event) {
+  $client->addListener(Client::eventRequest, function(RequestEvent $event) {
     echo 'Client request: ', $event->getRequest()->getUri();
   });
 
-  $client->addListener(Client::EVENT_RESPONSE, function(ResponseEvent $event) {
+  $client->addListener(Client::eventResponse, function(ResponseEvent $event) {
     echo 'Server response: ', $event->getResponse()->getStatusCode();
   });
 }
