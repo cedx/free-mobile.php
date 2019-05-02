@@ -7,14 +7,14 @@ use PHPUnit\Framework\{TestCase};
 /** Tests the features of the `FreeMobile\Client` class. */
 class ClientTest extends TestCase {
 
-  /** @test Tests the `Client` constructor. */
+  /** @test Client->__construct() */
   function testConstructor(): void {
     // It should throw an exception if the username or password is empty.
     $this->expectException(\InvalidArgumentException::class);
     new Client('', '');
   }
 
-  /** @test Tests the `Client::sendMessage()` method. */
+  /** @test Client->sendMessage() */
   function testSendMessage(): void {
     // It should not send invalid messages with valid credentials.
     try {
