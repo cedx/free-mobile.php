@@ -84,7 +84,7 @@ class Client extends Emitter {
       $this->emit(new RequestEvent($request));
 
       $response = (new HTTPClient)->send($request);
-      $this->emit(new ResponseEvent($request, $response));
+      $this->emit(new ResponseEvent($response, $request));
     }
 
     catch (\Throwable $e) {
