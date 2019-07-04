@@ -37,15 +37,15 @@ class ClientTest extends TestCase {
     }
 
     // It should send valid messages with valid credentials.
-    if (($username = (string) getenv('FREEMOBILE_USERNAME')) && ($password = (string) getenv('FREEMOBILE_PASSWORD'))) {
-      try {
-        (new Client($username, $password))->sendMessage('Bonjour Cédric !');
-        assertThat(true, isTrue());
-      }
+    try {
+      $username = (string) getenv('FREEMOBILE_USERNAME');
+      $password = (string) getenv('FREEMOBILE_PASSWORD');
+      (new Client($username, $password))->sendMessage('Bonjour Cédric, à partir de PHP !');
+      assertThat(true, isTrue());
+    }
 
-      catch (\Throwable $e) {
-        $this->fail($e->getMessage());
-      }
+    catch (\Throwable $e) {
+      $this->fail($e->getMessage());
     }
   }
 }
