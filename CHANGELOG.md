@@ -2,6 +2,7 @@
 
 ## Version [14.0.0](https://github.com/cedx/free-mobile.php/compare/v13.1.0...v14.0.0)
 - Breaking change: using camelcase instead of all caps for constants.
+- Updated the package dependencies.
 
 ## Version [13.1.0](https://github.com/cedx/free-mobile.php/compare/v13.0.0...v13.1.0)
 - Modified the package layout.
