@@ -5,17 +5,17 @@ use function PHPUnit\Expect\{expect, it};
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
-/** Tests the features of the `FreeMobile\Client` class. */
+/** @testdox FreeMobile\Client */
 class ClientTest extends TestCase {
 
-  /** @test Client->__construct() */
+  /** @testdox constructor */
   function testConstructor(): void {
     it('should throw an exception if the username or password is empty', function() {
       expect(function() { new Client('', ''); })->to->throw(\InvalidArgumentException::class);
     });
   }
 
-  /** @test Client->sendMessage() */
+  /** @testdox ->sendMessage() */
   function testSendMessage(): void {
     it('should not send invalid messages with valid credentials', function() {
       expect(function() { (new Client('anonymous', 'secret'))->sendMessage(''); })->to->throw(\InvalidArgumentException::class);
