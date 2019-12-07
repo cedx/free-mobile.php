@@ -17,13 +17,13 @@ class Client extends Emitter {
   const eventResponse = ResponseEvent::class;
 
   /** @var UriInterface The URL of the API end point. */
-  private $endPoint;
+  private UriInterface $endPoint;
 
   /** @var string The identification key associated to the account. */
-  private $password;
+  private string $password;
 
   /** @var string The user name associated to the account. */
-  private $username;
+  private string $username;
 
   /**
    * Creates a new client.
@@ -32,7 +32,7 @@ class Client extends Emitter {
    * @param UriInterface|null $endPoint The URL of the API end point.
    * @throws \InvalidArgumentException The account credentials are invalid.
    */
-  function __construct(string $username, string $password, UriInterface $endPoint = null) {
+  function __construct(string $username, string $password, ?UriInterface $endPoint = null) {
     if (!mb_strlen($username) || !mb_strlen($password)) throw new \InvalidArgumentException('The account credentials are invalid');
     $this->username = $username;
     $this->password = $password;

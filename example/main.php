@@ -11,7 +11,7 @@ function main(): void {
     echo 'The message was sent successfully.';
   }
 
-  catch (\Throwable $e) {
+  catch (Throwable $e) {
     echo 'An error occurred: ', $e->getMessage(), PHP_EOL;
     if ($e instanceof ClientException) echo 'From: ', $e->getUri(), PHP_EOL;
   }
