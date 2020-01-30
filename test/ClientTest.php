@@ -8,24 +8,13 @@ use PHPUnit\Framework\{TestCase};
 /** @testdox FreeMobile\Client */
 class ClientTest extends TestCase {
 
-  /** @testdox constructor */
-  function testConstructor(): void {
-    it('should throw an exception if the username or password is empty', function() {
-      expect(fn() => new Client('', ''))->to->throw(\InvalidArgumentException::class);
-    });
-  }
-
   /** @testdox ->sendMessage() */
   function testSendMessage(): void {
-    it('should not send invalid messages with valid credentials', function() {
-      expect(fn() => (new Client('anonymous', 'secret'))->sendMessage(''))->to->throw(\InvalidArgumentException::class);
-    });
-
     it('should throw a `ClientException` if a network error occurred', function() {
       expect(fn() => (new Client('anonymous', 'secret', new Uri('http://localhost/')))->sendMessage('Hello World!'))->to->throw(ClientException::class);
     });
 
-    it('should send valid messages with valid credentials', function() {
+    it('should send SMS messages if credentials are valid', function() {
       $username = (string) getenv('FREEMOBILE_USERNAME');
       $password = (string) getenv('FREEMOBILE_PASSWORD');
       expect(fn() => (new Client($username, $password))->sendMessage('Bonjour Cédric, à partir de PHP !'))->to->not->throw;
