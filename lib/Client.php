@@ -30,10 +30,10 @@ class Client extends Emitter {
    * @param string $username The user name associated to the account.
    * @param string $password The identification key associated to the account.
    * @param UriInterface|null $endPoint The URL of the API end point.
-   * @throws \InvalidArgumentException The account credentials are invalid.
    */
   function __construct(string $username, string $password, ?UriInterface $endPoint = null) {
-    if (!mb_strlen($username) || !mb_strlen($password)) throw new \InvalidArgumentException('The account credentials are invalid');
+    assert(mb_strlen($username) > 0);
+    assert(mb_strlen($password) > 0);
     $this->username = $username;
     $this->password = $password;
     $this->endPoint = $endPoint ?? new Uri('https://smsapi.free-mobile.fr/');
@@ -66,15 +66,13 @@ class Client extends Emitter {
   /**
    * Sends a SMS message to the underlying account.
    * @param string $text The text of the message to send.
-   * @throws \InvalidArgumentException The specified message is empty.
    * @throws ClientException An error occurred while sending the message.
    */
   function sendMessage(string $text): void {
-    $message = trim($text);
-    if (!mb_strlen($message)) throw new \InvalidArgumentException('The specified message is empty');
+    assert(mb_strlen($text) > 0);
 
     $uri = UriResolver::resolve($this->getEndPoint(), new Uri('sendmsg'))->withQuery(build_query([
-      'msg' => mb_substr($message, 0, 160),
+      'msg' => mb_substr(trim($text), 0, 160),
       'pass' => $this->getPassword(),
       'user' => $this->getUsername()
     ]));
