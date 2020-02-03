@@ -65,17 +65,3 @@ function main(): void {
   });
 }
 ```
-
-## Unit tests
-If you want to run the library tests, you must set two environment variables:
-
-```shell
-export FREEMOBILE_USERNAME="your account identifier"
-export FREEMOBILE_PASSWORD="your API key"
-```
-
-Then, you can run the `test` script from the command prompt:
-
-```shell
-composer run-script test
-```
