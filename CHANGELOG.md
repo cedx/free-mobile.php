@@ -82,7 +82,7 @@
 
 ## Version [4.0.0](https://github.com/cedx/free-mobile.php/compare/v3.1.1...v4.0.0)
 - Breaking change: changed the signature of the constructor.
-- Breaking change: changed the return type of the `sendMessage` method.
+- Breaking change: changed the return type of the `sendMessage()` method.
 - Breaking change: renamed the `END_POINT` constant to `DEFAULT_ENDPOINT`.
 - Added the `endPoint` property.
 - Updated the package dependencies.
@@ -115,7 +115,7 @@
 - Messages are automatically trimmed.
 
 ## Version [1.1.0](https://github.com/cedx/free-mobile.php/compare/v1.0.0...v1.1.0)
-- Added an `onNext` event to ease the usage of the `subscribeCallback` method.
+- Added an `onNext` event to ease the usage of the `subscribeCallback()` method.
 
 ## Version 1.0.0
 - Initial release.
