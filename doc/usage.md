@@ -26,8 +26,7 @@ function main(): void {
 }
 ```
 
-The `Client->sendMessage()` method throws an [`InvalidArgumentException`](https://www.php.net/manual/en/class.invalidargumentexception.php)
-if the account credentials are invalid or if the specified message is empty. It throws a `FreeMobile\ClientException` if any error occurred while sending the message.
+The `Client->sendMessage()` method throws a `FreeMobile\ClientException` if any error occurred while sending the message.
 
 !!! warning
     The text of the messages will be automatically truncated to **160** characters:  
