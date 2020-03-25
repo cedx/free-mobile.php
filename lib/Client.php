@@ -74,11 +74,12 @@ class Client extends Emitter {
   function sendMessage(string $text): void {
     assert(mb_strlen($text) > 0);
 
-    $uri = $this->http->createUri("{$this->getEndPoint()}/sendmsg")->withQuery(http_build_query([
+    $basePath = rtrim($this->getEndPoint()->getPath(), '/');
+    $uri = $this->getEndPoint()->withPath("$basePath/sendmsg")->withQuery(http_build_query([
       'msg' => mb_substr(trim($text), 0, 160),
       'pass' => $this->getPassword(),
       'user' => $this->getUsername()
-    ], PHP_QUERY_RFC3986));
+    ], '', '&', PHP_QUERY_RFC3986));
 
     try {
       $request = $this->http->createRequest('GET', $uri);
