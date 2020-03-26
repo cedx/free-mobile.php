@@ -88,8 +88,9 @@ class Client {
   function sendMessage(string $text): void {
     assert(mb_strlen($text) > 0);
 
-    $basePath = rtrim($this->getEndPoint()->getPath(), '/');
-    $uri = $this->getEndPoint()->withPath("$basePath/sendmsg")->withQuery(http_build_query([
+    $endPoint = $this->getEndPoint();
+    $basePath = rtrim($endPoint->getPath(), '/');
+    $uri = $endPoint->withPath("$basePath/sendmsg")->withQuery(http_build_query([
       'msg' => mb_substr(trim($text), 0, 160),
       'pass' => $this->getPassword(),
       'user' => $this->getUsername()

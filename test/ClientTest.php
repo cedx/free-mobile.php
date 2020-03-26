@@ -3,7 +3,7 @@ namespace FreeMobile;
 
 use Nyholm\Psr7\{Uri};
 use PHPUnit\Framework\{Assert, TestCase};
-use function PHPUnit\Framework\{assertThat, isInstanceOf, isNull};
+use function PHPUnit\Framework\{assertThat, isInstanceOf, isNull, stringStartsWith};
 
 /** @testdox FreeMobile\Client */
 class ClientTest extends TestCase {
@@ -12,7 +12,7 @@ class ClientTest extends TestCase {
   function testSendMessage(): void {
     // It should throw a `ClientException` if a network error occurred.
     try {
-      (new Client('anonymous', 'secret', new Uri('http://localhost/')))->sendMessage('Hello World!');
+      (new Client('anonymous', 'secret', new Uri('http://localhost:10000/')))->sendMessage('Hello World!');
       Assert::fail('Exception not thrown');
     }
 
@@ -20,11 +20,15 @@ class ClientTest extends TestCase {
       assertThat($e, isInstanceOf(ClientException::class));
     }
 
+    // It should trigger events.
+    $client = new Client((string) getenv('FREEMOBILE_USERNAME'), (string) getenv('FREEMOBILE_PASSWORD'));
+    $client->onRequest(function(RequestEvent $event) {
+      assertThat((string) $event->getRequest()->getUri(), stringStartsWith('https://smsapi.free-mobile.fr/sendmsg?'));
+    });
+
     // It should send SMS messages if credentials are valid.
     try {
-      $username = (string) getenv('FREEMOBILE_USERNAME');
-      $password = (string) getenv('FREEMOBILE_PASSWORD');
-      (new Client($username, $password))->sendMessage('Bonjour Cédric, à partir de PHP !');
+      $client->sendMessage('Bonjour Cédric, à partir de PHP !');
       assertThat(null, isNull());
     }
 
