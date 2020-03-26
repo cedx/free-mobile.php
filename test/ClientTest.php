@@ -27,13 +27,7 @@ class ClientTest extends TestCase {
     });
 
     // It should send SMS messages if credentials are valid.
-    try {
-      $client->sendMessage('Bonjour Cédric, à partir de PHP !');
-      assertThat(null, isNull());
-    }
-
-    catch (\Throwable $e) {
-      Assert::fail($e->getMessage());
-    }
+    try { $client->sendMessage('Bonjour Cédric, à partir de PHP !'); }
+    catch (\Throwable $e) { Assert::fail($e->getMessage()); }
   }
 }
