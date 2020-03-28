@@ -29,8 +29,6 @@
   ],
   "require": {
     "php": ">=7.4.0",
-    "ext-curl": "*",
-    "ext-json": "*",
     "ext-mbstring": "*",
     "nyholm/psr7": "^1.2.1",
     "psr/http-client": "^1.0.0",
