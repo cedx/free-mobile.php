@@ -33,25 +33,33 @@ The `Client->sendMessage()` method throws a `FreeMobile\ClientException` if any 
     you can't send multipart messages using this library.
 
 ## Client events
-The `FreeMobile\Client` class triggers some events during its life cycle:
+The `FreeMobile\Client` class is an [EventDispatcher](https://symfony.com/doc/current/components/event_dispatcher.html) that triggers some events during its life cycle.
 
-- `request` : emitted every time a request is made to the remote service.
-- `response` : emitted every time a response is received from the remote service.
-
-You can subscribe to these events using the `on<EventName>()` methods:
+### The `Client::eventRequest` event
+Emitted every time a request is made to the remote service:
 
 ```php
 <?php
-use FreeMobile\{Client, RequestEvent, ResponseEvent};
+use FreeMobile\{Client, RequestEvent};
 
 function main(): void {
   $client = new Client('your account identifier', 'your API key');
-
-  $client->onRequest(function(RequestEvent $event) {
+  $client->addListener(Client::eventRequest, function(RequestEvent $event) {
     echo 'Client request: ', $event->getRequest()->getUri();
   });
+}
+```
 
-  $client->onResponse(function(ResponseEvent $event) {
+### The `Client::eventResponse` event
+Emitted every time a response is received from the remote service:
+
+```php
+<?php
+use FreeMobile\{Client, ResponseEvent};
+
+function main(): void {
+  $client = new Client('your account identifier', 'your API key');
+  $client->addListener(Client::eventResponse, function(ResponseEvent $event) {
     echo 'Server response: ', $event->getResponse()->getStatusCode();
   });
 }

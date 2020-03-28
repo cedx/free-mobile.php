@@ -3,9 +3,7 @@
 ## Version [15.0.0](https://github.com/cedx/free-mobile.php/compare/v14.0.0...v15.0.0)
 - Breaking change: raised the required [PHP](https://www.php.net) version.
 - Breaking change: replaced [PHP League Event](https://event.thephpleague.com) library by [Symfony EventDispatcher](https://symfony.com/doc/current/components/event_dispatcher.html) for event handling.
-- Breaking change: removed the `eventRequest` and `eventResponse` constants from the `Client` class.
 - Breaking change: using PHP 7.4 features, like arrow functions and typed properties.
-- Added the `onRequest()` and `onResponse()` methods to the `Client` class.
 - Replaced the [Guzzle HTTP client](http://docs.guzzlephp.org) by the [Symfony one](https://symfony.com/doc/current/components/http_client.html).
 - Updated the package dependencies.
 

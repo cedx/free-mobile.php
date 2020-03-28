@@ -6,10 +6,13 @@ use Symfony\Component\EventDispatcher\{EventDispatcher};
 use Symfony\Component\HttpClient\{Psr18Client};
 
 /** Sends messages by SMS to a Free Mobile account. */
-class Client {
+class Client extends EventDispatcher {
 
-  /** @var EventDispatcher The event dispatcher. */
-  private EventDispatcher $dispatcher;
+  /** @var string An event that is triggered when a request is made to the remote service. */
+  const eventRequest = RequestEvent::class;
+
+  /** @var string An event that is triggered when a response is received from the remote service. */
+  const eventResponse = ResponseEvent::class;
 
   /** @var UriInterface The URL of the API end point. */
   private UriInterface $endPoint;
@@ -32,8 +35,8 @@ class Client {
   function __construct(string $username, string $password, ?UriInterface $endPoint = null) {
     assert(mb_strlen($username) > 0);
     assert(mb_strlen($password) > 0);
+    parent::__construct();
 
-    $this->dispatcher = new EventDispatcher;
     $this->http = new Psr18Client;
     $this->endPoint = $endPoint ?? $this->http->createUri('https://smsapi.free-mobile.fr/');
     $this->password = $password;
@@ -65,22 +68,6 @@ class Client {
   }
 
   /**
-   * Subscribes to the `request` events.
-   * @param callable $listener The listener to register.
-   */
-  function onRequest(callable $listener): void {
-    $this->dispatcher->addListener(RequestEvent::class, $listener);
-  }
-
-  /**
-   * Subscribes to the `response` events.
-   * @param callable $listener The listener to register.
-   */
-  function onResponse(callable $listener): void {
-    $this->dispatcher->addListener(ResponseEvent::class, $listener);
-  }
-
-  /**
    * Sends a SMS message to the underlying account.
    * @param string $text The text of the message to send.
    * @throws ClientException An error occurred while sending the message.
@@ -97,10 +84,10 @@ class Client {
 
     try {
       $request = $this->http->createRequest('GET', $uri);
-      $this->dispatcher->dispatch(new RequestEvent($request));
+      $this->dispatch(new RequestEvent($request));
 
       $response = $this->http->sendRequest($request);
-      $this->dispatcher->dispatch(new ResponseEvent($response, $request));
+      $this->dispatch(new ResponseEvent($response, $request));
     }
 
     catch (\Throwable $e) {
