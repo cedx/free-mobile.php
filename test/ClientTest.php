@@ -22,7 +22,7 @@ class ClientTest extends TestCase {
 
     // It should trigger events.
     $client = new Client((string) getenv('FREEMOBILE_USERNAME'), (string) getenv('FREEMOBILE_PASSWORD'));
-    $client->onRequest(function(RequestEvent $event) {
+    $client->addListener(Client::eventRequest, function(RequestEvent $event) {
       assertThat((string) $event->getRequest()->getUri(), stringStartsWith('https://smsapi.free-mobile.fr/sendmsg?'));
     });
 
