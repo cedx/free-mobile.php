@@ -1,5 +1,5 @@
 # Free Mobile for PHP
-![Runtime](https://img.shields.io/packagist/php-v/cedx/free-mobile.svg) ![Release](https://img.shields.io/packagist/v/cedx/free-mobile.svg) ![License](https://img.shields.io/packagist/l/cedx/free-mobile.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/free-mobile.svg) ![Coverage](https://coveralls.io/repos/github/cedx/free-mobile.php/badge.svg) ![Build](https://github.com/cedx/free-mobile.php/workflows/build/badge.svg)
+![Runtime](https://badgen.net/packagist/php/cedx/free-mobile) ![Release](https://badgen.net/packagist/v/cedx/free-mobile) ![License](https://badgen.net/packagist/license/cedx/free-mobile) ![Downloads](https://badgen.net/packagist/dt/cedx/free-mobile) ![Coverage](https://badgen.net/coveralls/c/github/cedx/free-mobile.php) ![Build](https://badgen.net/github/checks/cedx/free-mobile.php)
 
 Send SMS messages to your [Free Mobile](http://mobile.free.fr) account, in [PHP](https://www.php.net).
 
