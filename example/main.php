@@ -8,11 +8,11 @@ function main(): void {
 		// For example: new Client("12345678", "a9BkVohJun4MAf")
 
 		$client->sendMessage("Hello World!");
-		echo "The message was sent successfully.";
+		print "The message was sent successfully.";
 	}
 
 	catch (Throwable $e) {
-		echo "An error occurred: ", $e->getMessage(), PHP_EOL;
-		if ($e instanceof ClientException) echo "From: ", $e->getUri(), PHP_EOL;
+		print "An error occurred: {$e->getMessage()}" . PHP_EOL;
+		if ($e instanceof ClientException) print "From: {$e->getUri()}" . PHP_EOL;
 	}
 }
