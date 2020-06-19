@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 namespace FreeMobile;
 
-use Psr\Http\Message\{UriInterface};
-use Symfony\Component\EventDispatcher\{EventDispatcher};
-use Symfony\Component\HttpClient\{Psr18Client};
+use Psr\Http\Message\UriInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpClient\Psr18Client;
 
 /** Sends messages by SMS to a Free Mobile account. */
 class Client extends EventDispatcher {

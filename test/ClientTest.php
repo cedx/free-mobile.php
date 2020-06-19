@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace FreeMobile;
 
-use Nyholm\Psr7\{Uri};
+use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\{Assert, TestCase};
 use function PHPUnit\Framework\{assertThat, isInstanceOf, isNull, stringStartsWith};
 
