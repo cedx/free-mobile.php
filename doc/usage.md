@@ -18,12 +18,12 @@ function main(): void {
 		// For example: new Client("12345678", "a9BkVohJun4MAf")
 
 		$client->sendMessage("Hello World!");
-		echo "The message was sent successfully.";
+		print "The message was sent successfully.";
 	}
 
 	catch (Throwable $e) {
-		echo "An error occurred: ", $e->getMessage(), PHP_EOL;
-		if ($e instanceof ClientException) echo "From: ", $e->getUri(), PHP_EOL;
+		print "An error occurred: {$e->getMessage()}" . PHP_EOL;
+		if ($e instanceof ClientException) print "From: {$e->getUri()}" . PHP_EOL;
 	}
 }
 ```
@@ -46,9 +46,9 @@ use FreeMobile\{Client, RequestEvent};
 
 function main(): void {
 	$client = new Client("your account identifier", "your API key");
-	$client->addListener(Client::eventRequest, function(RequestEvent $event) {
-		echo "Client request: ", $event->getRequest()->getUri();
-	});
+	$client->addListener(Client::eventRequest, fn(RequestEvent $event) =>
+		print "Client request: {$event->getRequest()->getUri()}"
+	);
 }
 ```
 
@@ -61,8 +61,8 @@ use FreeMobile\{Client, ResponseEvent};
 
 function main(): void {
 	$client = new Client("your account identifier", "your API key");
-	$client->addListener(Client::eventResponse, function(ResponseEvent $event) {
-		echo "Server response: ", $event->getResponse()->getStatusCode();
-	});
+	$client->addListener(Client::eventResponse, fn(ResponseEvent $event) =>
+		print "Server response: {$event->getResponse()->getStatusCode()}"
+	);
 }
 ```
