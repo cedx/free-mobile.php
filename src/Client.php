@@ -20,27 +20,11 @@ class Client extends EventDispatcher {
 	/** The HTTP client. */
 	private Psr18Client $http;
 
-	/** @var string The identification key associated to the account. */
-	private string $password;
-
-	/** @var string The user name associated to the account. */
-	private string $username;
-
-	/**
-	 * Creates a new client.
-	 * @param string $username The user name associated to the account.
-	 * @param string $password The identification key associated to the account.
-	 * @param UriInterface|null $endPoint The URL of the API end point.
-	 */
-	function __construct(string $username, string $password, ?UriInterface $endPoint = null) {
-		assert(mb_strlen($username) > 0);
-		assert(mb_strlen($password) > 0);
+	/** Creates a new client. */
+	function __construct(private string $username, private string $password, ?UriInterface $endPoint = null) {
 		parent::__construct();
-
 		$this->http = new Psr18Client;
 		$this->endPoint = $endPoint ?? $this->http->createUri("https://smsapi.free-mobile.fr/");
-		$this->password = $password;
-		$this->username = $username;
 	}
 
 	/** Gets the URL of the API end point. */
