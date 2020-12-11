@@ -8,16 +8,16 @@ use Symfony\Component\HttpClient\Psr18Client;
 /** Sends messages by SMS to a Free Mobile account. */
 class Client extends EventDispatcher {
 
-	/** @var string An event that is triggered when a request is made to the remote service. */
+	/** An event that is triggered when a request is made to the remote service. */
 	const eventRequest = RequestEvent::class;
 
-	/** @var string An event that is triggered when a response is received from the remote service. */
+	/** An event that is triggered when a response is received from the remote service. */
 	const eventResponse = ResponseEvent::class;
 
-	/** @var UriInterface The URL of the API end point. */
+	/** The URL of the API end point. */
 	private UriInterface $endPoint;
 
-	/** @var Psr18Client The HTTP client. */
+	/** The HTTP client. */
 	private Psr18Client $http;
 
 	/** @var string The identification key associated to the account. */
@@ -43,38 +43,26 @@ class Client extends EventDispatcher {
 		$this->username = $username;
 	}
 
-	/**
-	 * Gets the URL of the API end point.
-	 * @return UriInterface The URL of the API end point.
-	 */
+	/** Gets the URL of the API end point. */
 	function getEndPoint(): UriInterface {
 		return $this->endPoint;
 	}
 
-	/**
-	 * Gets the identification key associated to the account.
-	 * @return string The identification key associated to the account.
-	 */
+	/** Gets the identification key associated to the account. */
 	function getPassword(): string {
 		return $this->password;
 	}
 
-	/**
-	 * Gets the user name associated to the account.
-	 * @return string The user name associated to the account.
-	 */
+	/** Gets the user name associated to the account. */
 	function getUsername(): string {
 		return $this->username;
 	}
 
 	/**
 	 * Sends a SMS message to the underlying account.
-	 * @param string $text The text of the message to send.
 	 * @throws ClientException An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
-		assert(mb_strlen($text) > 0);
-
 		$endPoint = $this->getEndPoint();
 		$uri = $endPoint->withPath("{$endPoint->getPath()}sendmsg")->withQuery(http_build_query([
 			"msg" => mb_substr(trim($text), 0, 160),

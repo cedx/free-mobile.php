@@ -19,10 +19,7 @@ class ResponseEvent extends RequestEvent {
 		$this->response = $response;
 	}
 
-	/**
-	 * Gets the related HTTP response.
-	 * @return ResponseInterface The related HTTP response.
-	 */
+	/** Gets the related HTTP response. */
 	function getResponse(): ResponseInterface {
 		return $this->response;
 	}

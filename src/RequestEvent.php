@@ -10,7 +10,7 @@ class RequestEvent extends Event {
 	/** @var RequestInterface The related HTTP request. */
 	private RequestInterface $request;
 
-	/**
+	/** Gets the related HTTP request. */
 	 * Creates a new request event.
 	 * @param RequestInterface $request The related HTTP request.
 	 */
@@ -18,10 +18,6 @@ class RequestEvent extends Event {
 		$this->request = $request;
 	}
 
-	/**
-	 * Gets the related HTTP request.
-	 * @return RequestInterface The related HTTP request.
-	 */
 	function getRequest(): RequestInterface {
 		return $this->request;
 	}
