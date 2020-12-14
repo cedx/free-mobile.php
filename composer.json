@@ -1,47 +1,47 @@
 {
-  "description": "Send SMS messages to your Free Mobile device. A simple and free way to monitor your applications using a Free Mobile account.",
-  "homepage": "https://docs.belin.io/free-mobile.php",
-  "license": "MIT",
-  "name": "cedx/free-mobile",
-  "type": "library",
-  "version": "16.0.0",
-  "authors": [
-    {"email": "cedric@belin.io", "homepage": "https://belin.io", "name": "Cédric Belin"}
-  ],
-  "autoload": {
-    "psr-4": {"FreeMobile\\": "src/"}
-  },
-  "autoload-dev": {
-    "psr-4": {"FreeMobile\\": "test/"}
-  },
-  "config": {
-    "optimize-autoloader": true
-  },
-  "funding": [
-    {"type": "patreon", "url": "https://www.patreon.com/cedx"}
-  ],
-  "keywords": [
-    "api",
-    "client",
-    "free",
-    "mobile",
-    "sdk",
-    "sms"
-  ],
-  "require": {
-    "php": ">=8.0.0",
-    "ext-mbstring": "*",
-    "nyholm/psr7": "^1.3.2",
-    "psr/http-client": "^1.0.1",
-    "symfony/event-dispatcher": "^5.2.0",
-    "symfony/http-client": "^5.2.0"
-  },
-  "require-dev": {
-    "cedx/coveralls": "^14.0.0",
-    "phpstan/phpstan": "^0.12.59",
-    "phpunit/phpunit": "^9.5.0"
-  },
-  "scripts": {
+	"description": "Send SMS messages to your Free Mobile device. A simple and free way to monitor your applications using a Free Mobile account.",
+	"homepage": "https://docs.belin.io/free-mobile.php",
+	"license": "MIT",
+	"name": "cedx/free-mobile",
+	"type": "library",
+	"version": "16.0.0",
+	"authors": [
+		{"email": "cedric@belin.io", "homepage": "https://belin.io", "name": "Cédric Belin"}
+	],
+	"autoload": {
+		"psr-4": {"FreeMobile\\": "src/"}
+	},
+	"autoload-dev": {
+		"psr-4": {"FreeMobile\\": "test/"}
+	},
+	"config": {
+		"optimize-autoloader": true
+	},
+	"funding": [
+		{"type": "patreon", "url": "https://www.patreon.com/cedx"}
+	],
+	"keywords": [
+		"api",
+		"client",
+		"free",
+		"mobile",
+		"sdk",
+		"sms"
+	],
+	"require": {
+		"php": ">=8.0.0",
+		"ext-mbstring": "*",
+		"nyholm/psr7": "^1.3.2",
+		"psr/http-client": "^1.0.1",
+		"symfony/event-dispatcher": "^5.2.0",
+		"symfony/http-client": "^5.2.0"
+	},
+	"require-dev": {
+		"cedx/coveralls": "^14.0.0",
+		"phpstan/phpstan": "^0.12.59",
+		"phpunit/phpunit": "^9.5.0"
+	},
+	"scripts": {
 		"clean": "pwsh tool/clean.ps1",
 		"coverage": "coveralls var/coverage.xml",
 		"doc": ["@version", "pwsh tool/doc.ps1"],
@@ -49,9 +49,9 @@
 		"publish": ["@clean", "@version", "pwsh tool/publish.ps1"],
 		"test": "phpunit --configuration=etc/phpunit.xml",
 		"version": "pwsh tool/version.ps1"
-  },
-  "support": {
-    "docs": "https://api.belin.io/free-mobile.php",
-    "issues": "https://git.belin.io/cedx/free-mobile.php/issues"
-  }
+	},
+	"support": {
+		"docs": "https://api.belin.io/free-mobile.php",
+		"issues": "https://git.belin.io/cedx/free-mobile.php/issues"
+	}
 }
