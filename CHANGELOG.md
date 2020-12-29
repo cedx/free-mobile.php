@@ -1,5 +1,11 @@
 # Changelog
 
+## Version [16.0.0](https://git.belin.io/cedx/free-mobile.php/compare/v15.1.0...v16.0.0)
+- Breaking change: raised the required [PHP](https://www.php.net) version.
+- Breaking change: using PHP 8.0 features, like constructor property promotion and named arguments.
+- Ported the documentation to [docsify](https://docsify.js.org).
+- Updated the package dependencies.
+
 ## Version [15.1.0](https://git.belin.io/cedx/free-mobile.php/compare/v15.0.0...v15.1.0)
 - Updated the documentation.
 - Updated the package dependencies.

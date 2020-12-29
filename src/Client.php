@@ -52,7 +52,7 @@ class Client extends EventDispatcher {
 			"msg" => mb_substr(trim($text), 0, 160),
 			"pass" => $this->getPassword(),
 			"user" => $this->getUsername()
-		], enc_type: PHP_QUERY_RFC3986));
+		], encoding_type: PHP_QUERY_RFC3986));
 
 		try {
 			$request = $this->http->createRequest("GET", $uri);
