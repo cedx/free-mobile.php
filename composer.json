@@ -1,6 +1,6 @@
 {
 	"description": "Send SMS messages to your Free Mobile device. A simple and free way to monitor your applications using a Free Mobile account.",
-	"homepage": "https://docs.belin.io/free-mobile.php",
+	"homepage": "https://cedx.github.io/free-mobile.php",
 	"license": "MIT",
 	"name": "cedx/free-mobile",
 	"type": "library",
@@ -51,7 +51,7 @@
 		"version": "pwsh tool/version.ps1"
 	},
 	"support": {
-		"docs": "https://api.belin.io/free-mobile.php",
-		"issues": "https://git.belin.io/cedx/free-mobile.php/issues"
+		"docs": "https://cedx.github.io/free-mobile.php/api",
+		"issues": "https://github.com/cedx/free-mobile.php/issues"
 	}
 }

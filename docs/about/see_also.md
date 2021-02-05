@@ -1,9 +1,9 @@
 # See also
 
 ## Development
-- [API reference](https://api.belin.io/free-mobile.php)
+- [API reference](https://cedx.github.io/free-mobile.php/api)
 - [Packagist package](https://packagist.org/packages/cedx/free-mobile)
-- [Submit an issue](https://git.belin.io/cedx/free-mobile.php/issues)
+- [Submit an issue](https://github.com/cedx/free-mobile.php/issues)
 
 ## Testing
 - [Continuous integration](https://github.com/cedx/free-mobile.php/actions)
