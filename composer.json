@@ -1,4 +1,5 @@
 {
+	"abandoned": "symfony/free-mobile-notifier",
 	"description": "Send SMS messages to your Free Mobile device. A simple and free way to monitor your applications using a Free Mobile account.",
 	"homepage": "https://cedx.github.io/free-mobile.php",
 	"license": "MIT",
@@ -38,8 +39,8 @@
 	},
 	"require-dev": {
 		"cedx/coveralls": "^14.0.0",
-		"phpstan/phpstan": "^0.12.80",
-		"phpunit/phpunit": "^9.5.2"
+		"phpstan/phpstan": "^0.12.82",
+		"phpunit/phpunit": "^9.5.3"
 	},
 	"scripts": {
 		"clean": "pwsh tool/clean.ps1",
