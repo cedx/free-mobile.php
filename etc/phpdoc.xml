@@ -3,7 +3,7 @@
 	<title>Free Mobile for PHP</title>
 	<paths>
 		<cache>../var/phpdoc</cache>
-		<output>../docs/api</output>
+		<output>../docs</output>
 	</paths>
 	<version number="16.0.0">
 		<api>
