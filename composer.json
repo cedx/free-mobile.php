@@ -1,7 +1,7 @@
 {
-	"abandoned": "symfony/free-mobile-notifier",
+	"abandoned": true,
 	"description": "Send SMS messages to your Free Mobile device. A simple and free way to monitor your applications using a Free Mobile account.",
-	"homepage": "https://cedx.github.io/free-mobile.php",
+	"homepage": "https://bitbucket.org/cedx/free-mobile.php",
 	"license": "MIT",
 	"name": "cedx/free-mobile",
 	"type": "library",
@@ -16,10 +16,11 @@
 		"psr-4": {"FreeMobile\\": "test/"}
 	},
 	"config": {
-		"optimize-autoloader": true
+		"optimize-autoloader": true,
+		"platform-check": false
 	},
 	"funding": [
-		{"type": "patreon", "url": "https://www.patreon.com/cedx"}
+		{"type": "github", "url": "https://github.com/sponsors/cedx"}
 	],
 	"keywords": [
 		"api",
