@@ -3,7 +3,7 @@ namespace FreeMobile;
 
 use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\{Assert, TestCase};
-use function PHPUnit\Framework\{assertThat, isInstanceOf, isNull, stringStartsWith};
+use function PHPUnit\Framework\{assertThat, isInstanceOf, stringStartsWith};
 
 /** @testdox FreeMobile\Client */
 class ClientTest extends TestCase {
@@ -21,7 +21,7 @@ class ClientTest extends TestCase {
 		}
 
 		// It should trigger events.
-		$client = new Client((string) getenv("FREEMOBILE_USERNAME"), (string) getenv("FREEMOBILE_PASSWORD"));
+		$client = new Client((string) getenv("FREEMOBILE_ACCOUNT"), (string) getenv("FREEMOBILE_API_KEY"));
 		$client->addListener(Client::eventRequest, function(RequestEvent $event) {
 			assertThat((string) $event->getRequest()->getUri(), stringStartsWith("https://smsapi.free-mobile.fr/sendmsg?"));
 		});
