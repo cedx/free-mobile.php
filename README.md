@@ -6,7 +6,7 @@ Send SMS messages to your [Free Mobile](https://mobile.free.fr) account, in [PHP
 > WARNING: this package is **abandoned** and no longer maintained.  
 
 ## Documentation
-- [User guide](https://bitbucket.org/cedx/free-mobile.php)
+- [User guide](https://bitbucket.org/cedx/free-mobile.php/wiki)
 
 ## Development
 - [Git repository](https://bitbucket.org/cedx/free-mobile.php)
