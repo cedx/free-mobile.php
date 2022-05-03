@@ -35,7 +35,7 @@ class ClientTest extends TestCase {
 
 		// It should send SMS messages if credentials are valid.
 		try {
-			(new Client(getenv("FREEMOBILE_ACCOUNT"), getenv("FREEMOBILE_API_KEY")))->sendMessage("Hello Cédric, from PHP!");
+			(new Client(getenv("FREEMOBILE_ACCOUNT") ?: "", getenv("FREEMOBILE_API_KEY") ?: ""))->sendMessage("Hello Cédric, from PHP!");
 		}
 		catch (\Throwable $e) {
 			Assert::fail($e->getMessage());
