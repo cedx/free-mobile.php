@@ -48,25 +48,16 @@ class Client {
 
 	/**
 	 * Sends a SMS message to the underlying account.
-	 * @throws ClientException An error occurred while sending the message.
+	 * @throws \Psr\Http\Client\ClientExceptionInterface An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
-		$uri = $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
+		$query = http_build_query([
 			"msg" => mb_substr(trim($text), 0, 160),
 			"pass" => $this->apiKey,
 			"user" => $this->account
-		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986));
+		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986);
 
-		try {
-			$request = $this->http->createRequest("GET", $uri);
-			$this->dispatch(new RequestEvent($request));
-
-			$response = $this->http->sendRequest($request);
-			$this->dispatch(new ResponseEvent($response, $request));
-		}
-
-		catch (\Throwable $e) {
-			throw new ClientException($e->getMessage(), $uri, $e);
-		}
+		$uri = $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery($query);
+		$this->http->sendRequest($this->http->createRequest("GET", $uri));
 	}
 }
