@@ -9,47 +9,56 @@ use Symfony\Component\HttpClient\Psr18Client;
  */
 class Client {
 
-	/** The URL of the API end point. */
-	private UriInterface $endPoint;
+	/**
+	 * The Free Mobile account.
+	 * @var string
+	 */
+	public readonly string $account;
 
 	/**
-	 * The HTTP client.
+	 * The Free Mobile API key.
+	 * @var string
+	 */
+	public readonly string $apiKey;
+
+	/**
+	 * The base URL of the remote API endpoint.
+	 * @var UriInterface
+	 */
+	public readonly UriInterface $baseUrl;
+
+	/**
+	 * The underlying HTTP client.
 	 * @var Psr18Client
 	 */
 	private Psr18Client $http;
 
-	/** @var string The identification key associated to the account. */
-	private string $password;
-
-	/** @var string The user name associated to the account. */
-	private string $username;
-
 	/**
 	 * Creates a new client.
-	 * @param string $username The user name associated to the account.
-	 * @param string $password The identification key associated to the account.
-	 * @param UriInterface|null $endPoint The URL of the API end point.
+	 * @param string $account The Free Mobile account.
+	 * @param string $apiKey The Free Mobile API key.
+	 * @param string|null $baseUrl The base URL of the remote API endpoint.
 	 */
-	function __construct(string $username, string $password, ?UriInterface $endPoint = null) {
+	function __construct(string $account, string $apiKey, ?string $baseUrl = null) {
+		$this->account = $account;
+		$this->apiKey = $apiKey;
+		$this->baseUrl = $this->http->createUri($baseUrl ?? "https://smsapi.free-mobile.fr/");
 		$this->http = new Psr18Client;
-		$this->endPoint = $endPoint ?? $this->http->createUri("https://smsapi.free-mobile.fr/");
-		$this->password = $password;
-		$this->username = $username;
 	}
 
 	/** Gets the URL of the API end point. */
 	function getEndPoint(): UriInterface {
-		return $this->endPoint;
+		return $this->baseUrl;
 	}
 
 	/** Gets the identification key associated to the account. */
 	function getPassword(): string {
-		return $this->password;
+		return $this->apiKey;
 	}
 
 	/** Gets the user name associated to the account. */
 	function getUsername(): string {
-		return $this->username;
+		return $this->account;
 	}
 
 	/**
@@ -57,8 +66,8 @@ class Client {
 	 * @throws ClientException An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
-		$endPoint = $this->getEndPoint();
-		$uri = $endPoint->withPath("{$endPoint->getPath()}sendmsg")->withQuery(http_build_query([
+		$baseUrl = $this->getEndPoint();
+		$uri = $baseUrl->withPath("{$baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
 			"msg" => mb_substr(trim($text), 0, 160),
 			"pass" => $this->getPassword(),
 			"user" => $this->getUsername()
