@@ -46,32 +46,16 @@ class Client {
 		$this->http = new Psr18Client;
 	}
 
-	/** Gets the URL of the API end point. */
-	function getEndPoint(): UriInterface {
-		return $this->baseUrl;
-	}
-
-	/** Gets the identification key associated to the account. */
-	function getPassword(): string {
-		return $this->apiKey;
-	}
-
-	/** Gets the user name associated to the account. */
-	function getUsername(): string {
-		return $this->account;
-	}
-
 	/**
 	 * Sends a SMS message to the underlying account.
 	 * @throws ClientException An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
-		$baseUrl = $this->getEndPoint();
-		$uri = $baseUrl->withPath("{$baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
+		$uri = $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
 			"msg" => mb_substr(trim($text), 0, 160),
-			"pass" => $this->getPassword(),
-			"user" => $this->getUsername()
-		], "", "&", PHP_QUERY_RFC3986));
+			"pass" => $this->apiKey,
+			"user" => $this->account
+		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986));
 
 		try {
 			$request = $this->http->createRequest("GET", $uri);
