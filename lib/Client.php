@@ -2,22 +2,20 @@
 namespace FreeMobile;
 
 use Psr\Http\Message\UriInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpClient\Psr18Client;
 
-/** Sends messages by SMS to a Free Mobile account. */
-class Client extends EventDispatcher {
-
-	/** An event that is triggered when a request is made to the remote service. */
-	const eventRequest = RequestEvent::class;
-
-	/** An event that is triggered when a response is received from the remote service. */
-	const eventResponse = ResponseEvent::class;
+/**
+ * Sends messages by SMS to a Free Mobile account.
+ */
+class Client {
 
 	/** The URL of the API end point. */
 	private UriInterface $endPoint;
 
-	/** The HTTP client. */
+	/**
+	 * The HTTP client.
+	 * @var Psr18Client
+	 */
 	private Psr18Client $http;
 
 	/** @var string The identification key associated to the account. */
@@ -33,7 +31,6 @@ class Client extends EventDispatcher {
 	 * @param UriInterface|null $endPoint The URL of the API end point.
 	 */
 	function __construct(string $username, string $password, ?UriInterface $endPoint = null) {
-		parent::__construct();
 		$this->http = new Psr18Client;
 		$this->endPoint = $endPoint ?? $this->http->createUri("https://smsapi.free-mobile.fr/");
 		$this->password = $password;
