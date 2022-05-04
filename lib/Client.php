@@ -63,6 +63,8 @@ class Client {
 		$response = $this->http->sendRequest($request);
 		$error = new TransportException($response->getReasonPhrase(), $response->getStatusCode());
 
+		var_dump($response);
+
 		match (intdiv($response->getStatusCode(), 100)) {
 			4 => throw new Psr18RequestException($error, $request),
 			5 => throw new Psr18NetworkException($error, $request),
