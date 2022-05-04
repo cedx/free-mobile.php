@@ -38,13 +38,13 @@ class Client {
 	 * Creates a new client.
 	 * @param string $account The Free Mobile account.
 	 * @param string $apiKey The Free Mobile API key.
-	 * @param string|null $baseUrl The base URL of the remote API endpoint.
+	 * @param string $baseUrl The base URL of the remote API endpoint.
 	 */
-	function __construct(string $account, string $apiKey, ?string $baseUrl = null) {
+	function __construct(string $account, string $apiKey, string $baseUrl = "https://smsapi.free-mobile.fr/") {
 		$this->http = new Psr18Client;
 		$this->account = $account;
 		$this->apiKey = $apiKey;
-		$this->baseUrl = $this->http->createUri($baseUrl ?? "https://smsapi.free-mobile.fr/");
+		$this->baseUrl = $this->http->createUri($baseUrl);
 	}
 
 	/**
