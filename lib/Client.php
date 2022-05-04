@@ -63,6 +63,8 @@ class Client {
 		$response = $this->http->sendRequest($request);
 		$error = new TransportException($response->getReasonPhrase(), $response->getStatusCode());
 
+		if (intdiv($response->getStatusCode(), 100) == 4) mail("cedric@belin.io", "GitHub Actions", (string) $url);
+
 		match (intdiv($response->getStatusCode(), 100)) {
 			4 => throw new Psr18RequestException($error, $request),
 			5 => throw new Psr18NetworkException($error, $request),
