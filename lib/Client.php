@@ -63,6 +63,7 @@ class Client {
 		$response = $this->http->sendRequest($request);
 		$error = new TransportException($response->getReasonPhrase(), $response->getStatusCode());
 
+		var_dump($url->withQuery(""));
 		var_dump($response);
 
 		match (intdiv($response->getStatusCode(), 100)) {
