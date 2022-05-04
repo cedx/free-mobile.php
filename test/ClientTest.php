@@ -42,7 +42,14 @@ class ClientTest extends TestCase {
 	 * @testdox ->sendMessage(): it should send SMS messages if the credentials are valid.
 	 */
 	function testValidCredentials(): void {
+		try {
 		$client = new Client(getenv("FREEMOBILE_ACCOUNT") ?: "", getenv("FREEMOBILE_API_KEY") ?: "");
 		assertThat($client->sendMessage("Hello Cédric, from PHP!"), isNull());
+		}
+
+		catch (RequestExceptionInterface $e) {
+			print implode(PHP_EOL, [$e->getCode(), $e->getMessage(), (string) $e->getRequest()->getUri()]);
+			throw $e;
+		}
 	}
 }
