@@ -2,7 +2,8 @@
 namespace FreeMobile;
 
 use Psr\Http\Message\UriInterface;
-use Symfony\Component\HttpClient\Psr18Client;
+use Symfony\Component\HttpClient\{Psr18Client, Psr18NetworkException, Psr18RequestException};
+use Symfony\Component\HttpClient\Exception\TransportException;
 
 /**
  * Sends messages by SMS to a Free Mobile account.
@@ -40,24 +41,32 @@ class Client {
 	 * @param string|null $baseUrl The base URL of the remote API endpoint.
 	 */
 	function __construct(string $account, string $apiKey, ?string $baseUrl = null) {
+		$this->http = new Psr18Client;
 		$this->account = $account;
 		$this->apiKey = $apiKey;
 		$this->baseUrl = $this->http->createUri($baseUrl ?? "https://smsapi.free-mobile.fr/");
-		$this->http = new Psr18Client;
 	}
 
 	/**
 	 * Sends a SMS message to the underlying account.
-	 * @throws \Psr\Http\Client\ClientExceptionInterface An error occurred while sending the message.
+	 * @throws \Psr\Http\Client\NetworkExceptionInterface An error occurred while sending the message.
+	 * @throws \Psr\Http\Client\RequestExceptionInterface The provided credentials are invalid.
 	 */
 	function sendMessage(string $text): void {
-		$query = http_build_query([
+		$url = $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
 			"msg" => mb_substr(trim($text), 0, 160),
 			"pass" => $this->apiKey,
 			"user" => $this->account
-		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986);
+		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986));
 
-		$uri = $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery($query);
-		$this->http->sendRequest($this->http->createRequest("GET", $uri));
+		$request = $this->http->createRequest("GET", $url);
+		$response = $this->http->sendRequest($request);
+		$error = new TransportException($response->getReasonPhrase(), $response->getStatusCode());
+
+		match (intdiv($response->getStatusCode(), 100)) {
+			4 => throw new Psr18RequestException($error, $request),
+			5 => throw new Psr18NetworkException($error, $request),
+			default => null
+		};
 	}
 }
