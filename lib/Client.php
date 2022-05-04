@@ -49,6 +49,7 @@ class Client {
 
 	/**
 	 * Sends a SMS message to the underlying account.
+	 * @param string $text The message text.
 	 * @throws \Psr\Http\Client\NetworkExceptionInterface An error occurred while sending the message.
 	 * @throws \Psr\Http\Client\RequestExceptionInterface The provided credentials are invalid.
 	 */
