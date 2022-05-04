@@ -48,6 +48,7 @@ class ClientTest extends TestCase {
 		}
 
 		catch (RequestExceptionInterface $e) {
+			var_dump(getenv("FREEMOBILE_ACCOUNT"), getenv("FREEMOBILE_API_KEY"));
 			print implode(PHP_EOL, [$e->getCode(), $e->getMessage(), (string) $e->getRequest()->getUri()]);
 			throw $e;
 		}
