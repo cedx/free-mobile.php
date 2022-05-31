@@ -1,5 +1,3 @@
 parameters:
 	level: max
 	paths: [../lib, ../test]
-	ignoreErrors:
-		- '/Result of method FreeMobile\\Client::sendMessage\(\) \(void\) is used/'

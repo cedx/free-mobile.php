@@ -43,6 +43,6 @@ class ClientTest extends TestCase {
 	 */
 	function testValidCredentials(): void {
 		$client = new Client(getenv("FREEMOBILE_ACCOUNT") ?: "", getenv("FREEMOBILE_API_KEY") ?: "");
-		assertThat($client->sendMessage("Hello Cédric, from PHP!"), isNull());
+		assertThat($client->sendMessage("Hello Cédric, from PHP!"), isNull()); // @phpstan-ignore-line
 	}
 }
