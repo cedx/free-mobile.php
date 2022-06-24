@@ -62,9 +62,11 @@ class Client {
 
 		$request = $this->http->createRequest("GET", $url);
 		$response = $this->http->sendRequest($request);
-		$error = new TransportException($response->getReasonPhrase(), $response->getStatusCode());
 
-		switch (intdiv($response->getStatusCode(), 100)) {
+		$statusCode = $response->getStatusCode();
+		$error = new TransportException($response->getReasonPhrase(), $statusCode);
+
+		switch (intdiv($statusCode, 100)) {
 			case 4: throw new Psr18RequestException($error, $request);
 			case 5: throw new Psr18NetworkException($error, $request);
 		}
