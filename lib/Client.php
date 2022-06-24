@@ -2,7 +2,7 @@
 namespace FreeMobile;
 
 use Psr\Http\Message\UriInterface;
-use Symfony\Component\HttpClient\{Psr18Client, Psr18NetworkException, Psr18RequestException};
+use Symfony\Component\HttpClient\{Psr18Client, Psr18RequestException};
 use Symfony\Component\HttpClient\Exception\TransportException;
 
 /**
@@ -50,8 +50,7 @@ class Client {
 	/**
 	 * Sends a SMS message to the underlying account.
 	 * @param string $text The message text.
-	 * @throws \Psr\Http\Client\NetworkExceptionInterface An error occurred while sending the message.
-	 * @throws \Psr\Http\Client\RequestExceptionInterface The provided credentials are invalid.
+	 * @throws \Psr\Http\Client\RequestExceptionInterface An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
 		$url = $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
@@ -64,11 +63,7 @@ class Client {
 		$response = $this->http->sendRequest($request);
 
 		$statusCode = $response->getStatusCode();
-		$error = new TransportException($response->getReasonPhrase(), $statusCode);
-
-		switch (intdiv($statusCode, 100)) {
-			case 4: throw new Psr18RequestException($error, $request);
-			case 5: throw new Psr18NetworkException($error, $request);
-		}
+		if (intdiv($statusCode, 100) != 2)
+			throw new Psr18RequestException(new TransportException($response->getReasonPhrase(), $statusCode), $request);
 	}
 }
