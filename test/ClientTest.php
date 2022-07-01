@@ -2,8 +2,8 @@
 namespace FreeMobile;
 
 use PHPUnit\Framework\{Assert, TestCase};
-use Psr\Http\Client\{NetworkExceptionInterface, RequestExceptionInterface};
-use function PHPUnit\Framework\{assertThat, isInstanceOf, isNull};
+use Psr\Http\Client\ClientExceptionInterface;
+use function PHPUnit\Framework\{assertThat, equalTo, isInstanceOf, isNull};
 
 /**
  * @testdox FreeMobile\Client
@@ -11,7 +11,7 @@ use function PHPUnit\Framework\{assertThat, isInstanceOf, isNull};
 class ClientTest extends TestCase {
 
 	/**
-	 * @testdox ->sendMessage(): it should throw a `NetworkExceptionInterface` if a network error occurred.
+	 * @testdox ->sendMessage(): it should throw a `ClientExceptionInterface` if a network error occurred.
 	 */
 	function testNetworkError(): void {
 		try {
@@ -20,12 +20,12 @@ class ClientTest extends TestCase {
 		}
 
 		catch (\Throwable $e) {
-			assertThat($e, isInstanceOf(NetworkExceptionInterface::class));
+			assertThat($e, isInstanceOf(ClientExceptionInterface::class));
 		}
 	}
 
 	/**
-	 * @testdox ->sendMessage(): it should throw a `RequestExceptionInterface` if the credentials are invalid.
+	 * @testdox ->sendMessage(): it should throw a `ClientExceptionInterface` if the credentials are invalid.
 	 */
 	function testInvalidCredentials(): void {
 		try {
@@ -34,7 +34,7 @@ class ClientTest extends TestCase {
 		}
 
 		catch (\Throwable $e) {
-			assertThat($e, isInstanceOf(RequestExceptionInterface::class));
+			assertThat($e, isInstanceOf(ClientExceptionInterface::class));
 		}
 	}
 

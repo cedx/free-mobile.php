@@ -2,8 +2,7 @@
 namespace FreeMobile;
 
 use Psr\Http\Message\UriInterface;
-use Symfony\Component\HttpClient\{Psr18Client, Psr18RequestException};
-use Symfony\Component\HttpClient\Exception\TransportException;
+use Symfony\Component\HttpClient\Psr18Client;
 
 /**
  * Sends messages by SMS to a Free Mobile account.
@@ -50,7 +49,7 @@ class Client {
 	/**
 	 * Sends a SMS message to the underlying account.
 	 * @param string $text The message text.
-	 * @throws \Psr\Http\Client\RequestExceptionInterface An error occurred while sending the message.
+	 * @throws \Psr\Http\Client\ClientExceptionInterface An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
 		$url = $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
@@ -62,8 +61,11 @@ class Client {
 		$request = $this->http->createRequest("GET", $url);
 		$response = $this->http->sendRequest($request);
 
-		$statusCode = $response->getStatusCode();
-		if (intdiv($statusCode, 100) != 2)
-			throw new Psr18RequestException(new TransportException($response->getReasonPhrase(), $statusCode), $request);
+		$status = $response->getStatusCode();
+		$code = intdiv($status, 100);
+		if ($code != 2) switch ($code) {
+			case 4: throw new ClientException("The provided credentials are invalid.", $status);
+			default: throw new ClientException("An error occurred while sending the message.", $status);
+		}
 	}
 }
