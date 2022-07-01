@@ -61,8 +61,7 @@ class Client {
 		$request = $this->http->createRequest("GET", $url);
 		$response = $this->http->sendRequest($request);
 
-		$status = $response->getStatusCode();
-		$code = intdiv($status, 100);
+		$code = intdiv($status = $response->getStatusCode(), 100);
 		if ($code != 2) switch ($code) {
 			case 4: throw new ClientException("The provided credentials are invalid.", $status);
 			default: throw new ClientException("An error occurred while sending the message.", $status);
