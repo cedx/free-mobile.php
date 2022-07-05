@@ -1,5 +1,4 @@
-<?php declare(strict_types=1);
-namespace FreeMobile;
+<?php namespace FreeMobile;
 
 use PHPUnit\Framework\{Assert, TestCase};
 use Psr\Http\Client\ClientExceptionInterface;
