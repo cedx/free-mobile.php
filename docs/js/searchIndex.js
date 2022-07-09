@@ -31,6 +31,11 @@ Search.appendIndex(
             "summary": "The\u0020base\u0020URL\u0020of\u0020the\u0020remote\u0020API\u0020endpoint.",
             "url": "classes/FreeMobile-Client.html#property_baseUrl"
         },                {
+            "fqsen": "\\FreeMobile\\ClientException",
+            "name": "ClientException",
+            "summary": "An\u0020exception\u0020caused\u0020by\u0020an\u0020error\u0020in\u0020a\u0020\u0060Client\u0060\u0020request.",
+            "url": "classes/FreeMobile-ClientException.html"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
