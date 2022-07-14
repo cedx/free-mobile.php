@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\{Assert, TestCase};
 use Psr\Http\Client\ClientExceptionInterface;
-use function PHPUnit\Framework\{assertThat, equalTo, isInstanceOf, isNull};
+use function PHPUnit\Framework\{assertThat, isInstanceOf, isNull};
 
 /**
  * @testdox FreeMobile\Client
@@ -10,7 +10,7 @@ use function PHPUnit\Framework\{assertThat, equalTo, isInstanceOf, isNull};
 class ClientTest extends TestCase {
 
 	/**
-	 * @testdox ->sendMessage(): it should throw a `ClientExceptionInterface` if a network error occurred.
+	 * @testdox ->sendMessage(): should throw a `ClientExceptionInterface` if a network error occurred.
 	 */
 	function testNetworkError(): void {
 		try {
@@ -24,7 +24,7 @@ class ClientTest extends TestCase {
 	}
 
 	/**
-	 * @testdox ->sendMessage(): it should throw a `ClientExceptionInterface` if the credentials are invalid.
+	 * @testdox ->sendMessage(): should throw a `ClientExceptionInterface` if the credentials are invalid.
 	 */
 	function testInvalidCredentials(): void {
 		try {
@@ -38,7 +38,7 @@ class ClientTest extends TestCase {
 	}
 
 	/**
-	 * @testdox ->sendMessage(): it should send SMS messages if the credentials are valid.
+	 * @testdox ->sendMessage(): should send SMS messages if the credentials are valid.
 	 */
 	function testValidCredentials(): void {
 		$client = new Client(getenv("FREEMOBILE_ACCOUNT") ?: "", getenv("FREEMOBILE_API_KEY") ?: "");
