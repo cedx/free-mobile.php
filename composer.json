@@ -27,11 +27,11 @@
 	],
 	"require": {
 		"php": ">=8.1.0",
+		"ext-curl": "*",
 		"ext-mbstring": "*",
 		"ext-spl": "*",
 		"nyholm/psr7": "^1.5.1",
-		"psr/http-client": "^1.0.1",
-		"symfony/http-client": "^6.1.6"
+		"psr/http-client": "^1.0.1"
 	},
 	"require-dev": {
 		"phpstan/phpstan": "^1.8.10",

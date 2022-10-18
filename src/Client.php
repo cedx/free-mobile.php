@@ -1,7 +1,7 @@
 <?php namespace FreeMobile;
 
+use Nyholm\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
-use Symfony\Component\HttpClient\Psr18Client;
 
 /**
  * Sends messages by SMS to a Free Mobile account.
@@ -12,25 +12,19 @@ class Client {
 	 * The Free Mobile account.
 	 * @var string
 	 */
-	public readonly string $account;
+	readonly string $account;
 
 	/**
 	 * The Free Mobile API key.
 	 * @var string
 	 */
-	public readonly string $apiKey;
+	readonly string $apiKey;
 
 	/**
 	 * The base URL of the remote API endpoint.
 	 * @var UriInterface
 	 */
-	public readonly UriInterface $baseUrl;
-
-	/**
-	 * The underlying HTTP client.
-	 * @var Psr18Client
-	 */
-	private Psr18Client $http;
+	readonly UriInterface $baseUrl;
 
 	/**
 	 * Creates a new client.
@@ -39,10 +33,9 @@ class Client {
 	 * @param string $baseUrl The base URL of the remote API endpoint.
 	 */
 	function __construct(string $account, string $apiKey, string $baseUrl = "https://smsapi.free-mobile.fr/") {
-		$this->http = new Psr18Client;
 		$this->account = $account;
 		$this->apiKey = $apiKey;
-		$this->baseUrl = $this->http->createUri($baseUrl);
+		$this->baseUrl = new Uri($baseUrl);
 	}
 
 	/**
@@ -51,19 +44,24 @@ class Client {
 	 * @throws \Psr\Http\Client\ClientExceptionInterface An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
-		$url = $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
+		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
 			"msg" => mb_substr(trim($text), 0, 160),
 			"pass" => $this->apiKey,
 			"user" => $this->account
-		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986));
+		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986)));
 
-		$request = $this->http->createRequest("GET", $url);
-		$response = $this->http->sendRequest($request);
+		try {
+			if (!$handle) throw new ClientException("Unable to allocate the cURL handle.", 500);
+			if (!curl_exec($handle)) throw new ClientException("An error occurred while sending the message.", 500);
 
-		$code = intdiv($status = $response->getStatusCode(), 100);
-		if ($code != 2) switch ($code) {
-			case 4: throw new ClientException("The provided credentials are invalid.", $status);
-			default: throw new ClientException("An error occurred while sending the message.", $status);
+			$code = intdiv($status = curl_getinfo($handle, CURLINFO_RESPONSE_CODE), 100);
+			if ($code != 2) switch ($code) {
+				case 4: throw new ClientException("The provided credentials are invalid.", $status);
+				default: throw new ClientException("An error occurred while sending the message.", $status);
+			}
+		}
+		finally {
+			if ($handle) curl_close($handle);
 		}
 	}
 }
