@@ -17,7 +17,6 @@ class ClientTest extends TestCase {
 			(new Client(account: "anonymous", apiKey: "secret", baseUrl: "http://localhost:10000/"))->sendMessage("Hello World!");
 			Assert::fail("Exception not thrown.");
 		}
-
 		catch (\Throwable $e) {
 			assertThat($e, isInstanceOf(ClientExceptionInterface::class));
 		}
@@ -31,7 +30,6 @@ class ClientTest extends TestCase {
 			(new Client(account: "anonymous", apiKey: "secret"))->sendMessage("Hello World!");
 			Assert::fail("Exception not thrown.");
 		}
-
 		catch (\Throwable $e) {
 			assertThat($e, isInstanceOf(ClientExceptionInterface::class));
 		}

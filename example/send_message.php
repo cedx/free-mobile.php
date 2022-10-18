@@ -10,7 +10,6 @@ try {
 	$client->sendMessage("Hello World from PHP!");
 	print "The message was sent successfully.";
 }
-
 catch (ClientExceptionInterface $e) {
 	print "An error occurred: {$e->getMessage()}";
 }
