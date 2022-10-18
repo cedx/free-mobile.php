@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [17.1.0](https://github.com/cedx/free-mobile.php/compare/v17.0.0...v17.1.0)
+- Dropped the dependency on [Symfony HTTP Client](https://symfony.com/doc/current/http_client.html).
+- Restored the `ClientException` class.
+
 ## Version [17.0.0](https://github.com/cedx/free-mobile.php/compare/v16.0.0...v17.0.0)
 - Breaking change: raised the required [PHP](https://www.php.net) version.
 - Breaking change: removed the `ClientException` class and replaced it by the `Psr\Http\Client\ClientExceptionInterface` ones.
