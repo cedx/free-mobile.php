@@ -6,7 +6,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Sends messages by SMS to a Free Mobile account.
  */
-class Client {
+final class Client {
 
 	/**
 	 * The Free Mobile account.
