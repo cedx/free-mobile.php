@@ -10,19 +10,16 @@ final class Client {
 
 	/**
 	 * The Free Mobile account.
-	 * @var string
 	 */
 	readonly string $account;
 
 	/**
 	 * The Free Mobile API key.
-	 * @var string
 	 */
 	readonly string $apiKey;
 
 	/**
 	 * The base URL of the remote API endpoint.
-	 * @var UriInterface
 	 */
 	readonly UriInterface $baseUrl;
 
