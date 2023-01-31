@@ -47,18 +47,13 @@ final class Client {
 			"user" => $this->account
 		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986)));
 
-		try {
-			if (!$handle) throw new ClientException("Unable to allocate the cURL handle.", 500);
-			if (!curl_exec($handle)) throw new ClientException("An error occurred while sending the message.", 500);
+		if (!$handle) throw new ClientException("Unable to allocate the cURL handle.", 500);
+		if (!curl_exec($handle)) throw new ClientException("An error occurred while sending the message.", 500);
 
-			$code = intdiv($status = curl_getinfo($handle, CURLINFO_RESPONSE_CODE), 100);
-			if ($code != 2) {
-				$message = $code == 4 ? "The provided credentials are invalid." : "An error occurred while sending the message.";
-				throw new ClientException($message, $status);
-			}
-		}
-		finally {
-			if ($handle) curl_close($handle);
+		$code = intdiv($status = curl_getinfo($handle, CURLINFO_RESPONSE_CODE), 100);
+		if ($code != 2) {
+			$message = $code == 4 ? "The provided credentials are invalid." : "An error occurred while sending the message.";
+			throw new ClientException($message, $status);
 		}
 	}
 }
