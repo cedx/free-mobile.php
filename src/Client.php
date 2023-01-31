@@ -52,9 +52,9 @@ final class Client {
 			if (!curl_exec($handle)) throw new ClientException("An error occurred while sending the message.", 500);
 
 			$code = intdiv($status = curl_getinfo($handle, CURLINFO_RESPONSE_CODE), 100);
-			if ($code != 2) switch ($code) {
-				case 4: throw new ClientException("The provided credentials are invalid.", $status);
-				default: throw new ClientException("An error occurred while sending the message.", $status);
+			if ($code != 2) {
+				$message = $code == 4 ? "The provided credentials are invalid." : "An error occurred while sending the message.";
+				throw new ClientException($message, $status);
 			}
 		}
 		finally {
