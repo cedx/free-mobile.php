@@ -1,4 +1,4 @@
-<?php namespace FreeMobile;
+<?php namespace freemobile;
 
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\UriInterface;

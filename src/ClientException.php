@@ -1,4 +1,4 @@
-<?php namespace FreeMobile;
+<?php namespace freemobile;
 
 use Psr\Http\Client\ClientExceptionInterface;
 

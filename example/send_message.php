@@ -1,5 +1,5 @@
 <?php
-use FreeMobile\Client;
+use freemobile\Client;
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**

@@ -9,10 +9,10 @@
 		{"email": "cedric@belin.io", "homepage": "https://belin.io", "name": "Cédric Belin"}
 	],
 	"autoload": {
-		"psr-4": {"FreeMobile\\": "src/"}
+		"psr-4": {"freemobile\\": "src/"}
 	},
 	"autoload-dev": {
-		"psr-4": {"FreeMobile\\": "test/"}
+		"psr-4": {"freemobile\\": "test/"}
 	},
 	"config": {
 		"optimize-autoloader": true,

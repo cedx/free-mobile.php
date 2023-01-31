@@ -1,11 +1,11 @@
-<?php namespace FreeMobile;
+<?php namespace freemobile;
 
 use PHPUnit\Framework\{Assert, TestCase};
 use Psr\Http\Client\ClientExceptionInterface;
-use function PHPUnit\Expect\{expect, it};
+use function phpunit\expect\{expect, it};
 
 /**
- * @testdox FreeMobile\Client
+ * @testdox freemobile\Client
  */
 class ClientTest extends TestCase {
 
