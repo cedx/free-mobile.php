@@ -1,17 +1,17 @@
 <?php namespace freemobile;
 
-use PHPUnit\Framework\{Assert, TestCase};
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\TestDox;
 use Psr\Http\Client\ClientExceptionInterface;
 use function phpunit\expect\{expect, it};
 
 /**
- * @testdox freemobile\Client
+ * Tests the features of the {@see Client} class.
  */
+#[TestDox('freemobile\Client')]
 class ClientTest extends TestCase {
 
-	/**
-	 * @testdox ->sendMessage()
-	 */
+	#[TestDox("->sendMessage()")]
 	function testNetworkError(): void {
 		it("should reject if a network error occurred", function() {
 			$client = new Client(account: "anonymous", apiKey: "secret", baseUrl: "http://localhost:10000/");
