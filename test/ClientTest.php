@@ -9,7 +9,7 @@ use function phpunit\expect\{expect, it};
  * Tests the features of the {@see Client} class.
  */
 #[TestDox('freemobile\Client')]
-class ClientTest extends TestCase {
+final class ClientTest extends TestCase {
 
 	#[TestDox("->sendMessage()")]
 	function testNetworkError(): void {
