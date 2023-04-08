@@ -5,7 +5,7 @@ Send SMS messages to your [Free Mobile](https://mobile.free.fr) account, in [PHP
 
 ## Documentation
 - [User guide](https://github.com/cedx/free-mobile.php/wiki)
-- [API reference](https://cedx.github.io/free-mobile.php)
+- [API reference](https://docs.belin.io/free-mobile.php)
 
 ## Development
 - [Git repository](https://github.com/cedx/free-mobile.php)
