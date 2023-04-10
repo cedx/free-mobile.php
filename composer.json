@@ -30,7 +30,7 @@
 		"ext-curl": "*",
 		"ext-mbstring": "*",
 		"ext-spl": "*",
-		"nyholm/psr7": "^1.5.1",
+		"nyholm/psr7": "^1.6.0",
 		"psr/http-client": "^1.0.1"
 	},
 	"require-dev": {
