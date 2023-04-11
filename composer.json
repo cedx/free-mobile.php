@@ -31,7 +31,7 @@
 		"ext-mbstring": "*",
 		"ext-spl": "*",
 		"nyholm/psr7": "^1.6.0",
-		"psr/http-client": "^1.0.1"
+		"psr/http-client": "^1.0.2"
 	},
 	"require-dev": {
 		"cedx/phpunit-expect": "^0.15.0",
