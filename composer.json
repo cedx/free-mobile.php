@@ -1,6 +1,6 @@
 {
 	"description": "Send SMS messages to your Free Mobile device.",
-	"homepage": "https://github.com/cedx/free-mobile.php",
+	"homepage": "https://docs.belin.io/free-mobile.php",
 	"license": "MIT",
 	"name": "cedx/free-mobile",
 	"type": "library",
