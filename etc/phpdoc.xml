@@ -8,7 +8,7 @@
 	<title>Free Mobile for PHP</title>
 	<paths>
 		<cache>../var/phpdoc</cache>
-		<output>../docs</output>
+		<output>../docs/api</output>
 	</paths>
 	<version number="18.0.0">
 		<api>
