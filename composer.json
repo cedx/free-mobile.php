@@ -41,7 +41,7 @@
 		"test": ["@putenv XDEBUG_MODE=coverage", "phpunit --configuration=etc/phpunit.xml"]
 	},
 	"support": {
-		"docs": "https://github.com/cedx/free-mobile.php/wiki",
+		"docs": "https://docs.belin.io/free-mobile.php",
 		"issues": "https://github.com/cedx/free-mobile.php/issues"
 	}
 }
