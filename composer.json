@@ -14,10 +14,6 @@
 	"autoload-dev": {
 		"psr-4": {"freemobile\\": "test/"}
 	},
-	"config": {
-		"optimize-autoloader": true,
-		"platform-check": false
-	},
 	"keywords": [
 		"api",
 		"client",
