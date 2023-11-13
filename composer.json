@@ -1,6 +1,6 @@
 {
 	"description": "Send SMS messages to your Free Mobile device.",
-	"homepage": "https://docs.belin.io/free-mobile.php",
+	"homepage": "https://cedx.github.io/free-mobile.php",
 	"license": "MIT",
 	"name": "cedx/free-mobile",
 	"type": "library",
@@ -29,7 +29,7 @@
 		"ext-curl": "*",
 		"ext-mbstring": "*",
 		"ext-spl": "*",
-		"nyholm/psr7": "^1.8.0",
+		"nyholm/psr7": "^1.8.1",
 		"psr/http-client": "^1.0.2"
 	},
 	"require-dev": {
@@ -44,7 +44,7 @@
 		"test": ["@putenv XDEBUG_MODE=coverage", "phpunit --configuration=etc/phpunit.xml"]
 	},
 	"support": {
-		"docs": "https://docs.belin.io/free-mobile.php",
+		"docs": "https://cedx.github.io/free-mobile.php",
 		"issues": "https://github.com/cedx/free-mobile.php/issues"
 	}
 }
