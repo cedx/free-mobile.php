@@ -13,4 +13,4 @@ Send SMS messages to your [Free Mobile](https://mobile.free.fr) account, in [PHP
 - [Submit an issue](https://github.com/cedx/free-mobile.php/issues)
 
 ## License
-[Free Mobile for PHP](https://cedx.github.io/free-mobile.php) is distributed under the MIT License.
+[Free Mobile for PHP](https://github.com/cedx/free-mobile.php) is distributed under the MIT License.
