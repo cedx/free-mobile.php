@@ -29,10 +29,10 @@ final class Client {
 	 * @param string $apiKey The Free Mobile API key.
 	 * @param string $baseUrl The base URL of the remote API endpoint.
 	 */
-	function __construct(string $account, string $apiKey, string $baseUrl = "https://smsapi.free-mobile.fr/") {
+	function __construct(string $account, string $apiKey, string $baseUrl = "https://smsapi.free-mobile.fr") {
 		$this->account = $account;
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri($baseUrl);
+		$this->baseUrl = new Uri(mb_substr($baseUrl, -1) == "/" ? $baseUrl : "$baseUrl/");
 	}
 
 	/**
