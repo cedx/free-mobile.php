@@ -32,7 +32,7 @@ final class Client {
 	function __construct(string $account, string $apiKey, string $baseUrl = "https://smsapi.free-mobile.fr") {
 		$this->account = $account;
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(mb_substr($baseUrl, -1) == "/" ? $baseUrl : "$baseUrl/");
+		$this->baseUrl = new Uri(str_ends_with($baseUrl, "/") ? $baseUrl : "$baseUrl/");
 	}
 
 	/**
