@@ -49,7 +49,7 @@ final class Client {
 
 		if (!$handle) throw new ClientException("Unable to allocate the cURL handle.", 500);
 		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-		if (!curl_exec($handle)) throw new ClientException("An error occurred while sending the message.", 500);
+		if (curl_exec($handle) === false) throw new ClientException("An error occurred while sending the message.", 500);
 
 		$code = intdiv($status = curl_getinfo($handle, CURLINFO_RESPONSE_CODE), 100);
 		if ($code != 2) match ($code) {
