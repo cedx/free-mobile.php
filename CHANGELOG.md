@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [18.1.0](https://github.com/cedx/free-mobile.php/compare/v18.0.0...v18.1.0)
+- Updated the package dependencies.
+
 ## Version [18.0.0](https://github.com/cedx/free-mobile.php/compare/v17.1.0...v18.0.0)
 - Breaking change: lowercased the `FreeMobile` namespace.
 - Updated the package dependencies.
