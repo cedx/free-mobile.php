@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f879b40c5dd458458485e8e27265a879",
+    "content-hash": "55b486cd1ef763f46f8596e3afa57b55",
     "packages": [
         {
             "name": "nyholm/psr7",
