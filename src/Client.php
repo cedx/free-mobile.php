@@ -36,7 +36,7 @@ final class Client {
 	}
 
 	/**
-	 * Sends a SMS message to the underlying account.
+	 * Sends an SMS message to the underlying account.
 	 * @param string $text The message text.
 	 * @throws \Psr\Http\Client\ClientExceptionInterface An error occurred while sending the message.
 	 */
