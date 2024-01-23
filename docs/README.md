@@ -45,4 +45,3 @@ The `Client->sendMessage()` method throws a `Psr\Http\Client\ClientExceptionInte
 ## See also
 - [API reference](api/)
 - [Packagist package](https://packagist.org/packages/cedx/free-mobile)
-- [Code coverage](https://app.codecov.io/gh/cedx/free-mobile.php)
