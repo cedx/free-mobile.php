@@ -13,7 +13,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\freemobile\\Client\u003A\u003AsendMessage\u0028\u0029",
             "name": "sendMessage",
-            "summary": "Sends\u0020a\u0020SMS\u0020message\u0020to\u0020the\u0020underlying\u0020account.",
+            "summary": "Sends\u0020an\u0020SMS\u0020message\u0020to\u0020the\u0020underlying\u0020account.",
             "url": "classes/freemobile-Client.html#method_sendMessage"
         },                {
             "fqsen": "\\freemobile\\Client\u003A\u003A\u0024account",
