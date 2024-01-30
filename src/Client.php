@@ -6,22 +6,22 @@ use Psr\Http\Message\UriInterface;
 /**
  * Sends messages by SMS to a Free Mobile account.
  */
-final class Client {
+final readonly class Client {
 
 	/**
 	 * The Free Mobile account.
 	 */
-	readonly string $account;
+	public string $account;
 
 	/**
 	 * The Free Mobile API key.
 	 */
-	readonly string $apiKey;
+	public string $apiKey;
 
 	/**
 	 * The base URL of the remote API endpoint.
 	 */
-	readonly UriInterface $baseUrl;
+	public UriInterface $baseUrl;
 
 	/**
 	 * Creates a new client.

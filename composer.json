@@ -25,7 +25,7 @@
 		"sms"
 	],
 	"require": {
-		"php": ">=8.1.0",
+		"php": ">=8.3.0",
 		"ext-curl": "*",
 		"ext-mbstring": "*",
 		"ext-spl": "*",
