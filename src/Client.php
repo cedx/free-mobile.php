@@ -2,6 +2,9 @@
 
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\Exception\ExceptionInterface as HttpException;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * Sends messages by SMS to a Free Mobile account.
@@ -24,6 +27,11 @@ final readonly class Client {
 	public UriInterface $baseUrl;
 
 	/**
+	 * The underlying HTTP client.
+	 */
+	private HttpClientInterface $http;
+
+	/**
 	 * Creates a new client.
 	 * @param string $account The Free Mobile account.
 	 * @param string $apiKey The Free Mobile API key.
@@ -33,6 +41,7 @@ final readonly class Client {
 		$this->account = $account;
 		$this->apiKey = $apiKey;
 		$this->baseUrl = new Uri(str_ends_with($baseUrl, "/") ? $baseUrl : "$baseUrl/");
+		$this->http = HttpClient::createForBaseUri((string) $this->baseUrl);
 	}
 
 	/**
@@ -41,20 +50,21 @@ final readonly class Client {
 	 * @throws \Psr\Http\Client\ClientExceptionInterface An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
-		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
-			"msg" => mb_substr(trim($text), 0, 160),
-			"pass" => $this->apiKey,
-			"user" => $this->account
-		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986)));
+		try {
+			$response = $this->http->request("GET", "sendmsg", ["query" => [
+				"msg" => mb_substr(trim($text), 0, 160),
+				"pass" => $this->apiKey,
+				"user" => $this->account
+			]]);
 
-		if (!$handle) throw new ClientException("Unable to allocate the cURL handle.", 500);
-		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-		if (curl_exec($handle) === false) throw new ClientException("An error occurred while sending the message.", 500);
-
-		$code = intdiv($status = curl_getinfo($handle, CURLINFO_RESPONSE_CODE), 100);
-		if ($code != 2) match ($code) {
-			4 => throw new ClientException("The provided credentials are invalid.", $status),
-			default => throw new ClientException("An error occurred while sending the message.", $status)
-		};
+			$code = intdiv($status = $response->getStatusCode(), 100);
+			if ($code != 2) match ($code) {
+				4 => throw new ClientException("The provided credentials are invalid.", $status),
+				default => throw new ClientException("An error occurred while sending the message.", $status)
+			};
+		}
+		catch (HttpException) {
+			throw new ClientException("An error occurred while sending the message.", 500);
+		}
 	}
 }
