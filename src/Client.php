@@ -35,12 +35,13 @@ final readonly class Client {
 	 * Creates a new client.
 	 * @param string $account The Free Mobile account.
 	 * @param string $apiKey The Free Mobile API key.
-	 * @param string $baseUrl The base URL of the remote API endpoint.
+	 * @param string|UriInterface $baseUrl The base URL of the remote API endpoint.
 	 */
-	function __construct(string $account, string $apiKey, string $baseUrl = "https://smsapi.free-mobile.fr") {
+	function __construct(string $account, string $apiKey, string|UriInterface $baseUrl = "https://smsapi.free-mobile.fr") {
+		$url = $baseUrl instanceof UriInterface ? (string) $baseUrl : $baseUrl;
 		$this->account = $account;
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(str_ends_with($baseUrl, "/") ? $baseUrl : "$baseUrl/");
+		$this->baseUrl = new Uri(str_ends_with($url, "/") ? $url : "$url/");
 		$this->http = HttpClient::createForBaseUri((string) $this->baseUrl);
 	}
 
