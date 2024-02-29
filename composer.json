@@ -45,7 +45,7 @@
 		"test": "phpunit --configuration=etc/phpunit.xml"
 	},
 	"support": {
-		"docs": "https://cedx.github.io/free-mobile.php",
+		"docs": "https://docs.belin.io/free-mobile.php",
 		"issues": "https://github.com/cedx/free-mobile.php/issues"
 	}
 }

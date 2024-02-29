@@ -4,8 +4,8 @@
 Send SMS messages to your [Free Mobile](https://mobile.free.fr) account, in [PHP](https://www.php.net).
 
 ## Documentation
-- [User guide](https://cedx.github.io/free-mobile.php)
-- [API reference](https://cedx.github.io/free-mobile.php/api)
+- [User guide](https://docs.belin.io/free-mobile.php)
+- [API reference](https://docs.belin.io/free-mobile.php/api)
 
 ## Development
 - [Git repository](https://github.com/cedx/free-mobile.php)
