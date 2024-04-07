@@ -15,7 +15,7 @@ This will give you an identification key allowing access to the [Free Mobile](ht
 ### Get the library
 Install the latest version of **Free Mobile for PHP** with [Composer](https://getcomposer.org) package manager:
 
-```shell
+``` shell
 composer require cedx/free-mobile
 ```
 
@@ -24,7 +24,7 @@ For detailed instructions, see the [installation guide](installation.md).
 ## Usage
 This library provides the `Client` class, which allow to send SMS messages to your mobile phone by using the `sendMessage()` method:
 
-```php
+``` php
 use freemobile\Client;
 use Psr\Http\Client\ClientExceptionInterface;
 
