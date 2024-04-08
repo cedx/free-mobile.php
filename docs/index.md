@@ -4,7 +4,8 @@ Send SMS messages to your [Free Mobile](https://mobile.free.fr) device via any i
 For example, you can configure a control panel or storage connected to your home network to send a notification to your mobile phone when an event occurs.
 
 ## Quick start
-> SMS notifications require an API key. If you are not already registered, [sign up for a Free Mobile account](https://mobile.free.fr/subscribe).
+!!! note
+    SMS notifications require an API key. If you are not already registered, [sign up for a Free Mobile account](https://mobile.free.fr/subscribe).
 
 ### Get an API key
 You first need to enable the **SMS notifications** in [your subscriber account](https://mobile.free.fr/account).
@@ -25,6 +26,7 @@ For detailed instructions, see the [installation guide](installation.md).
 This library provides the `Client` class, which allow to send SMS messages to your mobile phone by using the `sendMessage()` method:
 
 ```php
+<?php
 use freemobile\Client;
 use Psr\Http\Client\ClientExceptionInterface;
 
@@ -40,8 +42,6 @@ catch (ClientExceptionInterface $e) {
 
 The `Client->sendMessage()` method throws a `Psr\Http\Client\ClientExceptionInterface` if any error occurred while sending the message.
 
-> The text of the messages will be automatically truncated to **160** characters: you can't send multipart messages using this library.
-
-## See also
-- [API reference](api/)
-- [Packagist package](https://packagist.org/packages/cedx/free-mobile)
+!!! warning
+    The text of the messages will be automatically truncated to **160** characters:  
+    you can't send multipart messages using this library.

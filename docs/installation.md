@@ -27,5 +27,5 @@ composer require cedx/free-mobile
 Now in your [PHP](https://www.php.net) code, you can use:
 
 ```php
-use freemobile\Client;
+<?php use freemobile\Client;
 ```
