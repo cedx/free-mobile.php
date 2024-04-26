@@ -1,6 +1,5 @@
 <?php
-use freemobile\Client;
-use Psr\Http\Client\ClientExceptionInterface;
+use freemobile\{Client, ClientException};
 
 // Sends an SMS notification.
 try {
@@ -8,6 +7,6 @@ try {
 	$client->sendMessage("Hello World from PHP!");
 	print "The message was sent successfully.";
 }
-catch (ClientExceptionInterface $e) {
+catch (ClientException $e) {
 	print "An error occurred: {$e->getMessage()}";
 }

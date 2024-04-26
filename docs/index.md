@@ -27,20 +27,19 @@ This library provides the `Client` class, which allow to send SMS messages to yo
 
 ```php
 <?php
-use freemobile\Client;
-use Psr\Http\Client\ClientExceptionInterface;
+use freemobile\{Client, ClientException};
 
 try {
   $client = new Client(account: "your account identifier", apiKey: "your API key");
   $client->sendMessage("Hello World from PHP!");
   print "The message was sent successfully.";
 }
-catch (ClientExceptionInterface $e) {
+catch (ClientException $e) {
   print "An error occurred: {$e->getMessage()}";
 }
 ```
 
-The `Client->sendMessage()` method throws a `Psr\Http\Client\ClientExceptionInterface` if any error occurred while sending the message.
+The `Client->sendMessage()` method throws a `ClientException` if any error occurred while sending the message.
 
 !!! warning
     The text of the messages will be automatically truncated to **160** characters:  
