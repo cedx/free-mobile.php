@@ -39,7 +39,7 @@ final readonly class Client {
 	/**
 	 * Sends an SMS message to the underlying account.
 	 * @param string $text The message text.
-	 * @throws ClientException An error occurred while sending the message.
+	 * @throws \RuntimeException An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
 		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
@@ -48,14 +48,14 @@ final readonly class Client {
 			"user" => $this->account
 		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986)));
 
-		if (!$handle) throw new ClientException("Unable to allocate the cURL handle.", 500);
+		if (!$handle) throw new \RuntimeException("Unable to allocate the cURL handle.", 500);
 		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-		if (curl_exec($handle) === false) throw new ClientException("An error occurred while sending the message.", 500);
+		if (curl_exec($handle) === false) throw new \RuntimeException("An error occurred while sending the message.", 500);
 
 		$code = intdiv($status = curl_getinfo($handle, CURLINFO_RESPONSE_CODE), 100);
 		if ($code != 2) match ($code) {
-			4 => throw new ClientException("The provided credentials are invalid.", $status),
-			default => throw new ClientException("An error occurred while sending the message.", $status)
+			4 => throw new \RuntimeException("The provided credentials are invalid.", $status),
+			default => throw new \RuntimeException("An error occurred while sending the message.", $status)
 		};
 	}
 }

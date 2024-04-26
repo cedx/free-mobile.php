@@ -10,16 +10,16 @@ use function PHPUnit\Framework\{assertThat, isNull};
 #[TestDox("Client")]
 final class ClientTest extends TestCase {
 
-	#[Test, TestDox("sendMessage(): should throw a `ClientException` if a network error occurred.")]
+	#[Test, TestDox("sendMessage(): should throw a `RuntimeException` if a network error occurred.")]
 	function networkError(): void {
-		$this->expectException(ClientException::class);
+		$this->expectException(\RuntimeException::class);
 		$client = new Client("anonymous", "secret", baseUrl: "http://localhost:10000/");
 		$client->sendMessage("Hello World!");
 	}
 
-	#[Test, TestDox("sendMessage(): should throw a `ClientException` if the credentials are invalid.")]
+	#[Test, TestDox("sendMessage(): should throw a `RuntimeException` if the credentials are invalid.")]
 	function invalidCredentials(): void {
-		$this->expectException(ClientException::class);
+		$this->expectException(\RuntimeException::class);
 		$client = new Client("anonymous", "secret");
 		$client->sendMessage("Hello World!");
 	}

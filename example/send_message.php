@@ -1,5 +1,5 @@
 <?php
-use freemobile\{Client, ClientException};
+use freemobile\Client;
 
 // Sends an SMS notification.
 try {
@@ -7,6 +7,6 @@ try {
 	$client->sendMessage("Hello World from PHP!");
 	print "The message was sent successfully.";
 }
-catch (ClientException $e) {
+catch (RuntimeException $e) {
 	print "An error occurred: {$e->getMessage()}";
 }
