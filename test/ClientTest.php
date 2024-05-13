@@ -27,6 +27,6 @@ final class ClientTest extends TestCase {
 	#[Test, TestDox("sendMessage(): should send SMS messages if the credentials are valid.")]
 	function validCredentials(): void {
 		$client = new Client(getenv("FREEMOBILE_ACCOUNT") ?: "", getenv("FREEMOBILE_API_KEY") ?: "");
-		assertThat($client->sendMessage("Hello Cédric, from PHP!"), isNull()); // @phpstan-ignore-line
+		assertThat($client->sendMessage("Hello Cédric, from PHP!"), isNull()); // @phpstan-ignore method.void
 	}
 }
