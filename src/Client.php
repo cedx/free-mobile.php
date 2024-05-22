@@ -49,7 +49,7 @@ final readonly class Client {
 		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986)));
 
 		if (!$handle) throw new \RuntimeException("Unable to allocate the cURL handle.", 500);
-		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt_array($handle, [CURLOPT_FOLLOWLOCATION => true, CURLOPT_RETURNTRANSFER => true]);
 		if (curl_exec($handle) === false) throw new \RuntimeException("An error occurred while sending the message.", 500);
 
 		$code = intdiv($status = curl_getinfo($handle, CURLINFO_RESPONSE_CODE), 100);
