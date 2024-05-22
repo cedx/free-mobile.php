@@ -33,7 +33,7 @@ final readonly class Client {
 		$url = $baseUrl instanceof UriInterface ? (string) $baseUrl : $baseUrl;
 		$this->account = $account;
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(str_ends_with($url, "/") ? $url : "$url/");
+		$this->baseUrl = new Uri(str_ends_with($url, "/") ? mb_substr($url, 0, -1) : $url);
 	}
 
 	/**
@@ -42,7 +42,7 @@ final readonly class Client {
 	 * @throws \RuntimeException An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
-		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}sendmsg")->withQuery(http_build_query([
+		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}/sendmsg")->withQuery(http_build_query([
 			"msg" => mb_substr(trim($text), 0, 160),
 			"pass" => $this->apiKey,
 			"user" => $this->account
