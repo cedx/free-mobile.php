@@ -42,7 +42,7 @@ final readonly class Client {
 	 * @throws \RuntimeException An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
-		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}/sendmsg")->withQuery(http_build_query([
+		$handle = curl_init($this->baseUrl->withPath("{$this->baseUrl->getPath()}/sendmsg")->withQuery(http_build_query([
 			"msg" => mb_substr(trim($text), 0, 160),
 			"pass" => $this->apiKey,
 			"user" => $this->account
