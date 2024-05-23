@@ -30,10 +30,9 @@ final readonly class Client {
 	 * @param string|UriInterface $baseUrl The base URL of the remote API endpoint.
 	 */
 	function __construct(string $account, string $apiKey, string|UriInterface $baseUrl = "https://smsapi.free-mobile.fr") {
-		$url = $baseUrl instanceof UriInterface ? (string) $baseUrl : $baseUrl;
 		$this->account = $account;
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(str_ends_with($url, "/") ? mb_substr($url, 0, -1) : $url);
+		$this->baseUrl = new Uri(rtrim($baseUrl, "/"));
 	}
 
 	/**
