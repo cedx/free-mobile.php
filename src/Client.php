@@ -41,11 +41,10 @@ final readonly class Client {
 	 * @throws \RuntimeException An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
-		$handle = curl_init($this->baseUrl->withPath("{$this->baseUrl->getPath()}/sendmsg")->withQuery(http_build_query([
-			"msg" => mb_substr(trim($text), 0, 160),
-			"pass" => $this->apiKey,
-			"user" => $this->account
-		], arg_separator: "&", encoding_type: PHP_QUERY_RFC3986)));
+		$query = ["msg" => mb_substr(trim($text), 0, 160), "pass" => $this->apiKey, "user" => $this->account];
+		$handle = curl_init($this->baseUrl
+			->withPath("{$this->baseUrl->getPath()}/sendmsg")
+			->withQuery(http_build_query($query, arg_separator: "&", encoding_type: PHP_QUERY_RFC3986)));
 
 		if (!$handle) throw new \RuntimeException("Unable to allocate the cURL handle.", 500);
 		curl_setopt_array($handle, [CURLOPT_FOLLOWLOCATION => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_USERAGENT => "PHP/".PHP_MAJOR_VERSION]);
