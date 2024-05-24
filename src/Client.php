@@ -50,7 +50,7 @@ final readonly class Client {
 		curl_setopt_array($handle, [CURLOPT_FOLLOWLOCATION => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_USERAGENT => "PHP/".PHP_MAJOR_VERSION]);
 		if (curl_exec($handle) === false) throw new \RuntimeException(curl_error($handle), 500);
 
-		$response = new Response(status: curl_getinfo($handle, CURLINFO_RESPONSE_CODE));
+		$response = new Response(curl_getinfo($handle, CURLINFO_RESPONSE_CODE));
 		if (intdiv($status = $response->getStatusCode(), 100) != 2) throw new \RuntimeException($response->getReasonPhrase(), $status);
 	}
 }
