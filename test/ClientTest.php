@@ -1,8 +1,9 @@
-<?php namespace freemobile;
+<?php declare(strict_types=1);
+namespace freemobile;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\{Assert, TestCase};
 use PHPUnit\Framework\Attributes\{Test, TestDox};
-use function PHPUnit\Framework\{assertThat, isNull};
+use function PHPUnit\Framework\{assertThat, isTrue};
 
 /**
  * Tests the features of the {@see Client} class.
@@ -26,7 +27,13 @@ final class ClientTest extends TestCase {
 
 	#[Test, TestDox("sendMessage(): should send SMS messages if the credentials are valid.")]
 	function validCredentials(): void {
-		$client = new Client(getenv("FREEMOBILE_ACCOUNT") ?: "", getenv("FREEMOBILE_API_KEY") ?: "");
-		assertThat($client->sendMessage("Hello Cédric, from PHP!"), isNull()); // @phpstan-ignore method.void
+		try {
+			$client = new Client(getenv("FREEMOBILE_ACCOUNT") ?: "", getenv("FREEMOBILE_API_KEY") ?: "");
+			$client->sendMessage("Hello Cédric, from PHP!");
+			assertThat(true, isTrue());
+		}
+		catch (\RuntimeException $e) {
+			Assert::fail($e->getMessage());
+		}
 	}
 }

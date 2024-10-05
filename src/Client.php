@@ -1,4 +1,5 @@
-<?php namespace freemobile;
+<?php declare(strict_types=1);
+namespace freemobile;
 
 use Nyholm\Psr7\{Response, Uri};
 use Psr\Http\Message\UriInterface;
@@ -32,7 +33,7 @@ final readonly class Client {
 	function __construct(string $account, string $apiKey, string|UriInterface $baseUrl = "https://smsapi.free-mobile.fr") {
 		$this->account = $account;
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(rtrim($baseUrl, "/"));
+		$this->baseUrl = new Uri(rtrim((string) $baseUrl, "/"));
 	}
 
 	/**
@@ -42,7 +43,7 @@ final readonly class Client {
 	 */
 	function sendMessage(string $text): void {
 		$query = ["msg" => mb_substr(trim($text), 0, 160), "pass" => $this->apiKey, "user" => $this->account];
-		$handle = curl_init($this->baseUrl
+		$handle = curl_init((string) $this->baseUrl
 			->withPath("{$this->baseUrl->getPath()}/sendmsg")
 			->withQuery(http_build_query($query, arg_separator: "&", encoding_type: PHP_QUERY_RFC3986)));
 
