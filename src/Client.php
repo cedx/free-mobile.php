@@ -33,7 +33,7 @@ final readonly class Client {
 	function __construct(string $account, string $apiKey, string|UriInterface $baseUrl = "https://smsapi.free-mobile.fr") {
 		$this->account = $account;
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(rtrim((string) $baseUrl, "/"));
+		$this->baseUrl = new Uri(mb_rtrim((string) $baseUrl, "/"));
 	}
 
 	/**
@@ -42,7 +42,7 @@ final readonly class Client {
 	 * @throws \RuntimeException An error occurred while sending the message.
 	 */
 	function sendMessage(string $text): void {
-		$query = ["msg" => mb_substr(trim($text), 0, 160), "pass" => $this->apiKey, "user" => $this->account];
+		$query = ["msg" => mb_substr(mb_trim($text), 0, 160), "pass" => $this->apiKey, "user" => $this->account];
 		$handle = curl_init((string) $this->baseUrl
 			->withPath("{$this->baseUrl->getPath()}/sendmsg")
 			->withQuery(http_build_query($query, arg_separator: "&", encoding_type: PHP_QUERY_RFC3986)));
