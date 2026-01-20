@@ -1,5 +1,11 @@
 # Changelog
 
+## Version [20.0.0](https://github.com/cedx/free-mobile.php/compare/v19.0.0...v20.0.0)
+- Breaking change: raised the required [PHP](https://www.php.net) version.
+- Breaking change: renamed the root namespace to `Belin\FreeMobile`.
+- Breaking change: using PHP 8.5 features, like the `Uri\Rfc3986\Uri` class.
+- Removed the dependency on [nyholm/psr7](https://github.com/Nyholm/psr7) library.
+
 ## Version [19.0.0](https://github.com/cedx/free-mobile.php/compare/v18.1.0...v19.0.0)
 - Breaking change: raised the required [PHP](https://www.php.net) version.
 - Breaking change: removed the `ClientException` class.
