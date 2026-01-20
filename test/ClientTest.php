@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace freemobile;
+namespace Belin\FreeMobile;
 
 use PHPUnit\Framework\{Assert, TestCase};
 use PHPUnit\Framework\Attributes\{Test, TestDox};

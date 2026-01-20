@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace freemobile;
+namespace Belin\FreeMobile;
 
 use Nyholm\Psr7\{Response, Uri};
 use Psr\Http\Message\UriInterface;
