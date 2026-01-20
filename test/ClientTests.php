@@ -9,7 +9,7 @@ use function PHPUnit\Framework\{assertThat, isTrue};
  * Tests the features of the {@see Client} class.
  */
 #[TestDox("Client")]
-final class ClientTest extends TestCase {
+final class ClientTests extends TestCase {
 
 	#[Test, TestDox("sendMessage(): should throw a `RuntimeException` if a network error occurred.")]
 	function networkError(): void {
