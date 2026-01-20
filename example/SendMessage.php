@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-use freemobile\Client;
+use Belin\FreeMobile\Client;
 
 // Sends an SMS notification.
 try {
