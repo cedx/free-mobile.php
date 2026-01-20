@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"name": "cedx/free-mobile",
 	"type": "library",
-	"version": "19.0.0",
+	"version": "20.0.0",
 	"authors": [
 		{"email": "cedx@outlook.com", "homepage": "https://cedric-belin.fr", "name": "Cédric Belin"}
 	],
