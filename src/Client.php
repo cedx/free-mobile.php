@@ -29,7 +29,7 @@ final readonly class Client {
 	 * @param string $apiKey The Free Mobile API key.
 	 * @param string|Uri $baseUrl The base URL of the remote API endpoint.
 	 */
-	function __construct(string $account, string $apiKey, string|Uri $baseUrl = "https://smsapi.free-mobile.fr") {
+	public function __construct(string $account, string $apiKey, string|Uri $baseUrl = "https://smsapi.free-mobile.fr") {
 		$this->account = $account;
 		$this->apiKey = $apiKey;
 		$this->baseUrl = new Uri(mb_rtrim($baseUrl instanceof Uri ? $baseUrl->toString() : $baseUrl, "/"));
@@ -40,7 +40,7 @@ final readonly class Client {
 	 * @param string $text The message text.
 	 * @throws \RuntimeException An error occurred while sending the message.
 	 */
-	function sendMessage(string $text): void {
+	public function sendMessage(string $text): void {
 		$query = ["msg" => mb_substr(mb_trim($text), 0, 160), "pass" => $this->apiKey, "user" => $this->account];
 		$handle = curl_init($this->baseUrl
 			->withPath("{$this->baseUrl->getPath()}/sendmsg")
