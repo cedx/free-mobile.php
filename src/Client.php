@@ -6,22 +6,22 @@ use Uri\Rfc3986\Uri;
 /**
  * Sends messages by SMS to a Free Mobile account.
  */
-final readonly class Client {
+final class Client {
 
 	/**
 	 * The Free Mobile account.
 	 */
-	public string $account;
-
-	/**
-	 * The Free Mobile API key.
-	 */
-	public string $apiKey;
+	public readonly string $account;
 
 	/**
 	 * The base URL of the remote API endpoint.
 	 */
-	public Uri $baseUrl;
+	public readonly Uri $baseUrl;
+
+	/**
+	 * The Free Mobile API key.
+	 */
+	private readonly string $apiKey;
 
 	/**
 	 * Creates a new client.
@@ -29,7 +29,7 @@ final readonly class Client {
 	 * @param string $apiKey The Free Mobile API key.
 	 * @param string|Uri $baseUrl The base URL of the remote API endpoint.
 	 */
-	public function __construct(string $account, string $apiKey, string|Uri $baseUrl = "https://smsapi.free-mobile.fr") {
+	public function __construct(string $account, #[\SensitiveParameter] string $apiKey, string|Uri $baseUrl = "https://smsapi.free-mobile.fr") {
 		$this->account = $account;
 		$this->apiKey = $apiKey;
 		$this->baseUrl = new Uri(mb_rtrim($baseUrl instanceof Uri ? $baseUrl->toString() : $baseUrl, "/"));
