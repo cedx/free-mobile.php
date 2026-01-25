@@ -1,6 +1,4 @@
 # Free Mobile for PHP
-![PHP](https://badgen.net/packagist/php/cedx/free-mobile) ![Packagist](https://badgen.net/packagist/v/cedx/free-mobile) ![License](https://badgen.net/packagist/license/cedx/free-mobile) ![Downloads](https://badgen.net/packagist/dt/cedx/free-mobile)
-
 Send SMS messages to your [Free Mobile](https://mobile.free.fr) device, in [PHP](https://www.php.net).
 
 ## Documentation
