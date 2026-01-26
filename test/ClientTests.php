@@ -3,7 +3,7 @@ namespace Belin\FreeMobile;
 
 use PHPUnit\Framework\{Assert, TestCase};
 use PHPUnit\Framework\Attributes\{Test, TestDox};
-use function PHPUnit\Framework\{assertThat, isTrue};
+use function PHPUnit\Framework\assertTrue;
 
 /**
  * Tests the features of the {@see Client} class.
@@ -30,7 +30,7 @@ final class ClientTests extends TestCase {
 		try {
 			$client = new Client(getenv("FREEMOBILE_ACCOUNT") ?: "", getenv("FREEMOBILE_API_KEY") ?: "");
 			$client->sendMessage("Hello Cédric, from PHP!");
-			assertThat(true, isTrue());
+			assertTrue(true); // @phpstan-ignore function.alreadyNarrowedType
 		}
 		catch (\RuntimeException $e) {
 			Assert::fail($e->getMessage());
