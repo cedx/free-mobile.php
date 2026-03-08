@@ -8,10 +8,10 @@ You can verify if you're already good to go with the following commands:
 
 ```shell
 php --version
-# PHP 8.5.2 (cli) (built: Jan 13 2026 21:54:54) (NTS Visual C++ 2022 x64)
+# PHP 8.5.3 (cli) (built: Feb 10 2026 18:43:53) (NTS Visual C++ 2022 x64)
 
 composer --version
-# Composer version 2.9.3 2025-12-30 13:40:17
+# Composer version 2.9.5 2026-01-29 11:40:53
 ```
 
 ## Installing with Composer package manager
