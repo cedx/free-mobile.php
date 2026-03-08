@@ -12,7 +12,7 @@ For example, you can configure a control panel or storage connected to your home
 You first need to enable the **SMS notifications** in [your subscriber account](https://mobile.free.fr/account).
 This will give you an identification key allowing access to the [Free Mobile](https://mobile.free.fr) API.
 
-![Screenshot](https://github.com/user-attachments/assets/1074974e-c011-440d-8647-414ba1cf2451)
+![Screenshot](Screenshot.png)
 
 ### Get the library
 Install the latest version of **Free Mobile for PHP** with [Composer](https://getcomposer.org) package manager:
