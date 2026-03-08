@@ -38,7 +38,7 @@
 		"test": "pwsh Invoke.ps1 Test"
 	},
 	"support": {
-		"docs": "https://github.com/cedx/free-mobile.php/wiki",
+		"docs": "https://github.com/cedx/free-mobile.php/tree/main/docs",
 		"issues": "https://github.com/cedx/free-mobile.php/issues"
 	}
 }

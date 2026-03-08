@@ -2,7 +2,7 @@
 Send SMS messages to your [Free Mobile](https://mobile.free.fr) device, in [PHP](https://www.php.net).
 
 ## Documentation
-- [User guide](https://github.com/cedx/free-mobile.php/wiki)
+- [User guide](https://github.com/cedx/free-mobile.php/tree/main/docs)
 - [Examples](https://github.com/cedx/free-mobile.php/tree/main/example)
 
 ## Development
