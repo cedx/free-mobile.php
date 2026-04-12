@@ -18,9 +18,9 @@ jobs:
           extensions: curl, intl, mbstring, simplexml
           php-version: latest
       - name: Install dependencies
-        uses: ramsey/composer-install@v3
+        uses: ./Invoke.ps1 Install
       - name: Run tests
-        run: composer test
+        run: ./Invoke.ps1 Tests
         env:
           FREEMOBILE_ACCOUNT: ${{secrets.FREEMOBILE_ACCOUNT}}
           FREEMOBILE_API_KEY: ${{secrets.FREEMOBILE_API_KEY}}
